@@ -25,7 +25,7 @@ export default function Home() {
          const user = await loginApi(data);
          if (user) {
             setModal(false);
-            navigate("/members");
+            navigate("/dashboard");
             return;
          }
          return;

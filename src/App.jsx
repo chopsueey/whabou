@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.scss';
 import Home from './components/Home';
-import Members from './components/Dashboard';
+import Dashboard from './components/Dashboard';
 import Navigation from './components/Navigation';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes >
           <Route path='/' element={<Home/>}/>
-          <Route path='/members' element={<Members/>}/>
+          <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
     </>

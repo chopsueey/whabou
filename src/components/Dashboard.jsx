@@ -1,3 +1,12 @@
+import React from 'react'
+
+export default function Dashboard() {
+  return (
+    <div>Dashboard</div>
+  )
+}
+
+
 // import React from "react";
 // import { useState, useEffect, useReducer } from "react";
 // import Navigation from "./Navigation";
