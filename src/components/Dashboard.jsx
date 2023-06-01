@@ -21,7 +21,7 @@ export default function Dashboard() {
   //     required: true
   //   },
   // });
-  
+
   // get user profile data, refresh on every load
   // of the dashboard component (see useEffect)
   async function getProfileData() {
@@ -65,11 +65,6 @@ export default function Dashboard() {
     getProfileData();
   }, []);
   return (
-
-    <div>Dashboard</div>
-
-  )
-
     <>
       <div style={{ backgroundColor: "#23272f", color: "white" }}>
         <h2>Navbar</h2>
@@ -86,12 +81,12 @@ export default function Dashboard() {
           color: "white",
         }}
       >
-        <div style={{widht: "25%"}}>
-          <h1 style={{width: "100%"}}>Fragen der Woche usw.</h1>
+        <div style={{ widht: "25%" }}>
+          <h1 style={{ width: "100%" }}>Fragen der Woche usw.</h1>
           Hier dann eine Componente, die Fragen der Woche abfragt(getRequest)
           und rendert(stylt)
         </div>
-        <div style={{width: "50%"}}>
+        <div style={{ width: "50%" }}>
           <h1>Feed (andere User, Fragen von Usern)</h1>
         </div>
         <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>
@@ -138,7 +133,6 @@ export default function Dashboard() {
       </section>
     </>
   );
-
 }
 
 // marius@gmail.com
