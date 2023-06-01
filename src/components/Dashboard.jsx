@@ -1,12 +1,148 @@
-import React from 'react'
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
+  // fetched user data from the databank, if any
+  const [userData, setUserData] = useState(null);
+
+  // data from the user for the ProfileSchema, which are set
+  // on onChange in the corresponding input field
+  const [userName, setUserName] = useState(null);
+  const [nationality, setNationality] = useState(null);
+  const [age, setAge] = useState(null);
+
+  // const ProfileSchema = new mongoose.Schema({
+  //   userName: {
+  //     type: String,
+  //     required: true
+  //   },
+  //   age: {Number,
+  //   },
+  //   nationality: {String,
+  //     required: true
+  //   },
+  // });
+  
+  // get user profile data, refresh on every load
+  // of the dashboard component (see useEffect)
+  async function getProfileData() {
+    try {
+      const response = await fetch("http://localhost:5000/dashboard");
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log(data);
+        setUserData(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // post request to update user profile when 'save' button clicked
+  // user data is stored in varibale data
+  async function handleProfileUpdate(e) {
+    e.preventDefault();
+    const data = { userName, nationality, age };
+    try {
+      const response = await fetch("http://localhost:5000/dashboard", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 201) {
+        console.log("Profile updated!");
+      }
+      // error or show the response message from the backend
+      // to let the user know, what is happening or why it doesn't work
+      throw new Error("Profile update failed");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
   return (
+
     <div>Dashboard</div>
 
   )
+
+    <>
+      <div style={{ backgroundColor: "#23272f", color: "white" }}>
+        <h2>Navbar</h2>
+        <h1>Dashboard</h1>
+        {userData ? <p>{JSON.stringify(userData)}</p> : ""}
+      </div>
+      <div style={{ borderBottom: "solid 3px #149eca" }}></div>
+      <section
+        className="container content"
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          backgroundColor: "#23272f",
+          color: "white",
+        }}
+      >
+        <div style={{widht: "25%"}}>
+          <h1 style={{width: "100%"}}>Fragen der Woche usw.</h1>
+          Hier dann eine Componente, die Fragen der Woche abfragt(getRequest)
+          und rendert(stylt)
+        </div>
+        <div style={{width: "50%"}}>
+          <h1>Feed (andere User, Fragen von Usern)</h1>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>
+          {/* label plus input for every property in the profileSchema */}
+          <label>
+            Username
+            <input
+              onChange={(e) => {
+                setUserName(e.target.value);
+                console.log(userName);
+              }}
+              type="text"
+            />
+          </label>
+          <label>
+            Nationality
+            <input
+              onChange={(e) => {
+                setNationality(e.target.value);
+                console.log(nationality);
+              }}
+              type="text"
+            />
+          </label>
+          <label>
+            age
+            <input
+              onChange={(e) => {
+                setAge(e.target.value);
+                console.log(age);
+              }}
+              type="text"
+            />
+          </label>
+          <div>
+            <button
+              onClick={handleProfileUpdate}
+              style={{ backgroundColor: "green", color: "white" }}
+            >
+              save
+            </button>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+
 }
 
+// marius@gmail.com
+// 1234
 
 // import React from "react";
 // import { useState, useEffect, useReducer } from "react";
