@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import userRouter from "./routes/userRouter.js";
 import connectDB from "./database/connectDB.js";
+import dashboardRouter from "./routes/dashboardRouter.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors({credentials:true, origin:"http://localhost:5173"}));
 app.use(express.json());
 
 app.use("/api", userRouter);
+app.use("/dashboard", dashboardRouter);
 
 (async () => {
    try {

@@ -4,6 +4,7 @@ import {authMiddleware} from "../middleware/authMiddleware.js";
 
 const userRouter = express.Router();
 
+
 // create / post
 userRouter.post("/user/register", user.createUserController);
 
