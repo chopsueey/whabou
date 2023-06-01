@@ -6,7 +6,7 @@ const ProfileSchema = new mongoose.Schema({
     },
     age: {Number,
     },
-    nationality: {String,
+    nationality: {type: String,
       required: true
     },
   });
