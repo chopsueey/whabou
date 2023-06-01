@@ -65,6 +65,11 @@ export default function Dashboard() {
     getProfileData();
   }, []);
   return (
+
+    <div>Dashboard</div>
+
+  )
+
     <>
       <div style={{ backgroundColor: "#23272f", color: "white" }}>
         <h2>Navbar</h2>
@@ -133,6 +138,7 @@ export default function Dashboard() {
       </section>
     </>
   );
+
 }
 
 // marius@gmail.com
