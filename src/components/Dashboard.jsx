@@ -51,7 +51,7 @@ export default function Dashboard() {
         },
       });
       if (response.status === 201) {
-        console.log("Profile updated!");
+        return console.log("Profile updated!");
       }
       // error or show the response message from the backend
       // to let the user know, what is happening or why it doesn't work

@@ -3,13 +3,16 @@ import profileModel from "../model/profileModel.js";
 // POST / CREATE PROFILE
 
 async function postProfileData(req, res) {
+  const { userName, nationality, age } = req.body;
   try {
     const newProfile = profileModel({
-      profile: req.body.profile,
+      userName: userName,
+      nationality: nationality,
+      age: age,
     });
 
     const savedProfile = await newProfile.save();
-    res.status(200).json(savedProfile);
+    res.status(201).json(savedProfile);
   } catch (error) {
     res.json(error);
   }
