@@ -1,14 +1,12 @@
 import profileModel from "../model/profileModel.js";
-
+import Frage from "../model/frageSchema.js";
 // POST / CREATE PROFILE
 
 async function postProfileData(req, res) {
-  const { userName, nationality, age } = req.body;
+  const { frage } = req.body;
   try {
-    const newProfile = profileModel({
-      userName: userName,
-      nationality: nationality,
-      age: age,
+    const newProfile = Frage({
+      Frage: frage
     });
 
     const savedProfile = await newProfile.save();
@@ -19,10 +17,19 @@ async function postProfileData(req, res) {
 }
 
 // GET ALL PROFILES
+// async function getAllProfileData(req, res) {
+//   try {
+//     const allProfileItems = await profileModel.find({});
+//     res.status(200).json(allProfileItems);
+//   } catch (error) {
+//     res.json(error);
+//   }
+// }
+
 async function getAllProfileData(req, res) {
   try {
-    const allProfileItems = await profileModel.find({});
-    res.status(200).json(allProfileItems);
+    const allProfileItems = await Frage.find({});
+    return res.status(200).json(allProfileItems);
   } catch (error) {
     res.json(error);
   }

@@ -9,7 +9,8 @@ dashboardRouter.post("/", dashboard.postProfileData);
 
 // GET ALL PROFILEs
 
-dashboardRouter.get("/", authMiddleware, dashboard.getAllProfileData);
+// dashboardRouter.get("/", authMiddleware, dashboard.getAllProfileData);
+dashboardRouter.get("/", dashboard.getAllProfileData);
 
 // UPDATE A PROFILE
 dashboardRouter.patch("/", dashboard.updateProfileData);
