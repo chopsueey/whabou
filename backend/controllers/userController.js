@@ -39,16 +39,8 @@ export async function loginController(req, res) {
    }
 }
 
-// POST SOME MONEY
-export async function payInController(req, res) {
-   try {
-      const response = await userModel.findOneAndUpdate({customerId:req.user.customerId},{balance:+req.body.balance});
-      res.status(200).json(response);
-   } catch (error) {
-      res.status(500).json(error);
-   }
-}
-
+// POST 
+// const response = await userModel.findOneAndUpdate({customerId:req.user.customerId});
 
 // GET USER DATA
 export async function getUserDataController(req, res) {
@@ -60,33 +52,7 @@ export async function getUserDataController(req, res) {
    }
 }
 
-// GET SOME MONEY
-export async function chargeOffController(req, res) {
-   try {
-      const response = await userModel.findOneAndUpdate({customerId:req.user.customerId},{balance:+req.body.balance});
-      res.status(200).json(response);
-   } catch (error) {
-      res.status(500).json(error);
-   }
-}
-
-// GET ALL TASKS
-export async function getAllUsersController(req, res) {
-   try {
-      const allUsers = await userModel.find();
-      res.status(200).json(allUsers);
-   } catch (error) {
-      res.status(500).json(error);
-   }
-}
-
 // DELETE ALL TASKS
-
-export async function deleteAllUsersController(req, res) {
-   try {
-      await userModel.deleteMany({});
-      res.status(200).json("Alle user wurden gelöscht!");
-   } catch (error) {
-      res.status(500).json(error);
-   }
-}
+// userModel.deleteMany({});
+  
+   

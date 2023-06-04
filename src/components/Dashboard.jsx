@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Questions } from "./Questions.jsx";
-import { Question } from "./Question.jsx";
 
 export default function Dashboard() {
   // fetched user data from the databank, if any
@@ -122,7 +121,7 @@ export default function Dashboard() {
           <h1 style={{ width: "100%" }}>Fragen der Woche usw.</h1>
           Hier dann eine Componente, die Fragen der Woche abfragt(getRequest)
           und rendert(stylt)
-          {allQuestions ? <Question questions={allQuestions} /> : ""}
+          {allQuestions ? <Questions questions={allQuestions} /> : ""}
         </div>
         <div style={{ width: "50%" }}>
           <h1>Feed (andere User, Fragen von Usern)</h1>

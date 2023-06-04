@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.scss';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
-import Navigation from './components/Navigation';
 
 function App() {
   return (
