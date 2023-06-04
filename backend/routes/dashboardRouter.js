@@ -1,24 +1,24 @@
 import express from "express";
 import * as dashboard from "../controllers/dashboardController.js";
-import {authMiddleware} from "../middleware/authMiddleware.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const dashboardRouter = express.Router();
 
-// create / post
-dashboardRouter.post("/", dashboard.postProfileData);
+// GET
+// dashboardRouter.get("/", dashboard.getAllProfileData);
+dashboardRouter.get("/", dashboard.getAllQuestions);
 
-// GET ALL PROFILEs
+// POST
+// dashboardRouter.post("/", dashboard.postProfileData);
+dashboardRouter.post("/", dashboard.postQuestion);
 
-// dashboardRouter.get("/", authMiddleware, dashboard.getAllProfileData);
-dashboardRouter.get("/", dashboard.getAllProfileData);
-
-// UPDATE A PROFILE
+// UPDATE
 dashboardRouter.patch("/", dashboard.updateProfileData);
 
-// DELETE PROFILE
+// DELETE
 dashboardRouter.delete("/", dashboard.deleteProfileData);
 
-// DELETE PROFILE
+// DELETE ALL
 dashboardRouter.delete("/", dashboard.deleteAllProfilesData);
 
 export default dashboardRouter;

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-const frageSchema = new mongoose.Schema({
+
+const questionSchema = new mongoose.Schema({
   Frage: {
     type: String,
     required: true,
@@ -8,5 +9,5 @@ const frageSchema = new mongoose.Schema({
   Nein: {type: Number, default: 0}
 
 });
-const Frage = mongoose.model("Frage", frageSchema);
-export default Frage;
+const Question = mongoose.model("Question", questionSchema);
+export default Question;
