@@ -27,3 +27,4 @@ dist-ssr
 *.sw?
 
 .brainstorming.md
+.goals.md
