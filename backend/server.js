@@ -5,6 +5,8 @@ dotenv.config();
 import userRouter from "./routes/userRouter.js";
 import connectDB from "./database/connectDB.js";
 import dashboardRouter from "./routes/dashboardRouter.js";
+import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
+import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 
 const app = express();
 
@@ -17,6 +19,20 @@ app.use(express.json());
 
 app.use("/api", userRouter);
 app.use("/dashboard", dashboardRouter);
+
+// Operational error handling
+//app.get("/", (req, res, next) => {
+// mimic an error by throwing an error to break the app!
+ //throw new Error("Something went wrong");
+ //res.send("Welcome to main route!")
+//})
+
+//to send a response on any error
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+   res.status(500).send('Something broke!');
+});
+
 
 (async () => {
    try {
@@ -31,4 +47,6 @@ app.use("/dashboard", dashboardRouter);
    }
 })();
 
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 // startServer();

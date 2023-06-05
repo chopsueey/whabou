@@ -3,7 +3,7 @@ import questionModel from "../model/questionModel.js";
 
 // POST / CREATE PROFILE
 
-async function postProfileData(req, res) {
+async function postProfileData(req, res, next) {
   const { userName, nationality, age } = req.body;
   try {
     const newProfile = profileModel({
@@ -21,7 +21,7 @@ async function postProfileData(req, res) {
 
 // POST QUESTION
 
-async function postQuestion(req, res) {
+async function postQuestion(req, res, next) {
   const { question } = req.body;
   try {
     const newQuestion = questionModel({
@@ -36,7 +36,7 @@ async function postQuestion(req, res) {
 }
 
 // GET ALL PROFILES
-async function getAllProfileData(req, res) {
+async function getAllProfileData(req, res, next) {
   try {
     const allProfileItems = await profileModel.find({});
    res.status(200).json(allProfileItems);
@@ -46,7 +46,7 @@ async function getAllProfileData(req, res) {
 }
 
 // GET ALL QUESTIONS
-async function getAllQuestions(req, res) {
+async function getAllQuestions(req, res, next) {
   try {
     const allQuestions = await questionModel.find({});
     res.status(200).json(allQuestions);
@@ -56,7 +56,7 @@ async function getAllQuestions(req, res) {
 }
 
 // UPDATE A PROFILE
-async function updateProfileData(req, res) {
+async function updateProfileData(req, res, next) {
   const updateId = req.params.profileId;
   try {
     const updatedItem = await profileModel.findByIdAndUpdate(
@@ -74,7 +74,7 @@ async function updateProfileData(req, res) {
 }
 
 // DELETE PROFILE
-async function deleteProfileData(req, res) {
+async function deleteProfileData(req, res, next) {
   const deleteId = req.params.profileId;
   try {
     await profileModel.findByIdAndDelete(deleteId);
@@ -86,7 +86,7 @@ async function deleteProfileData(req, res) {
 
 // DELETE ALL PROFILES
 
-async function deleteAllProfilesData(req, res) {
+async function deleteAllProfilesData(req, res, next) {
   try {
     await profileModel.deleteMany({});
     res.status(200).json("ALLE Profiles wurde GELÖSCHT!");
