@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 // POST / CREATE
 
-export async function createUserController(req, res) {
+export async function createUserController(req, res, next) {
    console.log("in register", req.body);
    try {
       const saltRound = 12;
@@ -22,7 +22,7 @@ export async function createUserController(req, res) {
 
 // LOGIN
 
-export async function loginController(req, res) {
+export async function loginController(req, res, next) {
    try {
       const user = await userModel.findOne({email:req.body.email});
       if (user){
@@ -40,7 +40,7 @@ export async function loginController(req, res) {
 }
 
 // POST SOME MONEY
-export async function payInController(req, res) {
+export async function payInController(req, res, next) {
    try {
       const response = await userModel.findOneAndUpdate({customerId:req.user.customerId},{balance:+req.body.balance});
       res.status(200).json(response);
@@ -51,7 +51,7 @@ export async function payInController(req, res) {
 
 
 // GET USER DATA
-export async function getUserDataController(req, res) {
+export async function getUserDataController(req, res, next) {
    try {
       const response = await userModel.findOne({customerId:req.user.customerId});
       res.status(200).json(response);
@@ -61,7 +61,7 @@ export async function getUserDataController(req, res) {
 }
 
 // GET SOME MONEY
-export async function chargeOffController(req, res) {
+export async function chargeOffController(req, res, next) {
    try {
       const response = await userModel.findOneAndUpdate({customerId:req.user.customerId},{balance:+req.body.balance});
       res.status(200).json(response);
@@ -71,7 +71,7 @@ export async function chargeOffController(req, res) {
 }
 
 // GET ALL TASKS
-export async function getAllUsersController(req, res) {
+export async function getAllUsersController(req, res, next) {
    try {
       const allUsers = await userModel.find();
       res.status(200).json(allUsers);
@@ -82,7 +82,7 @@ export async function getAllUsersController(req, res) {
 
 // DELETE ALL TASKS
 
-export async function deleteAllUsersController(req, res) {
+export async function deleteAllUsersController(req, res, next) {
    try {
       await userModel.deleteMany({});
       res.status(200).json("Alle user wurden gelöscht!");
