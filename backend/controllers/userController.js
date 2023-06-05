@@ -42,7 +42,7 @@ export async function loginController(req, res, next) {
 
 // POST 
 // const response = await userModel.findOneAndUpdate({customerId:req.user.customerId});
-=======
+
 // POST SOME MONEY
 export async function payInController(req, res, next) {
    try {
