@@ -11,6 +11,8 @@ dashboardRouter.get("/", dashboard.getAllQuestions);
 // POST
 // dashboardRouter.post("/", dashboard.postProfileData);
 dashboardRouter.post("/", dashboard.postQuestion);
+// added the router for the new postLike controller
+dashboardRouter.post("/:id", dashboard.postLike)
 
 // UPDATE
 dashboardRouter.patch("/", dashboard.updateProfileData);

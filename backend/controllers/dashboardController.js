@@ -1,15 +1,22 @@
+// imported the new likeModel
+import likeModel from "../model/likeModel.js";
 import profileModel from "../model/profileModel.js";
 import questionModel from "../model/questionModel.js";
 
 // POST / CREATE PROFILE
 
-async function postProfileData(req, res, next) {
-  const { userName, nationality, age } = req.body;
+
+async function postProfileData(req, res) {
+  const { userName, nationality, age, user } = req.body;
+
+
   try {
     const newProfile = profileModel({
       userName: userName,
       nationality: nationality,
       age: age,
+      // added the userId for the new profileModel
+      user: user,
     });
 
     const savedProfile = await newProfile.save();
@@ -21,11 +28,15 @@ async function postProfileData(req, res, next) {
 
 // POST QUESTION
 
-async function postQuestion(req, res, next) {
-  const { question } = req.body;
+
+async function postQuestion(req, res) {
+  const { question, user } = req.body;
+
   try {
     const newQuestion = questionModel({
-      Frage: question,
+      question: question,
+      // added the userId for the new questionModel
+      user: user,
     });
 
     const savedQuestion = await newQuestion.save();
@@ -35,11 +46,28 @@ async function postQuestion(req, res, next) {
   }
 }
 
+// new LIKE controller for the new likeModel
+// which needs the userId and the questionId which was liked
+// POST LIKE
+async function postLike(req, res) {
+  const { user, question } = req.body;
+  try {
+    const newLike = likeModel({
+      user: user,
+      question: question,
+    });
+    const savedLike = await newLike.save();
+    res.status(201).json(savedLike);
+  } catch (err) {
+    res.json(err);
+  }
+}
+
 // GET ALL PROFILES
 async function getAllProfileData(req, res, next) {
   try {
     const allProfileItems = await profileModel.find({});
-   res.status(200).json(allProfileItems);
+    res.status(200).json(allProfileItems);
   } catch (error) {
     res.json(error);
   }
@@ -100,6 +128,7 @@ export {
   getAllQuestions,
   postProfileData,
   postQuestion,
+  postLike,
   updateProfileData,
   deleteProfileData,
   deleteAllProfilesData,

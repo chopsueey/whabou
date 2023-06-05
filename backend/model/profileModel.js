@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+
+// added a reference to the user, the profile belongs to
+
+
 const ProfileSchema = new mongoose.Schema({
   userName: {
     type: String,
@@ -17,6 +21,12 @@ const ProfileSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 12,
+    
+ user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+
   },
 });
 

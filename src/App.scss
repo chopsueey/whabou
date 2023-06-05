@@ -72,11 +72,11 @@ body {
             width: 1.5em;
           }
         }
-        @media screen and (max-width: 1600px) {
-          .links {
-            display: none;
-          }
-        }
+        // @media screen and (max-width: 1600px) {
+        //   .links {
+        //     display: none;
+        //   }
+        // }
         ul {
           display: flex;
           li {
