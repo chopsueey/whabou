@@ -21,7 +21,7 @@ const ProfileSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 12,
-    
+  },
  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
