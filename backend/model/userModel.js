@@ -6,11 +6,6 @@ const userSchema = new mongoose.Schema({
       required: true,
       unique: true
    },
-   /*customerId: {
-      type: String,
-      required: true,
-      unique: true
-   },*/
    email: {
       type: String,
       required: true,
@@ -23,7 +18,6 @@ const userSchema = new mongoose.Schema({
       minlength: 8 
       // Mindestlänge des Passworts
    },
-   
    
 });
 

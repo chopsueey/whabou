@@ -39,6 +39,10 @@ export async function loginController(req, res, next) {
    }
 }
 
+
+// POST 
+// const response = await userModel.findOneAndUpdate({customerId:req.user.customerId});
+=======
 // POST SOME MONEY
 export async function payInController(req, res, next) {
    try {
@@ -50,6 +54,7 @@ export async function payInController(req, res, next) {
 }
 
 
+
 // GET USER DATA
 export async function getUserDataController(req, res, next) {
    try {
@@ -59,6 +64,12 @@ export async function getUserDataController(req, res, next) {
       res.status(500).json(error);
    }
 }
+
+
+// DELETE ALL TASKS
+// userModel.deleteMany({});
+  
+   
 
 // GET SOME MONEY
 export async function chargeOffController(req, res, next) {
@@ -90,3 +101,4 @@ export async function deleteAllUsersController(req, res, next) {
       res.status(500).json(error);
    }
 }
+

@@ -3,10 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import userRouter from "./routes/userRouter.js";
-import connectDB from "./database/connectDB.js";
 import dashboardRouter from "./routes/dashboardRouter.js";
+
+import connectDB from "./database/connectDB.js";
+
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+
 
 const app = express();
 

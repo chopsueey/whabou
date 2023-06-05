@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -13,49 +13,49 @@ body {
     nav {
       display: flex;
       flex-direction: column;
-      .navBarTop, .navBarBottom {
+      .navBarTop,
+      .navBarBottom {
         display: flex;
         width: 100%;
         min-width: 700px;
-        background-color: red;
+        background-color: #23272f;
       }
-      .navBarTop {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1em;
-        padding: 1em 3em;
-        color: white;
-        .wrapperLeft{
-          span {
-            padding: 0.3em 0.7em;
-            border-radius: 99vw;
-            cursor: pointer;
-          }
-          span:first-of-type {
-            background-color: rgb(180, 17, 17);
-          }
-          span:last-of-type:hover {
-            background-color: rgb(180, 17, 17);
-          }
-        }
-        .wrapperRight {
-          display: none;
-          width: 20px;
-          img {
-            cursor: pointer;
-          }
-        }
-        @media screen and (max-width:1600px) {
-          .wrapperRight {
-            display: initial;
-          }
-        }
-      }
+      // .navBarTop {
+      //   display: flex;
+      //   justify-content: space-between;
+      //   align-items: center;
+      //   gap: 1em;
+      //   padding: 1em 3em;
+      //   color: white;
+      //   .wrapperLeft{
+      //     span {
+      //       padding: 0.3em 0.7em;
+      //       border-radius: 99vw;
+      //       cursor: pointer;
+      //     }
+      //     span:first-of-type {
+      //       background-color: rgb(180, 17, 17);
+      //     }
+      //     span:last-of-type:hover {
+      //       background-color: rgb(180, 17, 17);
+      //     }
+      //   }
+      //   .wrapperRight {
+      //     display: none;
+      //     width: 20px;
+      //     img {
+      //       cursor: pointer;
+      //     }
+      //   }
+      //   @media screen and (max-width:1600px) {
+      //     .wrapperRight {
+      //       display: initial;
+      //     }
+      //   }
+      // }
       .navBarBottom {
         align-items: center;
         padding: 2em 3em;
-        border-top: 1px solid rgba(141, 125, 125, 0.589);
         .logoWrapper {
           display: flex;
           flex-direction: column;
@@ -65,21 +65,21 @@ body {
           height: 2em;
           margin-right: 3em;
           font-size: 1.5rem;
-          color: white;
+          color: rgb(22, 143, 182);
           border-radius: 5px;
           cursor: pointer;
           img {
             width: 1.5em;
           }
         }
-        @media screen and (max-width:1600px) {
+        @media screen and (max-width: 1600px) {
           .links {
             display: none;
           }
         }
         ul {
           display: flex;
-          li{
+          li {
             margin-right: 2em;
             font-size: 1.2rem;
             color: white;
@@ -92,67 +92,67 @@ body {
           text-align: right;
           color: white;
           cursor: pointer;
-          span:first-of-type{
-            border-right: 1px solid rgb(180, 17, 17);
+          span:first-of-type {
+            border-right: 1px solid rgb(22, 143, 182);
             padding-right: 20px;
             margin-right: 20px;
           }
-          span:last-of-type{
+          span:last-of-type {
             padding: 0.3em 1em;
-            border: 2px solid white;
-            border-radius: 99vw;
-            transition: 0.5s;
+            transition: 0.2s;
           }
           span:last-of-type:hover {
-            background-color: rgb(180, 17, 17);
+            color: rgb(22, 143, 182);
           }
         }
       }
     }
-    .teaser {
-      position: relative;
-      background-image: url(./assets/teaser.jpg);
-      background-size: cover;
-      background-position: center;
-      flex: 1;
-      min-width: 700px;
-      .teaser__box {
-        position: absolute;
-        top: 30%;
-        left: 10%;
-        width: 400px;
-        aspect-ratio: 1;
-        padding: 1.5em;
-        background-color: white;
-        h2 {
-          margin-bottom: 1em;
-          color: red;
-        }
-        p {
-          margin-bottom: 1em;
-          font-size: 1.1rem;
-          span {
-            font-weight: bold;
-          }
-        }
-        button {
-          padding: 1em 1.5em;
-          background-color: red;
-          color: white;
-          font-size: 1rem;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-      }
-    }
+    // .teaser {
+    //   position: relative;
+    //   background-size: cover;
+    //   background-position: center;
+    //   flex: 1;
+    //   min-width: 700px;
+    //   .teaser__box {
+    //     position: absolute;
+    //     top: 30%;
+    //     left: 10%;
+    //     width: 400px;
+    //     aspect-ratio: 1;
+    //     padding: 1.5em;
+    //     background-color: white;
+    //     h2 {
+    //       margin-bottom: 1em;
+    //       color:
+    //       #168fb6;
+    //     }
+    //     p {
+    //       margin-bottom: 1em;
+    //       font-size: 1.1rem;
+    //       span {
+    //         font-weight: bold;
+    //       }
+    //     }
+    //     button {
+    //       padding: 1em 1.5em;
+    //       background-color:
+    //       #168fb6;
+    //       color: white;
+    //       font-size: 1rem;
+    //       border: none;
+    //       border-radius: 5px;
+    //       cursor: pointer;
+    //     }
+    //   }
+    // }
     .modal {
+      color: white;
       position: absolute;
       inset: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgba(141, 125, 125, 0.932);
+      background-color: rgba(22, 143, 182, 0.3);
       form {
         position: relative;
         display: flex;
@@ -161,13 +161,13 @@ body {
         width: 30%;
         // aspect-ratio: 1;
         padding: 4em 1em;
-        background-color: white;
+        background-color: #23272f;
         border-radius: 5px;
         > span {
           position: absolute;
           top: 3%;
           right: 5%;
-          color: red;
+          color: #168fb6;
           font-size: 0.8rem;
           cursor: pointer;
         }
@@ -186,14 +186,13 @@ body {
             border-radius: 5px;
             outline: none;
           }
-          input:focus{
+          input:focus {
             border: 2px solid rgb(41, 106, 226);
-
           }
         }
         button {
           padding: 1em 2.5em;
-          background-color: red;
+          background-color: #168fb6;
           color: white;
           border: none;
           border-radius: 99vw;
@@ -201,12 +200,12 @@ body {
           transition: 0.5s;
         }
         button:hover {
-          background-color: rgb(180, 17, 17);
+          background-color: rgb(22, 143, 182);
         }
         .register {
           margin-top: 1em;
           span {
-            color: red;
+            color: rgb(22, 143, 182);
             font-weight: bold;
             text-decoration: underline;
             text-underline-offset: 4px;
@@ -228,7 +227,8 @@ body {
           }
         }
       }
-    } .membersWrapper {
+    }
+    .membersWrapper {
       flex: 1;
       padding: 3em;
       min-width: 700px;
@@ -266,7 +266,8 @@ body {
         padding: 3em;
         background-color: white;
         border-radius: 5px;
-        .payIn, .chargeOff {
+        .payIn,
+        .chargeOff {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -289,7 +290,7 @@ body {
           }
           button {
             padding: 0.4em 1.5em;
-            background-color: red;
+            background-color: rgb(22, 143, 182);
             color: white;
             border: none;
             border-radius: 99vw;
@@ -297,7 +298,7 @@ body {
             transition: 0.5s;
           }
           button:hover {
-            background-color: rgb(180, 17, 17);
+            background-color: rgb(22, 143, 182);
           }
         }
         h3 {
@@ -307,5 +308,3 @@ body {
     }
   }
 }
-
-
