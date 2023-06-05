@@ -40,7 +40,7 @@ export async function loginController(req, res, next) {
 }
 
 
-// POST 
+// POST
 // const response = await userModel.findOneAndUpdate({customerId:req.user.customerId});
 
 // POST SOME MONEY
