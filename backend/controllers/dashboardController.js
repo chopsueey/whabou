@@ -22,7 +22,8 @@ async function postProfileData(req, res) {
     const savedProfile = await newProfile.save();
     res.status(201).json(savedProfile);
   } catch (error) {
-    res.json(error);
+    next(error); 
+    //res.json(error);
   }
 }
 
@@ -42,7 +43,8 @@ async function postQuestion(req, res) {
     const savedQuestion = await newQuestion.save();
     res.status(201).json(savedQuestion);
   } catch (error) {
-    res.json(error);
+    next(error); 
+    //res.json(error);
   }
 }
 
@@ -59,7 +61,8 @@ async function postLike(req, res) {
     const savedLike = await newLike.save();
     res.status(201).json(savedLike);
   } catch (err) {
-    res.json(err);
+    next(error); 
+    //res.json(err);
   }
 }
 
@@ -69,7 +72,8 @@ async function getAllProfileData(req, res, next) {
     const allProfileItems = await profileModel.find({});
     res.status(200).json(allProfileItems);
   } catch (error) {
-    res.json(error);
+    next(error);  
+    //res.json(error);
   }
 }
 
@@ -79,7 +83,8 @@ async function getAllQuestions(req, res, next) {
     const allQuestions = await questionModel.find({});
     res.status(200).json(allQuestions);
   } catch (error) {
-    res.json(error);
+    next(error); 
+    //res.json(error);
   }
 }
 
@@ -96,7 +101,8 @@ async function updateProfileData(req, res, next) {
     );
     res.status(200).json(updatedItem);
   } catch (error) {
-    res.json(error);
+    next(error); 
+    //res.json(error);
   }
   //console.log(req.params.profileId);
 }
@@ -108,7 +114,8 @@ async function deleteProfileData(req, res, next) {
     await profileModel.findByIdAndDelete(deleteId);
     res.status(200).json("Profile GELÖSCHT!");
   } catch (error) {
-    res.json(error);
+    next(error); 
+    //res.json(error);
   }
 }
 
@@ -119,7 +126,8 @@ async function deleteAllProfilesData(req, res, next) {
     await profileModel.deleteMany({});
     res.status(200).json("ALLE Profiles wurde GELÖSCHT!");
   } catch (error) {
-    res.json(error);
+    next(error); 
+    //res.json(error);
   }
 }
 
