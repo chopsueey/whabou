@@ -24,7 +24,7 @@ dashboardRouter.post("/:id", dashboard.postLike);
 
 
 // UPDATE
-dashboardRouter.patch("/", dashboard.updateProfileData);
+// dashboardRouter.patch("/", dashboard.updateProfileData);
 dashboardRouter.patch("/profile", profileController.editProfile);
 
 // DELETE

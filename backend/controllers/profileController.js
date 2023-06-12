@@ -3,7 +3,8 @@ import User from "../model/profileModel.js"
 async function showProfile(req, res, next) {
   try {
     // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
-    const userId = req.user.id;
+    const userId = req.body.user.id;
+    console.log(userId)
 
     // Benutzer aus der Datenbank abrufen
     const user = await User.findById(userId);

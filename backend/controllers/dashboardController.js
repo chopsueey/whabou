@@ -5,7 +5,7 @@ import questionModel from "../model/questionModel.js";
 
 // POST / CREATE PROFILE
 
-async function postProfileData(req, res) {
+async function postProfileData(req, res, next) {
   const { userName, nationality, age, user } = req.body;
 
   try {
@@ -19,15 +19,15 @@ async function postProfileData(req, res) {
 
     const savedProfile = await newProfile.save();
     res.status(201).json(savedProfile);
-  } catch (error) {
-    next(error); 
+  } catch (err) {
+    next(err); 
     //res.json(error);
   }
 }
 
 // POST QUESTION
 
-async function postQuestion(req, res) {
+async function postQuestion(req, res, next) {
   const { question, user } = req.body;
 
   try {
@@ -39,8 +39,8 @@ async function postQuestion(req, res) {
 
     const savedQuestion = await newQuestion.save();
     res.status(201).json(savedQuestion);
-  } catch (error) {
-    next(error); 
+  } catch (err) {
+    next(err); 
     //res.json(error);
   }
 }
@@ -48,7 +48,7 @@ async function postQuestion(req, res) {
 // new LIKE controller for the new likeModel
 // which needs the userId and the questionId which was liked
 // POST LIKE
-async function postLike(req, res) {
+async function postLike(req, res, next) {
   const { user, question } = req.body;
   try {
     const newLike = likeModel({
@@ -58,7 +58,7 @@ async function postLike(req, res) {
     const savedLike = await newLike.save();
     res.status(201).json(savedLike);
   } catch (err) {
-    next(error); 
+    next(err); 
     //res.json(err);
   }
 }
@@ -68,8 +68,8 @@ async function getAllProfileData(req, res, next) {
   try {
     const allProfileItems = await profileModel.find({});
     res.status(200).json(allProfileItems);
-  } catch (error) {
-    next(error);  
+  } catch (err) {
+    next(err);  
     //res.json(error);
   }
 }
@@ -79,8 +79,8 @@ async function getAllQuestions(req, res, next) {
   try {
     const allQuestions = await questionModel.find({});
     res.status(200).json(allQuestions);
-  } catch (error) {
-    next(error); 
+  } catch (err) {
+    next(err); 
     //res.json(error);
   }
 }
@@ -97,8 +97,8 @@ async function updateProfileData(req, res, next) {
       { new: true }
     );
     res.status(200).json(updatedItem);
-  } catch (error) {
-    next(error); 
+  } catch (err) {
+    next(err); 
     //res.json(error);
   }
   //console.log(req.params.profileId);
@@ -110,8 +110,8 @@ async function deleteProfileData(req, res, next) {
   try {
     await profileModel.findByIdAndDelete(deleteId);
     res.status(200).json("Profile GELÖSCHT!");
-  } catch (error) {
-    next(error); 
+  } catch (err) {
+    next(err); 
     //res.json(error);
   }
 }
@@ -122,13 +122,13 @@ async function deleteAllProfilesData(req, res, next) {
   try {
     await profileModel.deleteMany({});
     res.status(200).json("ALLE Profiles wurde GELÖSCHT!");
-  } catch (error) {
-    next(error); 
+  } catch (err) {
+    next(err); 
     //res.json(error);
   }
 }
 
-async function deleteAccount(req, res) {
+async function deleteAccount(req, res, next) {
   try {
     const accountId = req.params.id;
 
