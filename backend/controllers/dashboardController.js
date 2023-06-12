@@ -139,8 +139,8 @@ async function deleteAccount(req, res, next) {
     }
 
     res.status(200).json({ message: "Account erfolgreich gelöscht" });
-  } catch (error) {
-    res.status(500).json({ error: "Fehler beim Löschen des Accounts" });
+  } catch (err) {
+    next(err)
   }
 }
 
