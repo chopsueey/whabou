@@ -1,10 +1,10 @@
-import User from "../model/profileModel.js" 
+import User from "../model/profileModel.js";
 // Profil anzeigen
 async function showProfile(req, res, next) {
   try {
     // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
     const userId = req.body.user.id;
-    console.log(userId)
+    console.log(userId);
 
     // Benutzer aus der Datenbank abrufen
     const user = await User.findById(userId);
@@ -13,7 +13,7 @@ async function showProfile(req, res, next) {
   } catch (error) {
     next(error);
   }
-};
+}
 
 // Profil bearbeiten
 async function editProfile(req, res, next) {
@@ -33,10 +33,6 @@ async function editProfile(req, res, next) {
   } catch (error) {
     next(error);
   }
-};
-
-export {
-  showProfile,
-  editProfile
-
 }
+
+export { showProfile, editProfile };
