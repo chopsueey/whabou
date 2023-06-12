@@ -13,7 +13,7 @@ const questionSchema = new mongoose.Schema({
   yes: { type: Number, default: 0 },
   no: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,

@@ -1,5 +1,6 @@
 import Question from "../model/questionModel.js";
 
+// get
 // Alle Fragen abrufen
 async function getAllQuestions(req, res, next) {
   try {
@@ -9,7 +10,7 @@ async function getAllQuestions(req, res, next) {
   } catch (error) {
     next(error);
   }
-};
+}
 
 // Eine einzelne Frage anzeigen
 async function getQuestion(req, res, next) {
@@ -26,23 +27,23 @@ async function getQuestion(req, res, next) {
   } catch (error) {
     next(error);
   }
-};
-
-// Frage erstellen
-async function createQuestion(req, res, next) {
-  try {
-    const { title, content } = req.body;
-
-    const newQuestion = await Question.create({ title, content });
-
-    res.status(201).json(newQuestion);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export {
-  getAllQuestions,
-  getQuestion,
-  createQuestion,
 }
+
+// post
+async function postQuestion(req, res, next) {
+  const { question, userId } = req.body;
+
+  try {
+    const newQuestion = Question({
+      question: question,
+      userId: userId,
+    });
+
+    const savedQuestion = await newQuestion.save();
+    res.status(201).json(savedQuestion);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export { getAllQuestions, getQuestion, postQuestion };

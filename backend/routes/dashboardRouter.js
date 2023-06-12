@@ -1,52 +1,45 @@
 import express from "express";
-import * as dashboard from "../controllers/dashboardController.js";
 import * as profileController from "../controllers/profileController.js";
 import * as questionController from "../controllers/questionController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const dashboardRouter = express.Router();
 
+// DASHBOARD
 // GET
-// dashboardRouter.get("/", dashboard.getAllProfileData);
-dashboardRouter.get("/", dashboard.getAllQuestions);
-dashboardRouter.get("/questions", questionController.getAllQuestions);
-dashboardRouter.get("/profile", profileController.showProfile);
 
 // POST
 
-
-/*dashboardRouter.post("/", questionController.createQuestion);*/
-
-//dashboardRouter.post("/", dashboard.postProfileData);
-dashboardRouter.post("/", dashboard.postQuestion);
-// added the router for the new postLike controller
-dashboardRouter.post("/:id", dashboard.postLike);
-
-
 // UPDATE
-// dashboardRouter.patch("/", dashboard.updateProfileData);
-dashboardRouter.patch("/profile", profileController.editProfile);
 
 // DELETE
-dashboardRouter.delete("/", dashboard.deleteProfileData);
+
+// DASHBOARD/PROFILE
+
+// get
+dashboardRouter.get("/profile", profileController.showProfile);
+// dashboardRouter.get("/profile", profileController.showUser);
+
+// post
+dashboardRouter.post("/profile", profileController.postProfileData);
+
+// update
+dashboardRouter.patch("/profile", profileController.editProfile);
+
+// delete
+dashboardRouter.delete("/profile/:id", profileController.deleteAccount);
 //dashboardRouter.delete("/profile", profileController.deleteProfileData);
 
-// DELETE ALL
-// dashboardRouter.delete("/", dashboard.deleteAllProfilesData);
+// DASHBOARD/MYQUESTIONS
 
+// get
+dashboardRouter.get("/myquestions", questionController.getAllQuestions);
+dashboardRouter.get("/myquestions/:id", questionController.getQuestion);
 
-// ----- Profile -----
+// post
+dashboardRouter.post("/myquestions", questionController.postQuestion);
 
-// -- get --
-// dashboardRouter.get("/profile/:id", dashboard.getAllQuestions);
-
-// -- post --
-// dashboardRouter.post("/profile", dashboard.postQuestion);
-
-// -- update --
-// dashboardRouter.patch("/profile", dashboard.updateProfileData);
-
-// -- delete --
-dashboardRouter.delete("/profile/:id", dashboard.deleteAccount);
-
+// LIKE (wird noch ausgelagert)
+// added the router for the new postLike controller
+// dashboardRouter.post("/:id", dashboard.postLike);
 export default dashboardRouter;

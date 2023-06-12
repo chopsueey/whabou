@@ -6,10 +6,10 @@ const userRouter = express.Router();
 
 
 // create / post
-userRouter.post("/user/register", user.createUserController);
+userRouter.post("/register", user.createUserController);
 
 // login
-userRouter.post("/user/login", user.loginController);
+userRouter.post("/login", user.loginController);
 
 // userRouter.get("/user/data", authMiddleware, user.getUserDataController);
 

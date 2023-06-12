@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navigation from './Navigation';
-import { registerApi, loginApi } from './Api.jsx';
+import { userRegister, userLogin } from './UserFunctions.jsx';
 
 export default function Home() {
    const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function Home() {
       setEmail("");
       setPassword("");
       if (!register){
-         const user = await loginApi(data);
+         const user = await userLogin(data);
          if (user) {
             setModal(false);
             navigate("/dashboard");
@@ -28,7 +28,7 @@ export default function Home() {
          }
          return;
       }
-      await registerApi(data)
+      await userRegister(data)
       setModal(false);
    }
 

@@ -56,7 +56,7 @@ export default function Dashboard() {
 
   // QUESTIONS
   async function getQuestions() {
-    fetch("http://localhost:5000/dashboard")
+    fetch("http://localhost:5000/dashboard/myquestions")
       .then((response) => {
         return response.json();
       })

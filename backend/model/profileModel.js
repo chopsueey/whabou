@@ -22,7 +22,7 @@ const ProfileSchema = new mongoose.Schema({
     required: true,
     min: 12,
   },
- user: {
+ userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
