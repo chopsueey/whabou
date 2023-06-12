@@ -10,12 +10,9 @@ MyQuestions-component für /dashboard/myquestions <br> -->
 
 Backend steht im Fokus
 
-Subdocuments -> Marius
-Errorhandling -> Nargiza
-Validation -> Basti
-(Security, JWT)
+Authentication, Authorization, JWT -> Nargiza und Marius
 
-Alex:
+Basti und Alex:
 
 neue Pages: <br>
 /dashboard/profile <br>

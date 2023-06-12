@@ -16,7 +16,8 @@ export async function createUserController(req, res, next) {
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
    } catch (error) {
-      res.status(500).json(error);
+      next(error);  
+      //res.status(500).json(error);
    }
 }
 
@@ -35,7 +36,8 @@ export async function loginController(req, res, next) {
       }
       res.status(404).json("Benutzer nicht gefunden");
    } catch (error) {
-      res.status(500).json(error);
+      next(error);  
+      //res.status(500).json(error);
    }
 }
 
@@ -49,7 +51,8 @@ export async function payInController(req, res, next) {
       const response = await userModel.findOneAndUpdate({customerId:req.user.customerId},{balance:+req.body.balance});
       res.status(200).json(response);
    } catch (error) {
-      res.status(500).json(error);
+   next(error); 
+   //res.status(500).json(error);
    }
 }
 
@@ -61,7 +64,8 @@ export async function getUserDataController(req, res, next) {
       const response = await userModel.findOne({customerId:req.user.customerId});
       res.status(200).json(response);
    } catch (error) {
-      res.status(500).json(error);
+     next(error); 
+     //res.status(500).json(error);
    }
 }
 
@@ -77,7 +81,8 @@ export async function chargeOffController(req, res, next) {
       const response = await userModel.findOneAndUpdate({customerId:req.user.customerId},{balance:+req.body.balance});
       res.status(200).json(response);
    } catch (error) {
-      res.status(500).json(error);
+      next(error); 
+      //res.status(500).json(error);
    }
 }
 
@@ -87,7 +92,8 @@ export async function getAllUsersController(req, res, next) {
       const allUsers = await userModel.find();
       res.status(200).json(allUsers);
    } catch (error) {
-      res.status(500).json(error);
+      next(error); 
+      //res.status(500).json(error);
    }
 }
 
@@ -98,7 +104,8 @@ export async function deleteAllUsersController(req, res, next) {
       await userModel.deleteMany({});
       res.status(200).json("Alle user wurden gelöscht!");
    } catch (error) {
-      res.status(500).json(error);
+      next(error); 
+      //res.status(500).json(error);
    }
 }
 

@@ -3,15 +3,17 @@ export const Question = ({ question }) => {
     fetch(`http://localhost:5000/dashboard/${question._Id}`);
   }
   function handleNoClick() {}
+  // changed the questionModel to english words
+  // and therefore changed the new keys here accordingly
   return (
     <>
       {question ? (
         <div>
-          <h1>{question.Frage}</h1>
-          <p>Ja{question.Ja}</p>
-          <p>Nein{question.Nein}</p>
-          <button onClick={handleYesClick}>Ja</button>
-          <button onClick={handleNoClick}>Nein</button>
+          <h1>{question.question}</h1>
+          <p>Yes: {question.yes}</p>
+          <p>No: {question.no}</p>
+          <button onClick={handleYesClick}>Yes</button>
+          <button onClick={handleNoClick}>No</button>
         </div>
       ) : (
         ""
