@@ -6,7 +6,6 @@ und /dashboard <br>
 Createquestion-component für /dashboard/createquestion <br>
 MyQuestions-component für /dashboard/myquestions <br> -->
 
-
 ## Backend:
 
 Backend steht im Fokus
@@ -20,7 +19,6 @@ Alex:
 
 neue Pages: <br>
 /dashboard/profile <br>
-/dashboard/createquestion <br>
 /dashboard/myquestions <br>
 
 um sein Profil zu speichern, <br>

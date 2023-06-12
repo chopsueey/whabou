@@ -8,10 +8,10 @@ const ProfileSchema = new mongoose.Schema({
   nationality: {
     type: String,
     required: true,
-    enum:["Frankreich", "Spanien", "England", "Deutschland", "Österreich", "Irland", "Norwegen", "Ägypten", 
-   "Russland", "Türkei", "China", "Finnland", "Italien", "Kroatien", "Serbien", "Slowakei", "Griechenland",
-  "Japan", "Bulgarien", "Bosnien-Herzegowina", "Liechtenstein", "Kanada", "USA", "Kongo",
-  "Nigeria", "Marokko", "Other"],
+    enum:["France", "Spain", "England", "Germany", "Austria", "Ireland", "Norway", "Egypt",
+    "Russia", "Turkey", "China", "Finland", "Italy", "Croatia", "Serbia", "Slovakia", "Greece",
+   "Japan", "Bulgaria", "Bosnia-Herzegovina", "Liechtenstein", "Canada", "USA", "Congo",
+   "Nigeria", "Morocco", "Other"],
   },
   age: {
     type: Number,
