@@ -5,10 +5,8 @@ import questionModel from "../model/questionModel.js";
 
 // POST / CREATE PROFILE
 
-
 async function postProfileData(req, res) {
   const { userName, nationality, age, user } = req.body;
-
 
   try {
     const newProfile = profileModel({
@@ -28,7 +26,6 @@ async function postProfileData(req, res) {
 }
 
 // POST QUESTION
-
 
 async function postQuestion(req, res) {
   const { question, user } = req.body;
@@ -131,6 +128,22 @@ async function deleteAllProfilesData(req, res, next) {
   }
 }
 
+async function deleteAccount(req, res) {
+  try {
+    const accountId = req.params.id;
+
+    const deletedAccount = await profileModel.findByIdAndDelete(accountId);
+
+    if (!deletedAccount) {
+      return res.status(404).json({ error: "Account nicht gefunden" });
+    }
+
+    res.status(200).json({ message: "Account erfolgreich gelöscht" });
+  } catch (error) {
+    res.status(500).json({ error: "Fehler beim Löschen des Accounts" });
+  }
+}
+
 export {
   getAllProfileData,
   getAllQuestions,
@@ -140,4 +153,5 @@ export {
   updateProfileData,
   deleteProfileData,
   deleteAllProfilesData,
+  deleteAccount,
 };
