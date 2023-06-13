@@ -1,6 +1,6 @@
 export const userRegister = async (data) => {
   try {
-    const response = await fetch("https://wabooo.onrender.com/register", {
+    const response = await fetch("https://wabooo-server.onrender.com/register", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -19,7 +19,7 @@ export const userRegister = async (data) => {
 
 export const userLogin = async (data) => {
   try {
-    const response = await fetch("https://wabooo.onrender.com/login", {
+    const response = await fetch("https://wabooo-server.onrender.com/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

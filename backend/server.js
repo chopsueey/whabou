@@ -17,7 +17,7 @@ import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: "https://wabooo-cf5l.onrender.com" }));
+app.use(cors({ credentials: true, origin: "https://wabooo.onrender.com" }));
 app.use(express.json());
 
 
