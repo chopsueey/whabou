@@ -12,12 +12,12 @@ import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 
 // deploy frontend via backend
 
-import path from "path";
-import { fileURLToPath } from "url";
+// import path from "path";
+// import { fileURLToPath } from "url";
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cors({ credentials: true, origin: "https://wabooo-cf5l.onrender.com/" }));
 app.use(express.json());
 
 
@@ -29,11 +29,11 @@ const connectionString = process.env.MONGO_URL;
 
 // Start MIDDLEWARES
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-app.use("/", express.static(path.join(__dirname, "/dist"))); // build folder in the backend main directory
-app.get("/*", (req, res) => res.sendFile(__dirname + "/dist/index.html"));
+// app.use("/", express.static(path.join(__dirname, "/dist"))); // build folder in the backend main directory
+// app.get("/*", (req, res) => res.sendFile(__dirname + "/dist/index.html"));
 
 app.use("/", userRouter);
 app.use("/dashboard", dashboardRouter);

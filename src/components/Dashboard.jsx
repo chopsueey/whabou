@@ -19,7 +19,7 @@ export default function Dashboard() {
   // of the dashboard component (see useEffect)
   async function getProfileData() {
     try {
-      const response = await fetch("http://localhost:5000/dashboard");
+      const response = await fetch("https://wabooo.onrender.com/dashboard");
       const data = await response.json();
       if (response.status === 200) {
         console.log(data);
@@ -36,7 +36,7 @@ export default function Dashboard() {
     e.preventDefault();
     const data = { userName, nationality, age };
     try {
-      const response = await fetch("http://localhost:5000/dashboard", {
+      const response = await fetch("https://wabooo.onrender.com/dashboard", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -56,7 +56,7 @@ export default function Dashboard() {
 
   // QUESTIONS
   async function getQuestions() {
-    fetch("http://localhost:5000/dashboard/myquestions")
+    fetch("https://wabooo.onrender.com/dashboard/myquestions")
       .then((response) => {
         return response.json();
       })
@@ -78,7 +78,7 @@ export default function Dashboard() {
     e.preventDefault();
     const data = { question };
     try {
-      const response = await fetch("http://localhost:5000/dashboard", {
+      const response = await fetch("https://wabooo.onrender.com/dashboard", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
