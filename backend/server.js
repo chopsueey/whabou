@@ -10,14 +10,30 @@ import connectDB from "./database/connectDB.js";
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 
+// deploy frontend via backend
+
+import path from "path";
+import { fileURLToPath } from "url";
+
 const app = express();
+
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(express.json());
+
+
+
+
 
 const port = process.env.PORT || 5050;
 const connectionString = process.env.MONGO_URL;
 
 // Start MIDDLEWARES
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
-app.use(express.json());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use("/", express.static(path.join(__dirname, "/dist"))); // build folder in the backend main directory
+app.get("/*", (req, res) => res.sendFile(__dirname + "/dist/index.html"));
 
 app.use("/", userRouter);
 app.use("/dashboard", dashboardRouter);

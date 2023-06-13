@@ -4,7 +4,7 @@ import Question from "../model/questionModel.js";
 // Alle Fragen abrufen
 async function getAllQuestions(req, res, next) {
   try {
-    const questions = await Question.find();
+    const questions = await Question.find({});
 
     res.status(200).json(questions);
   } catch (error) {
