@@ -108,4 +108,24 @@ export async function deleteAllUsersController(req, res, next) {
       //res.status(500).json(error);
    }
 }
+// LOGOUT
+
+export async function logoutController(req, res, next) {
+   try {
+      const user = await userModel.findOne({email:req.body.email});
+      if (user){
+         const isMatch = await bcrypt.compare(req.body.password, user.password);
+         if (isMatch){
+            //const token = await createToken({customerId: user.customerId, userId:user._id});
+            return res.status(200).send({msg:"Logout erfolgreich!"});
+         }
+         return res.status(401).json("Logout immer noch.");
+      }
+      res.status(404).json("Benutzer nicht gefunden");
+   } catch (error) {
+      next(error);  
+      //res.status(500).json(error);
+   }
+}
+
 

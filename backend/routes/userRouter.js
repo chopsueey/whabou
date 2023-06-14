@@ -13,4 +13,7 @@ userRouter.post("/login", user.loginController);
 
 // userRouter.get("/user/data", authMiddleware, user.getUserDataController);
 
+// logout
+userRouter.post("/logout", user.logoutController);
+
 export default userRouter;
