@@ -17,7 +17,7 @@ const dashboardRouter = express.Router();
 // DASHBOARD/PROFILE
 
 // get
-dashboardRouter.get("/profile", profileController.showProfile);
+dashboardRouter.get("/profile/:userId", profileController.showProfile);
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post

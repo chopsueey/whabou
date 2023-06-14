@@ -7,9 +7,10 @@ import { createContext, useContext, useState } from "react";
 const InitialContext = createContext();
 
 export function GeneralContext({ children }) {
-    // stored variables
+  // stored variables
+  const [userId, setUserId] = useState(null);
   const [modal, setModal] = useState(false);
-  const sharedData = { modal, setModal };
+  const sharedData = { modal, setModal, userId, setUserId };
 
   return (
     <InitialContext.Provider value={sharedData}>

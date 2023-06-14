@@ -1,15 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import GeneralStore from "../store/GeneralContext";
 
 export default function Profile() {
-    // PROFILE
+  const { userId } = GeneralStore();
+
+  // PROFILE get
+  // get user profile data, refresh on every load
+  // of the dashboard component (see useEffect)
+
+  const [userData, setUserData] = useState(null);
+
+  async function getProfileData() {
+    try {
+      const response = await fetch(`http://localhost:5000/dashboard/profile/${userId}`);
+      const data = await response.json();
+      if (response.status === 200) {
+        console.log(data);
+        setUserData(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  // PROFILE update
   const [userName, setUserName] = useState(null);
   const [nationality, setNationality] = useState(null);
   const [age, setAge] = useState(null);
-    // post request to update user profile when 'save' button clicked
-  // user data is stored in varibale data
+
+  // post request to update user profile when 'save' button clicked
+  // user data is stored in variable data
   async function handleProfileUpdate(e) {
     e.preventDefault();
-    const data = { userName, nationality, age };
+    console.log(userId);
+    const data = { userName, nationality, age, userId };
     try {
       const response = await fetch("http://localhost:5000/dashboard/profile", {
         method: "POST",
@@ -28,6 +51,10 @@ export default function Profile() {
       console.log(err);
     }
   }
+  useEffect(() => {
+    getProfileData();
+  }, []);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>
       {/* label plus input for every property in the profileSchema */}
@@ -68,6 +95,10 @@ export default function Profile() {
         >
           save
         </button>
+      </div>
+      <div>
+        <h2>your profile data</h2>
+        {userData ? <h3>{JSON.stringify(userData)}</h3> : ""}
       </div>
     </div>
   );

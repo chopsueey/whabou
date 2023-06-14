@@ -1,19 +1,24 @@
 import { useState } from "react";
+import GeneralStore from "../store/GeneralContext";
 
 export default function MyQuestions() {
   const [question, setQuestion] = useState(null);
-
+  const { userId } = GeneralStore();
+  
   async function handlePostQuestion(e) {
     e.preventDefault();
-    const data = { question };
+    const data = { question, userId };
     try {
-      const response = await fetch("http://localhost:5000/dashboard", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://localhost:5000/dashboard/myquestions",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 201) {
         return console.log("Frage uploaded!");
       }
