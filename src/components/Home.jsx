@@ -15,13 +15,13 @@ export default function Home() {
       evt.preventDefault();
       const data = {name, email, password};
       console.log(data);
-      setRegister(false);
       setName("");
       setEmail("");
       setPassword("");
       if (!register){
-         const user = await userLogin(data);
-         if (user) {
+         const loginAttempt = await userLogin(data);
+         if (loginAttempt) {
+            console.log(loginAttempt)
             setModal(false);
             navigate("/dashboard");
             return;
