@@ -5,7 +5,7 @@ import GeneralStore from "../store/GeneralContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { modal, setModal } = GeneralStore();
+  const { modal, setModal, setIsLoggedIn } = GeneralStore();
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,6 +25,7 @@ export default function Home() {
          if (loginAttempt) {
             console.log(loginAttempt)
             setModal(false);
+            setIsLoggedIn(true)
             navigate("/dashboard");
             return;
          }

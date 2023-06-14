@@ -51,7 +51,7 @@ export default function Dashboard() {
   return (
     <>
       <div style={{ backgroundColor: "#23272f", color: "white" }}>
-        <h1 style={{textAlign: "center"}}>Dashboard</h1>
+        <h1 style={{ textAlign: "center" }}>Dashboard</h1>
         {/* {userData ? <h2>Welcome, {userData[0].userName}</h2> : ""} */}
       </div>
       <div style={{ borderBottom: "solid 3px #149eca" }}></div>
