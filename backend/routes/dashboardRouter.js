@@ -42,4 +42,6 @@ dashboardRouter.post("/myquestions", questionController.postQuestion);
 // LIKE (wird noch ausgelagert)
 // added the router for the new postLike controller
 // dashboardRouter.post("/:id", dashboard.postLike);
+
+
 export default dashboardRouter;
