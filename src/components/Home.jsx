@@ -11,23 +11,25 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    const data = { name, email, password };
-    console.log(data);
-    setRegister(false);
-    setName("");
-    setEmail("");
-    setPassword("");
-    if (!register) {
-      const user = await userLogin(data);
-      if (user) {
-        setModal(false);
-        navigate("/dashboard");
-        return;
-      }
-      return;
-    }
+
+   const handleSubmit = async (evt)=>{
+      evt.preventDefault();
+      const data = {name, email, password};
+      console.log(data);
+     setRegister(false);
+      setName("");
+      setEmail("");
+      setPassword("");
+      if (!register){
+         const loginAttempt = await userLogin(data);
+         if (loginAttempt) {
+            console.log(loginAttempt)
+            setModal(false);
+            navigate("/dashboard");
+            return;
+         }
+         return;
+      }  
     await userRegister(data);
     setModal(false);
   };
