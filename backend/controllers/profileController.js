@@ -6,7 +6,7 @@ import User from "../model/userModel.js";
 async function showProfile(req, res, next) {
   try {
     // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
-    const userId = req.body.userId;
+    const userId = req.params.userId;
 
     // Benutzer aus der Datenbank abrufen
     const user = await Profile.find({ userId: userId });
@@ -23,7 +23,7 @@ async function postProfileData(req, res, next) {
   const { userName, nationality, age, userId } = req.body;
 
   try {
-    const newProfile = User({
+    const newProfile = Profile({
       userName: userName,
       nationality: nationality,
       age: age,

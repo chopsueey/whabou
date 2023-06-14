@@ -3,27 +3,9 @@ import { Questions } from "../components/Questions.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
-  // fetched user data from the databank, if any
-  const [userData, setUserData] = useState(null);
-
   // QUESTIONS
   const [allQuestions, setAllQuestions] = useState(null);
   const navigate = useNavigate();
-  // PROFILE
-  // get user profile data, refresh on every load
-  // of the dashboard component (see useEffect)
-  async function getProfileData() {
-    try {
-      const response = await fetch("http://localhost:5000/dashboard/profile");
-      const data = await response.json();
-      if (response.status === 200) {
-        console.log(data);
-        setUserData(data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   // QUESTIONS
   async function getQuestions() {
@@ -45,7 +27,6 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    // getProfileData();
     getQuestions();
   }, []);
   return (

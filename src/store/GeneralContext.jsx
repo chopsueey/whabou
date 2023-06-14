@@ -8,9 +8,12 @@ const InitialContext = createContext();
 
 export function GeneralContext({ children }) {
   // stored variables
+
+  const [userId, setUserId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [modal, setModal] = useState(false);
-  const sharedData = { modal, setModal, isLoggedIn, setIsLoggedIn };
+  const sharedData = { modal, setModal, userId, setUserId, isLoggedIn, setIsLoggedIn };
+
 
   return (
     <InitialContext.Provider value={sharedData}>

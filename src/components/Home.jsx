@@ -5,32 +5,34 @@ import GeneralStore from "../store/GeneralContext";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { modal, setModal, setIsLoggedIn } = GeneralStore();
+
+  const { modal, setModal, setUserId, setIsLoggedIn } = GeneralStore();
+
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
 
-   const handleSubmit = async (evt)=>{
-      evt.preventDefault();
-      const data = {name, email, password};
-      console.log(data);
-     setRegister(false);
-      setName("");
-      setEmail("");
-      setPassword("");
-      if (!register){
-         const loginAttempt = await userLogin(data);
-         if (loginAttempt) {
-            console.log(loginAttempt)
-            setModal(false);
-            setIsLoggedIn(true)
-            navigate("/dashboard");
-            return;
-         }
-         return;
-      }  
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    const data = { name, email, password };
+    console.log(data);
+    setRegister(false);
+    setName("");
+    setEmail("");
+    setPassword("");
+    if (!register) {
+      const loginAttempt = await userLogin(data);
+      if (loginAttempt) {
+        setUserId(loginAttempt.userId);
+        setIsLoggedIn(true)
+        setModal(false);
+        navigate("/dashboard");
+        return;
+      }
+      return;
+    }
     await userRegister(data);
     setModal(false);
   };
