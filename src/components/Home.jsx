@@ -26,6 +26,7 @@ export default function Home() {
       const loginAttempt = await userLogin(data);
       if (loginAttempt) {
         setUserId(loginAttempt.userId);
+        console.log(loginAttempt.userId)
         setIsLoggedIn(true)
         setModal(false);
         navigate("/dashboard");

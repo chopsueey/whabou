@@ -33,34 +33,24 @@ export default function Profile() {
   // post request to update user profile when 'save' button clicked
   // user data is stored in variable data
   async function handleProfileUpdate(e) {
-    const [userName, setUserName] = useState(null);
-    const [nationality, setNationality] = useState(null);
-    const [age, setAge] = useState(null);
-    
-
-    const handleProfileUpdate = async (e) => {
-      e.preventDefault();
-      console.log(userId);
-      const data = { userName, nationality, age, userId };
-      try {
-        const response = await fetch(
-          "http://localhost:5000/dashboard/profile",
-          {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (response.status === 201) {
-          return console.log("Profile updated!");
-        }
-        throw new Error("Profile update failed");
-      } catch (err) {
-        console.log(err);
+    e.preventDefault();
+    console.log(userId);
+    const data = { userName, nationality, age, userId };
+    try {
+      const response = await fetch("http://localhost:5000/dashboard/profile", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.status === 201) {
+        return console.log("Profile updated!");
       }
-    };
+      throw new Error("Profile update failed");
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   const handleTabClick = (tab) => {
