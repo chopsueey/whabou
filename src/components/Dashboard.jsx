@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Questions } from "./Questions.jsx";
+import { userLogout } from "./UserFunctions.jsx";
+
 
 export default function Dashboard() {
   // fetched user data from the databank, if any
@@ -13,6 +15,9 @@ export default function Dashboard() {
   // QUESTIONS
   const [question, setQuestion] = useState(null);
   const [allQuestions, setAllQuestions] = useState(null);
+
+  // LOGOUT
+  const [logout, setLogout] = useState(null);
 
   // PROFILE
   // get user profile data, refresh on every load
@@ -53,7 +58,7 @@ export default function Dashboard() {
       console.log(err);
     }
   }
-
+  
   // QUESTIONS
   async function getQuestions() {
     fetch("http://localhost:5000/dashboard/myquestions")
@@ -106,6 +111,12 @@ export default function Dashboard() {
         <h2>Navbar</h2>
         <h1>Dashboard</h1>
         {/* {userData ? <h2>Welcome, {userData[0].userName}</h2> : ""} */}
+        <button
+          onClick={userLogout}
+          style={{ backgroundColor: "blue", color: "yellow" }}
+        >
+         Logout
+        </button>
       </div>
       <div style={{ borderBottom: "solid 3px #149eca" }}></div>
       <section

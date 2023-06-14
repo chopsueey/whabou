@@ -37,3 +37,22 @@ export const userLogin = async (data) => {
     console.log(error);
   }
 };
+
+export const userLogout = async (data) => {
+  try {
+    const response = await fetch("http://localhost:5000/dashboard/logout", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 201) {
+      return console.log("Logout erfolgreich!");
+    }
+    throw new Error("Logout fehlgeschlagen!");
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -6,8 +6,10 @@ import Profile from "./pages/Profile";
 import MyQuestions from "./pages/MyQuestions";
 import Navigation from "./components/Navigation";
 
+
 function App() {
   return (
+
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigation />}>
