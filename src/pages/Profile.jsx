@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import GeneralStore from "../store/GeneralContext";
 
 export default function Profile() {
-
   const { userId } = GeneralStore();
+  const [activeTab, setActiveTab] = useState("Favoriten");
 
   // PROFILE get
   // get user profile data, refresh on every load
@@ -13,7 +13,9 @@ export default function Profile() {
 
   async function getProfileData() {
     try {
-      const response = await fetch(`http://localhost:5000/dashboard/profile/${userId}`);
+      const response = await fetch(
+        `http://localhost:5000/dashboard/profile/${userId}`
+      );
       const data = await response.json();
       if (response.status === 200) {
         console.log(data);
@@ -31,47 +33,43 @@ export default function Profile() {
   // post request to update user profile when 'save' button clicked
   // user data is stored in variable data
   async function handleProfileUpdate(e) {
+    const [userName, setUserName] = useState(null);
+    const [nationality, setNationality] = useState(null);
+    const [age, setAge] = useState(null);
+    
 
-  const [userName, setUserName] = useState(null);
-  const [nationality, setNationality] = useState(null);
-  const [age, setAge] = useState(null);
-  const [activeTab, setActiveTab] = useState("Favoriten");
-
-  const handleProfileUpdate = async (e) => {
-
-    e.preventDefault();
-    console.log(userId);
-    const data = { userName, nationality, age, userId };
-    try {
-      const response = await fetch("http://localhost:5000/dashboard/profile", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.status === 201) {
-        return console.log("Profile updated!");
+    const handleProfileUpdate = async (e) => {
+      e.preventDefault();
+      console.log(userId);
+      const data = { userName, nationality, age, userId };
+      try {
+        const response = await fetch(
+          "http://localhost:5000/dashboard/profile",
+          {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.status === 201) {
+          return console.log("Profile updated!");
+        }
+        throw new Error("Profile update failed");
+      } catch (err) {
+        console.log(err);
       }
-      throw new Error("Profile update failed");
-    } catch (err) {
-      console.log(err);
-    }
+    };
+  }
 
-  
-  
-   const handleTabClick = (tab) => {
+  const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-    
+
   useEffect(() => {
     getProfileData();
   }, []);
-
-  
-
- 
-
 
   return (
     <div>
@@ -99,20 +97,35 @@ export default function Profile() {
       </nav>
       <div>
         {activeTab === "Favoriten" && (
-        <div><h1>Favoriten </h1>
-        <p>Sollte sich Bella Swan für Jacob statt für Edward entscheiden?</p>
-        <p>Darf ich meinen Hund in der Waschmachine waschen, bei niedriger Temperatur?</p>
-        <p>Ich bin in den Vater meines Freundes verliebt... Soll ich es dem Vater sagen und evtl. mit ihm eine Affäre anfangen?</p></div>)}
+          <div>
+            <h1>Favoriten </h1>
+            <p>
+              Sollte sich Bella Swan für Jacob statt für Edward entscheiden?
+            </p>
+            <p>
+              Darf ich meinen Hund in der Waschmachine waschen, bei niedriger
+              Temperatur?
+            </p>
+            <p>
+              Ich bin in den Vater meines Freundes verliebt... Soll ich es dem
+              Vater sagen und evtl. mit ihm eine Affäre anfangen?
+            </p>
+          </div>
+        )}
         {activeTab === "Info" && (
-       <div>
-        <h1>Info </h1>
-        <p>Kommt noch</p>
-        </div> )}
+          <div>
+            <h1>Info </h1>
+            <p>Kommt noch</p>
+          </div>
+        )}
         {activeTab === "Freunde" && (
-        <div><h1>Freunde </h1>
-        <p>Klaus Dieter</p>
-        <p>Frankie goes to Hollywood</p>
-        <p>Pipi Langstrumpf</p></div>)}
+          <div>
+            <h1>Freunde </h1>
+            <p>Klaus Dieter</p>
+            <p>Frankie goes to Hollywood</p>
+            <p>Pipi Langstrumpf</p>
+          </div>
+        )}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>
