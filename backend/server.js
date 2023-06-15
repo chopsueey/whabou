@@ -9,6 +9,7 @@ import connectDB from "./database/connectDB.js";
 
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import { logoutController } from "./controllers/userController.js";
 
 const app = express();
 

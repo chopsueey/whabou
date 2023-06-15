@@ -38,17 +38,13 @@ export const userLogin = async (data) => {
   }
 };
 
-export const userLogout = async (data) => {
+export const userLogout = async () => {
   try {
-    const response = await fetch("http://localhost:5000/dashboard/logout", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
+    const response = await fetch("http://localhost:5000/logout");
+    console.log(response);
     if (response.status === 201) {
+      //- funktioniert mit 404, aber mit 200 - logout fehlgeschlagen, aber mit Frontend kann Ok sein
+      //if (response.status === 200)
       return console.log("Logout erfolgreich!");
     }
     throw new Error("Logout fehlgeschlagen!");
