@@ -107,13 +107,17 @@ export async function getAllUsersController(req, res, next) {
 // DELETE ALL TASKS
 
 // Logout
-const logoutController = (req, res) => {
+const logoutController = (req, res, next) => {
   // res.status(201).json(allUsers);
   // Clear the cookie by setting it to an empty value and expiring it immediately
-  res.clearCookie("jwt", token, { httpOnly: true }).status(201);
+  try {
+    res.status(201).clearCookie("jwt", {httpOnly: true}).json();
+  } catch (err) {
+    next(err);
+  }
 
   // Redirect or respond as needed
   // res.redirect('/login'); // Example redirect to login page
- }
+};
 
-export { logoutController }
+export { logoutController };
