@@ -1,6 +1,7 @@
 import express from "express";
 import * as profileController from "../controllers/profileController.js";
 import * as questionController from "../controllers/questionController.js";
+import * as feedbackController from "../controllers/feedbackController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const dashboardRouter = express.Router();
@@ -42,6 +43,14 @@ dashboardRouter.post("/myquestions", questionController.postQuestion);
 // LIKE (wird noch ausgelagert)
 // added the router for the new postLike controller
 // dashboardRouter.post("/:id", dashboard.postLike);
+
+//DASHBOARD/FEEDBACK
+
+//post
+dashboardRouter.post("/feedback", feedbackController.postFeedback)
+
+//post like
+dashboardRouter.post("/feedback", feedbackController.postLike)
 
 
 export default dashboardRouter;
