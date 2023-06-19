@@ -14,7 +14,7 @@ export default function Profile() {
   async function getProfileData() {
     try {
       const response = await fetch(
-        `http://localhost:5000/dashboard/profile/${userId}`
+        `https://wabooo-server.onrender.com/dashboard/profile/${userId}`
       );
       const data = await response.json();
       if (response.status === 200) {
@@ -37,7 +37,7 @@ export default function Profile() {
     console.log(userId);
     const data = { userName, nationality, age, userId };
     try {
-      const response = await fetch("http://localhost:5000/dashboard/profile", {
+      const response = await fetch("https://wabooo-server.onrender.com/dashboard/profile", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {

@@ -10,7 +10,7 @@ export default function MyQuestions() {
     const data = { question, userId };
     try {
       const response = await fetch(
-        "http://localhost:5000/dashboard/myquestions",
+        "https://wabooo-server.onrender.com/dashboard/myquestions",
         {
           method: "POST",
           body: JSON.stringify(data),

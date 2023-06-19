@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   // QUESTIONS
   async function getQuestions() {
-    fetch("http://localhost:5000/dashboard/myquestions")
+    fetch("https://wabooo-server.onrender.com/myquestions")
       .then((response) => {
         return response.json();
       })

@@ -1,6 +1,6 @@
 export const Question = ({ question }) => {
   async function handleYesClick() {
-    fetch(`http://localhost:5000/dashboard/${question._Id}`);
+    fetch(`https://wabooo-server.onrender.com/dashboard/${question._Id}`);
   }
   function handleNoClick() {}
   // changed the questionModel to english words
