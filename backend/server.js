@@ -18,7 +18,7 @@ const port = process.env.PORT || 5050;
 const connectionString = process.env.MONGO_URL;
 
 // Start MIDDLEWARES
-app.use(cors({ credentials: true, origin: "https://wabooo.onrender.com/" }));
+app.use(cors({ credentials: true, origin: "https://wabooo.onrender.com" }));
 app.use(express.json());
 
 app.use("/", userRouter);
