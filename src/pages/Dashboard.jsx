@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Questions } from "../components/Questions.jsx";
 import { useNavigate } from "react-router-dom";
+import GeneralStore from "../store/GeneralContext.jsx";
 
 export default function Dashboard() {
+  const { isLoggedIn } = GeneralStore();
   // QUESTIONS
   const [allQuestions, setAllQuestions] = useState(null);
   const navigate = useNavigate();
@@ -57,13 +59,21 @@ export default function Dashboard() {
         <div>
           <div>
             <h1>your profile</h1>
-            <button onClick={() => navigate("/dashboard/profile")}>
+            <button
+              onClick={() => {
+                if (isLoggedIn === true) navigate("/dashboard/profile");
+              }}
+            >
               profile
             </button>
           </div>
           <div>
             <h1>your questions</h1>
-            <button onClick={() => navigate("/dashboard/myquestions")}>
+            <button
+              onClick={() => {
+                if (isLoggedIn === true) navigate("/dashboard/myquestions");
+              }}
+            >
               to questions
             </button>
           </div>
