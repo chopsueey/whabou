@@ -18,7 +18,7 @@ async function postFeedback(req, res, next) {
 }
 
 // POST LIKE
-/*async function postLike(req, res, next) {
+async function postLike(req, res, next) {
   const { user, question } = req.body;
   try {
     const newLike = likeModel({
