@@ -2,7 +2,6 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import GeneralStore from "../store/GeneralContext";
 import logo from "../assets/Logo123.png";
 import { userLogout } from "./UserFunctions";
-import { useState } from "react";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -26,7 +25,11 @@ export default function Navigation() {
             <div className="buttons">
               {isLoggedIn ? (
                 <button
-                  onClick={userLogout}
+                  onClick={() => {
+                    userLogout();
+                    setIsLoggedIn(false);
+                    navigate("/logout");
+                  }}
                   style={{ backgroundColor: "blue", color: "yellow" }}
                 >
                   Logout

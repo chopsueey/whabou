@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import MyQuestions from "./pages/MyQuestions";
+import Logout from "./pages/Logout";
 import Navigation from "./components/Navigation";
 
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigation />}>
           <Route index element={<Home />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/profile" element={<Profile />} />
           <Route path="dashboard/myquestions" element={<MyQuestions />} />

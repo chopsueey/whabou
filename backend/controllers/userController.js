@@ -111,7 +111,7 @@ const logoutController = (req, res, next) => {
   // res.status(201).json(allUsers);
   // Clear the cookie by setting it to an empty value and expiring it immediately
   try {
-    res.status(201).clearCookie("jwt", {httpOnly: true}).json();
+    res.status(201).clearCookie("jwt", { httpOnly: true }).json();
   } catch (err) {
     next(err);
   }

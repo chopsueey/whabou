@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 export const userRegister = async (data) => {
   try {
     const response = await fetch("http://localhost:5000/register", {
@@ -38,17 +40,19 @@ export const userLogin = async (data) => {
   }
 };
 
-export const userLogout = async () => {
+export async function userLogout() {
+
   try {
     const response = await fetch("http://localhost:5000/logout");
     console.log(response);
     if (response.status === 201) {
       //- funktioniert mit 404, aber mit 200 - logout fehlgeschlagen, aber mit Frontend kann Ok sein
       //if (response.status === 200)
-      return console.log("Logout erfolgreich!");
+
+      return 0;
     }
     throw new Error("Logout fehlgeschlagen!");
   } catch (error) {
     console.log(error);
   }
-};
+}
