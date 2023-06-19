@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 export const userRegister = async (data) => {
   try {
-    const response = await fetch("https://wabooo-server.onrender.com/register", {
+    const response = await fetch("http://localhost:5000/register", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -21,7 +21,7 @@ export const userRegister = async (data) => {
 
 export const userLogin = async (data) => {
   try {
-    const response = await fetch("https://wabooo-server.onrender.com/login", {
+    const response = await fetch("http://localhost:5000/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -41,9 +41,8 @@ export const userLogin = async (data) => {
 };
 
 export async function userLogout() {
-
   try {
-    const response = await fetch("https://wabooo-server.onrender.com/logout");
+    const response = await fetch("http://localhost:5000/logout");
     console.log(response);
     if (response.status === 201) {
       //- funktioniert mit 404, aber mit 200 - logout fehlgeschlagen, aber mit Frontend kann Ok sein

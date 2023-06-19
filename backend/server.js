@@ -18,11 +18,10 @@ const port = process.env.PORT || 5050;
 const connectionString = process.env.MONGO_URL;
 
 // Start MIDDLEWARES
-app.use(cors({ credentials: true, origin: "https://wabooo.onrender.com" }));
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
-
 app.use("/", userRouter);
-app.use("/dashboard", dashboardRouter);
+app.use("/dashboard", authMiddleware, dashboardRouter);
 
 // Operational error handling
 //app.get("/", (req, res, next) => {

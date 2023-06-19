@@ -30,10 +30,13 @@ export async function loginController(req, res, next) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (isMatch) {
         const token = await createToken({ userId: user._id });
-        return res
-          .status(200)
-          .cookie("jwt", token, { maxAge: 60 * 60 * 1000, httpOnly: true })
-          .json({ message: "Login successful", userId: user._id });
+        return (
+          res
+            .status(200)
+            .cookie("jwt", token, { httpOnly: true }) // expires, when user closes the browser
+            // or: { maxAge: 60 * 60 * 1000, httpOnly: true }, expires after 1 hour
+            .json({ message: "Login successful", userId: user._id })
+        );
       }
       return res
         .status(401)
