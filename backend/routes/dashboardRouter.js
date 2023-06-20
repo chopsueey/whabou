@@ -7,7 +7,7 @@ const dashboardRouter = express.Router();
 
 // DASHBOARD
 // GET
-
+dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
 // POST
 
 // UPDATE
