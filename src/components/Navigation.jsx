@@ -8,9 +8,9 @@ export default function Navigation() {
   const { modal, setModal, isLoggedIn, setIsLoggedIn } = GeneralStore();
   return (
     <>
-      <div className="contentWrapper">
+      <div className="container mx-auto">
         <nav>
-          <div className="navBarBottom">
+          <div className="navBarBottom row">
             <div onClick={() => navigate("/")}>
               <Link>
                 <img style={{ width: "25%" }} src={logo} alt="wabooo logo" />
