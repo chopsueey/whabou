@@ -69,37 +69,47 @@ export default function Profile() {
         <nav className="row">
           <ul className="flex flex-row space-x-12">
             <li
-              className={`px-4 py-2 cursor-pointer  ${
-                activeTab === "Favoriten" ? "shadow-effect rounded-full" : ""
+              className={`px-4 py-2 cursor-pointer ${
+                activeTab === "Favorites" ? "selected-tab rounded-full" : ""
               }`}
-              onClick={() => handleTabClick("Favoriten")}
+              onClick={() => handleTabClick("Favorites")}
             >
-              Favoriten
+              Favorites
             </li>
-            
+
             <li
               className={`px-4 py-2 cursor-pointer ${
-                activeTab === "Info" ? "shadow-effect rounded-full" : ""
+                activeTab === "Info" ? "selected-tab rounded-full" : ""
               }`}
               onClick={() => handleTabClick("Info")}
             >
               Info
             </li>
-            
+
             <li
               className={`px-4 py-2 cursor-pointer ${
-                activeTab === "Freunde" ? "shadow-effect rounded-full" : ""
+                activeTab === "Friends" ? "selected-tab rounded-full" : ""
               }`}
-              onClick={() => handleTabClick("Freunde")}
+              onClick={() => handleTabClick("Friends")}
             >
-              Freunde
+              Friends
+            </li>
+            <li
+              className={`px-4 py-2 cursor-pointer ${
+                activeTab === "Edit" ? "selected-tab rounded-full" : ""
+              }`}
+              onClick={() => handleTabClick("Edit")}
+            >
+              Edit
             </li>
           </ul>
         </nav>
         <div className="lg:w-3/4">
-          {activeTab === "Favoriten" && (
+          {activeTab === "Favorites" && (
             <div>
-              <h1 className="my-4 h-full text-lg decoration-sky-500 my-4 border-b-4 border-sky-500 text-center">Favoriten </h1>
+              <h1 className="my-4 h-full text-lg decoration-sky-500 my-4 border-b-4 border-sky-500 text-center">
+                Favorites{" "}
+              </h1>
               <p>
                 Sollte sich Bella Swan für Jacob statt für Edward entscheiden?
               </p>
@@ -115,63 +125,76 @@ export default function Profile() {
           )}
           {activeTab === "Info" && (
             <div>
-              <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">Info </h1>
+              <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
+                Info{" "}
+              </h1>
               <p>Kommt noch</p>
               <p>Kommt noch</p>
               <p>Kommt noch</p>
             </div>
           )}
-          {activeTab === "Freunde" && (
+          {activeTab === "Friends" && (
             <div>
-              <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">Freunde </h1>
+              <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
+                Friends{" "}
+              </h1>
               <p>Klaus Dieter</p>
               <p>Frankie goes to Hollywood</p>
               <p>Pipi Langstrumpf</p>
             </div>
           )}
+          {activeTab === "Edit" && (
+            <div>
+              <h1 className="my-4 h-full text-lg decoration-sky-500 my-4 border-b-4 border-sky-500 text-center">
+                Edit{" "}
+              </h1>
+              <div>
+                <div>
+                  <label className="block uppercase tracking-wide textc text-xs font-bold mb-2">
+                    Username
+                    <input
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                        console.log(userName);
+                      }}
+                      type="text"
+                    />
+                  </label>
+                  <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
+                    Nationality
+                    <input
+                      onChange={(e) => {
+                        setNationality(e.target.value);
+                        console.log(nationality);
+                      }}
+                      type="text"
+                    />
+                  </label>
+                  <label className="block uppercase tracking-wide textc text-xs font-bold mb-2">
+                    age
+                    <input
+                      onChange={(e) => {
+                        setAge(e.target.value);
+                        console.log(age);
+                      }}
+                      type="text"
+                    />
+                  </label>
+                </div>
+                <div>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+                    onClick={handleProfileUpdate}
+                  >
+                    save
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div>
-        <div>
-          <label>
-            Username
-            <input
-              onChange={(e) => {
-                setUserName(e.target.value);
-                console.log(userName);
-              }}
-              type="text"
-            />
-          </label>
-          <label>
-            Nationality
-            <input
-              onChange={(e) => {
-                setNationality(e.target.value);
-                console.log(nationality);
-              }}
-              type="text"
-            />
-          </label>
-          <label>
-            age
-            <input
-              onChange={(e) => {
-                setAge(e.target.value);
-                console.log(age);
-              }}
-              type="text"
-            />
-          </label>
-          <div>
-            <button className=" p-2 rounded-full font-bold text-white"
-              onClick={handleProfileUpdate}
-              
-            >
-              save
-            </button>
-          </div>
-        </div>
         <div>
           <h2>your profile data</h2>
           {userData ? <h3>{JSON.stringify(userData)}</h3> : ""}
