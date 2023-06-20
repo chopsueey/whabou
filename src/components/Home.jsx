@@ -86,7 +86,6 @@ export default function Home() {
                 <span onClick={() => setRegister(true)}>Sign up!</span>
               </p>
             )}
-            <div className="footerWrapper"></div>
           </form>
         </div>
       )}

@@ -14,7 +14,8 @@ export default function Profile() {
   async function getProfileData() {
     try {
       const response = await fetch(
-        `http://localhost:5000/dashboard/profile/${userId}`
+        `http://localhost:5000/dashboard/profile/${userId}`,
+        { credentials: "include" }
       );
       const data = await response.json();
       if (response.status === 200) {
@@ -43,6 +44,7 @@ export default function Profile() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
       if (response.status === 201) {
         return console.log("Profile updated!");

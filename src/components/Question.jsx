@@ -1,6 +1,8 @@
 export const Question = ({ question }) => {
   async function handleYesClick() {
-    fetch(`http://localhost:5000/dashboard/${question._Id}`);
+    fetch(`http://localhost:5000/dashboard/${question._Id}`, {
+      credentials: "include",
+    });
   }
   function handleNoClick() {}
   // changed the questionModel to english words

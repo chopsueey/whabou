@@ -10,6 +10,7 @@ import connectDB from "./database/connectDB.js";
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { logoutController } from "./controllers/userController.js";
+import { authMiddleware } from "./middleware/authMiddleware.js";
 
 const app = express();
 
@@ -19,9 +20,8 @@ const connectionString = process.env.MONGO_URL;
 // Start MIDDLEWARES
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
-
 app.use("/", userRouter);
-app.use("/dashboard", dashboardRouter);
+app.use("/dashboard", authMiddleware, dashboardRouter);
 
 // Operational error handling
 //app.get("/", (req, res, next) => {
@@ -31,10 +31,10 @@ app.use("/dashboard", dashboardRouter);
 //})
 
 //to send a response on any error
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
-});
+// app.use(function (err, req, res, next) {
+//   console.error(err.stack);
+//   res.status(500).send("Something broke!");
+// });
 
 (async () => {
   try {

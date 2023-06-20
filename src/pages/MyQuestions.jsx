@@ -4,7 +4,7 @@ import GeneralStore from "../store/GeneralContext";
 export default function MyQuestions() {
   const [question, setQuestion] = useState(null);
   const { userId } = GeneralStore();
-  
+
   async function handlePostQuestion(e) {
     e.preventDefault();
     const data = { question, userId };
@@ -17,6 +17,7 @@ export default function MyQuestions() {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
         }
       );
       if (response.status === 201) {

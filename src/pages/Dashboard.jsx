@@ -1,34 +1,32 @@
 import { useEffect, useState } from "react";
 import { Questions } from "../components/Questions.jsx";
 import { useNavigate } from "react-router-dom";
+import GeneralStore from "../store/GeneralContext.jsx";
 
 export default function Dashboard() {
+  const { isLoggedIn } = GeneralStore();
   // QUESTIONS
   const [allQuestions, setAllQuestions] = useState(null);
   const navigate = useNavigate();
 
   // QUESTIONS
   async function getQuestions() {
-    fetch("http://localhost:5000/dashboard/myquestions")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setAllQuestions(data);
-      })
-      .catch((err) => console.log(err));
-    // const response = await fetch("http://localhost:5000/dashboard");
-    // const data = await response.json();
-    // if (response.status === 200) {
-    //   setAllQuestions(data);
-    //   console.log(data[0].Frage);
-    // }
+    const response = await fetch(
+      "http://localhost:5000/dashboard/myquestions",
+      {
+        credentials: "include",
+      }
+    );
+    const data = await response.json();
+    if (response.status === 200) {
+      setAllQuestions(data);
+    }
   }
 
   useEffect(() => {
     getQuestions();
   }, []);
+
   return (
     <>
       <div style={{ backgroundColor: "#23272f", color: "white" }}>
@@ -57,13 +55,21 @@ export default function Dashboard() {
         <div>
           <div>
             <h1>your profile</h1>
-            <button onClick={() => navigate("/dashboard/profile")}>
+            <button
+              onClick={() => {
+                if (isLoggedIn === true) navigate("/dashboard/profile");
+              }}
+            >
               profile
             </button>
           </div>
           <div>
             <h1>your questions</h1>
-            <button onClick={() => navigate("/dashboard/myquestions")}>
+            <button
+              onClick={() => {
+                if (isLoggedIn === true) navigate("/dashboard/myquestions");
+              }}
+            >
               to questions
             </button>
           </div>

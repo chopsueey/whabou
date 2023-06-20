@@ -30,10 +30,12 @@ export async function loginController(req, res, next) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (isMatch) {
         const token = await createToken({ userId: user._id });
-        return res
-          .status(200)
-          .cookie("jwt", token, { httpOnly: true })
-          .json({ message: "Login successful", userId: user._id });
+        return (
+          res
+            .status(200)
+            .cookie("jwt", token, { maxAge: 30 * 60 * 1000, httpOnly: true }) // expires after 30 min
+            .json({ message: "Login successful", userId: user._id })
+        );
       }
       return res
         .status(401)
@@ -107,7 +109,7 @@ export async function getAllUsersController(req, res, next) {
 // DELETE ALL TASKS
 
 // Logout
-const logoutController = (req, res, next) => {
+export async function logoutController(req, res, next) {
   // res.status(201).json(allUsers);
   // Clear the cookie by setting it to an empty value and expiring it immediately
   try {
@@ -118,6 +120,4 @@ const logoutController = (req, res, next) => {
 
   // Redirect or respond as needed
   // res.redirect('/login'); // Example redirect to login page
-};
-
-export { logoutController };
+}
