@@ -33,8 +33,7 @@ export async function loginController(req, res, next) {
         return (
           res
             .status(200)
-            .cookie("jwt", token, { httpOnly: true }) // expires, when user closes the browser
-            // or: { maxAge: 60 * 60 * 1000, httpOnly: true }, expires after 1 hour
+            .cookie("jwt", token, { maxAge: 30 * 60 * 1000, httpOnly: true }) // expires after 30 min
             .json({ message: "Login successful", userId: user._id })
         );
       }
