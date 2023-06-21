@@ -8,7 +8,7 @@ export default function Navigation() {
   const { modal, setModal, isLoggedIn, setIsLoggedIn } = GeneralStore();
   return (
     <>
-      <div className="container mx-auto">
+      <div>
         <nav>
           <div className="navBarBottom row">
             <div onClick={() => navigate("/")}>

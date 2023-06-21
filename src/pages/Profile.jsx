@@ -3,7 +3,7 @@ import GeneralStore from "../store/GeneralContext";
 
 export default function Profile() {
   const { userId } = GeneralStore();
-  const [activeTab, setActiveTab] = useState("Favoriten");
+  const [activeTab, setActiveTab] = useState("Info");
 
   // PROFILE get
   // get user profile data, refresh on every load
@@ -70,20 +70,19 @@ export default function Profile() {
           <ul className="flex flex-row space-x-12">
             <li
               className={`px-4 py-2 cursor-pointer ${
-                activeTab === "Favorites" ? "selected-tab rounded-full" : ""
-              }`}
-              onClick={() => handleTabClick("Favorites")}
-            >
-              Favorites
-            </li>
-
-            <li
-              className={`px-4 py-2 cursor-pointer ${
                 activeTab === "Info" ? "selected-tab rounded-full" : ""
               }`}
               onClick={() => handleTabClick("Info")}
             >
               Info
+            </li>
+            <li
+              className={`px-4 py-2 cursor-pointer ${
+                activeTab === "Favorites" ? "selected-tab rounded-full" : ""
+              }`}
+              onClick={() => handleTabClick("Favorites")}
+            >
+              Favorites
             </li>
 
             <li
@@ -104,7 +103,7 @@ export default function Profile() {
             </li>
           </ul>
         </nav>
-        <div className="lg:w-3/4">
+        <div>
           {activeTab === "Favorites" && (
             <div>
               <h1 className="my-4 h-full text-lg decoration-sky-500 my-4 border-b-4 border-sky-500 text-center">
@@ -128,9 +127,19 @@ export default function Profile() {
               <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
                 Info{" "}
               </h1>
-              <p>Kommt noch</p>
-              <p>Kommt noch</p>
-              <p>Kommt noch</p>
+
+              <div style={{color: "white"}}>
+                <h2>your profile data</h2>
+                {userData ? (
+                  <>
+                    <h3>{userData[0].userName}</h3>
+                    <h3>{userData[0].nationality}</h3>
+                    <h3>{userData[0].age}</h3>
+                  </>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           )}
           {activeTab === "Friends" && (
@@ -199,12 +208,6 @@ export default function Profile() {
               </div>
             </div>
           )}
-        </div>
-      </div>
-      <div>
-        <div>
-          <h2>your profile data</h2>
-          {userData ? <h3>{JSON.stringify(userData)}</h3> : ""}
         </div>
       </div>
     </div>
