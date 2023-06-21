@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 
 export const userRegister = async (data) => {
   try {
@@ -13,7 +12,9 @@ export const userRegister = async (data) => {
     if (response.status === 201) {
       return console.log("Registrierung erfolgreich!");
     }
-    throw new Error("Registrierung fehlgeschlagen!");
+    const result = response.json()
+    console.log(result)
+    // throw new Error("Registrierung fehlgeschlagen!");
   } catch (error) {
     console.log(error);
   }

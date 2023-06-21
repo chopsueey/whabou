@@ -11,7 +11,6 @@ export async function createUserController(req, res, next) {
     const salt = await bcrypt.genSalt(saltRound);
     const hashedSaltedPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = hashedSaltedPassword;
-
     const newUser = userModel(req.body);
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
@@ -30,12 +29,10 @@ export async function loginController(req, res, next) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (isMatch) {
         const token = await createToken({ userId: user._id });
-        return (
-          res
-            .status(200)
-            .cookie("jwt", token, { maxAge: 30 * 60 * 1000, httpOnly: true }) // expires after 30 min
-            .json({ message: "Login successful", userId: user._id })
-        );
+        return res
+          .status(200)
+          .cookie("jwt", token, { maxAge: 30 * 60 * 1000, httpOnly: true }) // expires after 30 min
+          .json({ message: "Login successful", userId: user._id });
       }
       return res
         .status(401)
