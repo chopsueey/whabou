@@ -91,8 +91,6 @@ async function decreaseNo(req, res, next) {
 
 
 export {
-  getAllQuestions,
-  getQuestion,
   increaseYes,
   decreaseYes,
   increaseNo,
