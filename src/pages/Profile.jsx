@@ -64,8 +64,8 @@ export default function Profile() {
   }, []);
 
   return (
-    <div>
-      <div className="container mx-auto px-4">
+    <div className="container mx-auto">
+      <div className="flex-col p-6 md:p-0 justify-around">
         <nav className="row">
           <ul className="flex flex-row space-x-12">
             <li
@@ -150,36 +150,43 @@ export default function Profile() {
               </h1>
               <div>
                 <div>
-                  <label className="block uppercase tracking-wide textc text-xs font-bold mb-2">
-                    Username
-                    <input
-                      onChange={(e) => {
-                        setUserName(e.target.value);
-                        console.log(userName);
-                      }}
-                      type="text"
-                    />
-                  </label>
-                  <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2">
-                    Nationality
-                    <input
-                      onChange={(e) => {
-                        setNationality(e.target.value);
-                        console.log(nationality);
-                      }}
-                      type="text"
-                    />
-                  </label>
-                  <label className="block uppercase tracking-wide textc text-xs font-bold mb-2">
-                    age
-                    <input
-                      onChange={(e) => {
-                        setAge(e.target.value);
-                        console.log(age);
-                      }}
-                      type="text"
-                    />
-                  </label>
+                  <form className="bg-gray-800 p-8 rounded-lg max-w-md mx-auto">
+                    <label className="block text-white text-xs font-bold mb-2">
+                      Username
+                      <input
+                        className="mt-2 px-4 py-2 bg-white text-gray-800 rounded-md w-full"
+                        onChange={(e) => {
+                          setUserName(e.target.value);
+                          console.log(userName);
+                        }}
+                        type="text"
+                      />
+                    </label>
+
+                    <label className="block text-white text-xs font-bold mb-2">
+                      Nationality
+                      <input
+                        className="mt-2 px-4 py-2 bg-white text-gray-800 rounded-md w-full"
+                        onChange={(e) => {
+                          setNationality(e.target.value);
+                          console.log(nationality);
+                        }}
+                        type="text"
+                      />
+                    </label>
+
+                    <label className="block text-white text-xs font-bold mb-2">
+                      Age
+                      <input
+                        className="mt-2 px-4 py-2 bg-white text-gray-800 rounded-md w-full"
+                        onChange={(e) => {
+                          setAge(e.target.value);
+                          console.log(age);
+                        }}
+                        type="text"
+                      />
+                    </label>
+                  </form>
                 </div>
                 <div>
                   <button
