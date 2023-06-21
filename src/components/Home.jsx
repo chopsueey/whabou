@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userRegister, userLogin } from "./UserFunctions.jsx";
+import bg from "../assets/akin-cakiner-unsplash.jpg";
 import GeneralStore from "../store/GeneralContext";
 
 export default function Home() {
@@ -12,7 +13,6 @@ export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -26,8 +26,8 @@ export default function Home() {
       const loginAttempt = await userLogin(data);
       if (loginAttempt) {
         setUserId(loginAttempt.userId);
-        console.log(loginAttempt.userId)
-        setIsLoggedIn(true)
+        console.log(loginAttempt.userId);
+        setIsLoggedIn(true);
         setModal(false);
         navigate("/dashboard");
         return;
@@ -39,56 +39,122 @@ export default function Home() {
   };
 
   return (
-    <div className="contentWrapper">
-      {modal && (
-        <div className="modal">
-          <form action="">
-            <span onClick={() => setModal(false)}>Close</span>
-            <h3>{register ? "Sign up" : "Log into your account!"}</h3>
-            {register && (
-              <>
-                <label>
-                  Name
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(evt) => setName(evt.target.value)}
-                  />
-                </label>
-              </>
-            )}
-            <label>
-              Email
-              <input
-                type="email"
-                value={email}
-                onChange={(evt) => setEmail(evt.target.value)}
-              />
-            </label>
-            <label>
-              Password
-              <input
-                type="password"
-                value={password}
-                onChange={(evt) => setPassword(evt.target.value)}
-              />
-            </label>
-            <button onClick={handleSubmit}>
-              {register ? "Create account" : "Sign in"}
-            </button>
-            {register ? (
-              <p className="register">
-                <span onClick={() => setRegister(false)}>To sign in</span>
-              </p>
-            ) : (
-              <p className="register">
-                Not signed up yet?{" "}
-                <span onClick={() => setRegister(true)}>Sign up!</span>
-              </p>
-            )}
-          </form>
-        </div>
-      )}
+    <div className="wrapper" style={{ height: "50vh" }}>
+      <div
+        className="flex flex-col justify-center"
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          width: "100%",
+          height: "100%"
+        }}
+      >
+        <h1 className="text-4xl">Welcome to Wabooo!</h1>
+        {/* <dialog id="d">
+          <div className="modal">
+            <form className="signin flex flex-col p-4 text-center">
+              <h3>{register ? "Sign up" : "Log into your account!"}</h3>
+              {register && (
+                <>
+                  <label>
+                    <input
+                      type="text"
+                      value={name}
+                      placeholder="name"
+                      onChange={(evt) => setName(evt.target.value)}
+                    />
+                  </label>
+                </>
+              )}
+              <label>
+                <input
+                  type="email"
+                  value={email}
+                  placeholder="email"
+                  onChange={(evt) => setEmail(evt.target.value)}
+                />
+              </label>
+              <label>
+                <input
+                  type="password"
+                  value={password}
+                  placeholder="password"
+                  onChange={(evt) => setPassword(evt.target.value)}
+                />
+              </label>
+              <button onClick={handleSubmit}>
+                {register ? "Create account" : "Sign in"}
+              </button>
+              {register ? (
+                <p className="register">
+                  <span onClick={() => setRegister(false)}>To sign in</span>
+                </p>
+              ) : (
+                <p className="register">
+                  Not signed up yet?{" "}
+                  <span onClick={() => setRegister(true)}>Sign up!</span>
+                </p>
+              )}
+            </form>
+          </div>
+          <button onClick={() => d.close()}>close</button>
+        </dialog> */}
+        {modal && (
+          <div className="modal">
+            <form className="signin flex flex-col p-4 text-center">
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => setModal(false)}
+              >
+                Close
+              </span>
+              <h3>{register ? "Sign up" : "Log into your account!"}</h3>
+              {register && (
+                <>
+                  <label>
+                    <input
+                      type="text"
+                      value={name}
+                      placeholder="name"
+                      onChange={(evt) => setName(evt.target.value)}
+                    />
+                  </label>
+                </>
+              )}
+              <label>
+                <input
+                  type="email"
+                  value={email}
+                  placeholder="email"
+                  onChange={(evt) => setEmail(evt.target.value)}
+                />
+              </label>
+              <label>
+                <input
+                  type="password"
+                  value={password}
+                  placeholder="password"
+                  onChange={(evt) => setPassword(evt.target.value)}
+                />
+              </label>
+              <button onClick={handleSubmit}>
+                {register ? "Create account" : "Sign in"}
+              </button>
+              {register ? (
+                <p className="register">
+                  <span onClick={() => setRegister(false)}>To sign in</span>
+                </p>
+              ) : (
+                <p className="register">
+                  Not signed up yet?{" "}
+                  <span onClick={() => setRegister(true)}>Sign up!</span>
+                </p>
+              )}
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

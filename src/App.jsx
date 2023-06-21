@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/Home";
 import Dashboard from "./pages/Dashboard";
@@ -20,7 +20,7 @@ function App() {
       navigate("/"); // Replace '/' with the appropriate URL of your home or login page
     }
   }, []);
-  
+
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
