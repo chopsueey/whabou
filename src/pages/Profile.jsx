@@ -130,7 +130,7 @@ export default function Profile() {
 
               <div style={{color: "white"}}>
                 <h2>your profile data</h2>
-                {userData ? (
+                {userData && userData.length > 0 ? (
                   <>
                     <h3>{userData[0].userName}</h3>
                     <h3>{userData[0].nationality}</h3>
