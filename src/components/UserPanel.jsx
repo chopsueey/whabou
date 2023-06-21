@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function UserPanel() {
   const navigate = useNavigate();
   return (
-    <section className="row user-panel">
+    <div className="user-panel">
       <h1>User panel</h1>
       <div
         className="p-2"
@@ -19,6 +19,6 @@ export default function UserPanel() {
       >
         to questions
       </div>
-    </section>
+    </div>
   );
 }

@@ -9,7 +9,7 @@ export default function Navigation() {
   const { modal, setModal, isLoggedIn, setIsLoggedIn } = GeneralStore();
   return (
     <>
-      <div className="container mx-auto" style={{ color: "white" }}>
+      <div className="p-6 sm:p-0" style={{ color: "white" }}>
         <nav className="row border-2 flex justify-between">
           <div onClick={() => navigate("/")}>
             <Link>

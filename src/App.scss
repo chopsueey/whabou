@@ -1,14 +1,21 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.submenu li {
+    margin-inline: 2px;
+}
+.active {
+    text-decoration: underline;
+}
 .signin label {
     margin: 10px 10px;
 }
 .signin input {
     color: black;
 }
-// * {
-//   box-sizing: border-box;
-//   margin: 0;
-//   padding: 0;
-// }
 
 // body {
 //   font-family: Arial, Helvetica, sans-serif;

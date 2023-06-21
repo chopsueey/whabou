@@ -22,9 +22,8 @@ export default function Feed() {
     requestFeed();
   }, [sortBy]);
   return (
-    <section className="row feed">
-      <div className="flex justify-between">
-        <h1>Feed</h1>
+    <div className="row feed">
+      <div className="flex justify-end">
         <select
           className="bg-black"
           value={sortBy}
@@ -36,8 +35,7 @@ export default function Feed() {
           <option value="last24Hours">24 hours</option>
         </select>
       </div>
-      <h2>latest questions from other users</h2>
       {sortedQuestions ? <Questions questions={sortedQuestions} /> : ""}
-    </section>
+    </div>
   );
 }

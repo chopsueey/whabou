@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <section className="row flex flex-col text-center md:flex-row justify-around border-2">
+    <section className="row flex flex-col text-center sm:flex-row justify-around border-2">
       <ul>
         <li>About</li>
         <li>Career</li>

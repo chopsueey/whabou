@@ -22,9 +22,8 @@ export default function QuestionsOfWeek() {
   }, []);
 
   return (
-    <section className="row most-clicked">
-      <h1 style={{ width: "100%" }}>Questions of the week</h1>
+    <div className="row most-clicked">
       {allQuestions ? <Questions questions={allQuestions} /> : ""}
-    </section>
+    </div>
   );
 }
