@@ -42,6 +42,7 @@ export default function Navigation() {
               {/* <span style={{cursor: "pointer"}} onClick={() => d.showModal()}>Sign in</span> */}
             </>
             )}
+
           </div>
         </nav>
         <Outlet />
