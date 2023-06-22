@@ -9,7 +9,8 @@ export const userRegister = async (data) => {
     });
     const result = await response.json();
     if (response.status === 201) {
-      return console.log("Registrierung erfolgreich!", result);
+      console.log("Registrierung erfolgreich!", result);
+      return result;
     }
     console.log(result);
     // throw new Error("Registrierung fehlgeschlagen!");

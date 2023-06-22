@@ -7,7 +7,7 @@ import GeneralStore from "../store/GeneralContext";
 export default function Home() {
   const navigate = useNavigate();
 
-  const { modal, setModal, setUserId, setIsLoggedIn } = GeneralStore();
+  const { modal, setModal, setUserId, setProfileId, setIsLoggedIn } = GeneralStore();
 
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
@@ -30,6 +30,7 @@ export default function Home() {
       const loginAttempt = await userLogin(data);
       if (loginAttempt) {
         setUserId(loginAttempt.userId);
+        setProfileId(loginAttempt.profileId)
         setIsLoggedIn(true);
         setModal(false);
         navigate("/dashboard");
@@ -37,7 +38,8 @@ export default function Home() {
       }
       return;
     }
-    await userRegister(data);
+    const newRegistration = await userRegister(data);
+    setProfileId(newRegistration.profile._id)
     setModal(false);
   };
 

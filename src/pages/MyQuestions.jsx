@@ -3,11 +3,11 @@ import GeneralStore from "../store/GeneralContext";
 
 export default function MyQuestions() {
   const [question, setQuestion] = useState(null);
-  const { userId } = GeneralStore();
+  const { userId, profileId } = GeneralStore();
 
   async function handlePostQuestion(e) {
     e.preventDefault();
-    const data = { question, userId };
+    const data = { question, profileId };
     try {
       const response = await fetch(
         "http://localhost:5000/dashboard/myquestions",

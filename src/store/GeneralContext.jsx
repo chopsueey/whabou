@@ -10,9 +10,10 @@ export function GeneralContext({ children }) {
   // stored variables
 
   const [userId, setUserId] = useState(null);
+  const [profileId, setProfileId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [modal, setModal] = useState(false);
-  const sharedData = { modal, setModal, userId, setUserId, isLoggedIn, setIsLoggedIn };
+  const sharedData = { modal, setModal, userId, setUserId, profileId, setProfileId, isLoggedIn, setIsLoggedIn };
 
 
   return (

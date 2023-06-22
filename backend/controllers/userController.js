@@ -42,11 +42,15 @@ export async function loginController(req, res, next) {
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (isMatch) {
+        const userProfile = await Profile.find({ userId: user._id });
+        // console.log(userProfile)
+        // console.log(userProfile[0]._id)
+        const profileId = userProfile[0]._id
         const token = await createToken({ userId: user._id });
         return res
           .status(200)
           .cookie("jwt", token, { maxAge: 60 * 60 * 1000, httpOnly: true }) // expires after 60 min
-          .json({ message: "Login successful", userId: user._id });
+          .json({ message: "Login successful", userId: user._id, profileId: profileId });
       }
       return res
         .status(401)
