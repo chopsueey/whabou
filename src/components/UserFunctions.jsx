@@ -1,4 +1,3 @@
-
 export const userRegister = async (data) => {
   try {
     const response = await fetch("http://localhost:5000/register", {
@@ -8,12 +7,11 @@ export const userRegister = async (data) => {
         "Content-Type": "application/json",
       },
     });
-
+    const result = await response.json();
     if (response.status === 201) {
-      return console.log("Registrierung erfolgreich!");
+      return console.log("Registrierung erfolgreich!", result);
     }
-    const result = response.json()
-    console.log(result)
+    console.log(result);
     // throw new Error("Registrierung fehlgeschlagen!");
   } catch (error) {
     console.log(error);

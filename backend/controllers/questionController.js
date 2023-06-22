@@ -44,7 +44,7 @@ export async function getLatestQuestion(req, res, next) {
     const sortedQuestions = await Question.find({})
       .sort("-createdAt")
       .limit(numOfQuestionsToShow)
-      .populate("userId", "name")
+      .populate("userId", "userName")
       .exec();
     return res.status(200).json({
       sortBy: sortBy,
@@ -62,7 +62,7 @@ export async function getLatestQuestion(req, res, next) {
     })
       .sort("-createdAt")
       .limit(numOfQuestionsToShow)
-      .populate("userId", "name")
+      .populate("userId", "userName")
       .exec();
     return res.status(200).json({
       sortBy: sortBy,
@@ -89,7 +89,7 @@ export async function getLatestQuestion(req, res, next) {
   //   })
   //     .sort("-createdAt")
   //     .limit(numOfQuestionsToShow)
-  //     .populate("userId", "name")
+  //     .populate("userId", "userName")
   //     .exec();
   //   return res.status(200).json({
   //     sortBy: sortBy,

@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
     validate: {
       validator: (v) => {
         return v.length >= 2;
@@ -18,10 +17,22 @@ const userSchema = new mongoose.Schema({
     },
   },
 
+  // userName: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  //   validate: {
+  //     validator: (v) => {
+  //       return v.length >= 2;
+  //     },
+  //     message: "Der Username muss aus mindestens zwei Zeichen bestehen!",
+  //   },
+  // },
+
   email: {
     type: String,
     required: true,
-    // unique: true,
+    unique: true,
     validate: {
       validator: (v) => {
         return v.includes("@") && v.includes(".");

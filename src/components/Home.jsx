@@ -11,12 +11,16 @@ export default function Home() {
 
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [doubleCheckPassword, setDoubleCheckPassword] = useState("");
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const data = { name, email, password };
+    if (doubleCheckPassword !== password)
+      return console.log("Your passwords are not equal.");
+    const data = { name, userName, email, password };
     console.log(data);
     setRegister(false);
     setName("");
@@ -26,7 +30,6 @@ export default function Home() {
       const loginAttempt = await userLogin(data);
       if (loginAttempt) {
         setUserId(loginAttempt.userId);
-        console.log(loginAttempt.userId);
         setIsLoggedIn(true);
         setModal(false);
         navigate("/dashboard");
@@ -47,7 +50,7 @@ export default function Home() {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           width: "100%",
-          height: "100%"
+          height: "100%",
         }}
       >
         <h1 className="text-4xl">Welcome to Wabooo!</h1>
@@ -120,6 +123,14 @@ export default function Home() {
                       onChange={(evt) => setName(evt.target.value)}
                     />
                   </label>
+                  <label>
+                    <input
+                      type="text"
+                      value={userName}
+                      placeholder="username"
+                      onChange={(evt) => setUserName(evt.target.value)}
+                    />
+                  </label>
                 </>
               )}
               <label>
@@ -138,6 +149,16 @@ export default function Home() {
                   onChange={(evt) => setPassword(evt.target.value)}
                 />
               </label>
+              {register && (
+                <label>
+                  <input
+                    type="password"
+                    value={doubleCheckPassword}
+                    placeholder="confirm password"
+                    onChange={(evt) => setDoubleCheckPassword(evt.target.value)}
+                  />
+                </label>
+              )}
               <button onClick={handleSubmit}>
                 {register ? "Create account" : "Sign in"}
               </button>
