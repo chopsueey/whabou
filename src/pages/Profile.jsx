@@ -109,17 +109,19 @@ export default function Profile() {
               <h1 className="my-4 h-full text-lg decoration-sky-500 my-4 border-b-4 border-sky-500 text-center">
                 Favorites{" "}
               </h1>
-              <p>
-                Sollte sich Bella Swan für Jacob statt für Edward entscheiden?
-              </p>
-              <p>
-                Darf ich meinen Hund in der Waschmachine waschen, bei niedriger
-                Temperatur?
-              </p>
-              <p>
-                Ich bin in den Vater meines Freundes verliebt... Soll ich es dem
-                Vater sagen und evtl. mit ihm eine Affäre anfangen?
-              </p>
+              <div className="flex flex-col items-center my-4">
+                <p>
+                  Sollte sich Bella Swan für Jacob statt für Edward entscheiden?
+                </p>
+                <p>
+                  Darf ich meinen Hund in der Waschmachine waschen, bei
+                  niedriger Temperatur?
+                </p>
+                <p>
+                  Ich bin in den Vater meines Freundes verliebt... Soll ich es
+                  dem Vater sagen und evtl. mit ihm eine Affäre anfangen?
+                </p>
+              </div>
             </div>
           )}
           {activeTab === "Info" && (
@@ -128,7 +130,7 @@ export default function Profile() {
                 Info{" "}
               </h1>
 
-              <div style={{color: "white"}}>
+              <div style={{ color: "white" }}>
                 <h2>your profile data</h2>
                 {userData && userData.length > 0 ? (
                   <>
@@ -143,13 +145,15 @@ export default function Profile() {
             </div>
           )}
           {activeTab === "Friends" && (
-            <div>
+            <div className="">
               <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
                 Friends{" "}
               </h1>
-              <p>Klaus Dieter</p>
-              <p>Frankie goes to Hollywood</p>
-              <p>Pipi Langstrumpf</p>
+              <div className="flex flex-col items-center my-4">
+                <p>Klaus Dieter</p>
+                <p>Frankie goes to Hollywood</p>
+                <p>Pipi Langstrumpf</p>
+              </div>
             </div>
           )}
           {activeTab === "Edit" && (
@@ -197,12 +201,13 @@ export default function Profile() {
                     </label>
                   </form>
                 </div>
-                <div>
+                <div className="flex justify-center my-4">
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded"
+                    type="button"
+                    class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                     onClick={handleProfileUpdate}
                   >
-                    save
+                    Save changes
                   </button>
                 </div>
               </div>
