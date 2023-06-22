@@ -39,8 +39,23 @@ async function postProfileData(req, res, next) {
 }
 
 // patch
-// problem: profil schon beim registrieren anlegen und dann nur noch
-// patch controller statt jedesmal post controller
+async function updateProfileData(req, res, next) {
+  const updateId = req.params.userId;
+  try {
+    const updatedItem = await Profile.findOneAndUpdate(
+      { userId: updateId },
+      {
+        $set: req.body,
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedItem);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// put
 async function editProfile(req, res, next) {
   try {
     // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
@@ -59,22 +74,6 @@ async function editProfile(req, res, next) {
     next(error);
   }
 }
-
-// async function updateProfileData(req, res, next) {
-//   const updateId = req.params.profileId;
-//   try {
-//     const updatedItem = await User.findByIdAndUpdate(
-//       updateId,
-//       {
-//         $set: req.body,
-//       },
-//       { new: true }
-//     );
-//     res.status(200).json(updatedItem);
-//   } catch (err) {
-//     next(err);
-//   }
-// }
 
 // delete account
 async function deleteAccount(req, res, next) {
@@ -96,6 +95,6 @@ export {
   showProfile,
   editProfile,
   postProfileData,
-  // updateProfileData,
+  updateProfileData,
   deleteAccount,
 };

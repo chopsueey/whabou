@@ -23,8 +23,11 @@ dashboardRouter.get("/profile/:userId", profileController.showProfile);
 // post
 dashboardRouter.post("/profile", profileController.postProfileData);
 
-// update
-dashboardRouter.patch("/profile", profileController.editProfile);
+// patch
+dashboardRouter.patch("/profile/:userId", profileController.updateProfileData);
+
+// put
+dashboardRouter.put("/profile", profileController.editProfile);
 
 // delete
 dashboardRouter.delete("/profile/:id", profileController.deleteAccount);

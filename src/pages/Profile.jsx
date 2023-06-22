@@ -36,18 +36,19 @@ export default function Profile() {
   async function handleProfileUpdate(e) {
     e.preventDefault();
     console.log(userId);
-    const data = { userName, nationality, age, userId };
+    const data = { nationality, age, userId };
     try {
-      const response = await fetch("http://localhost:5000/dashboard/profile", {
-        method: "POST",
+      const response = await fetch(`http://localhost:5000/dashboard/profile/${userId}`, {
+        method: "PATCH",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
       });
-      if (response.status === 201) {
-        return console.log("Profile updated!");
+      if (response.status === 200) {
+        const result = await response.json()
+        return console.log("Profile updated!", result);
       }
       throw new Error("Profile update failed");
     } catch (err) {

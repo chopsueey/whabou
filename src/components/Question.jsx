@@ -26,7 +26,7 @@ export const Question = ({ question }) => {
               </button>
             </div>
             <div className="italic">
-              <h3>By: {question.userId.name}</h3> 
+              <h3>By: {question.userId.userName}</h3> 
               <h3>Posted: {new Date(question.createdAt).toLocaleString()}</h3>
             </div>
           </div>
