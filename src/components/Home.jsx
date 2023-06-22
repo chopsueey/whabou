@@ -18,7 +18,7 @@ export default function Home() {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    if (doubleCheckPassword !== password)
+    if (register && doubleCheckPassword !== password)
       return console.log("Your passwords are not equal.");
     const data = { name, userName, email, password };
     console.log(data);
