@@ -9,7 +9,6 @@ import connectDB from "./database/connectDB.js";
 
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
-import { logoutController } from "./controllers/userController.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 
 import path from "path";
@@ -23,6 +22,8 @@ const port = process.env.PORT || 5050;
 const connectionString = process.env.MONGO_URL;
 
 // Start MIDDLEWARES
+// https://wabooo.onrender.com
+// http://localhost:5000
 app.use(cors({ credentials: true, origin: "https://wabooo.onrender.com" }));
 app.use(express.json());
 app.use("/", express.static(path.join(__dirname, "/dist")));
@@ -49,7 +50,7 @@ app.use("/dashboard", authMiddleware, dashboardRouter);
     console.log("Mit MONGODB verbunden!");
     //
     app.listen(port, () => {
-      console.log(`Server läuft auf Port: ${port}`);
+      console.log(`Server is running on: http://localhost:${port}`);
     });
   } catch (error) {
     console.log(error);
