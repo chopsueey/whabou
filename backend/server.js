@@ -12,6 +12,11 @@ import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { logoutController } from "./controllers/userController.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 const port = process.env.PORT || 5050;
@@ -20,6 +25,8 @@ const connectionString = process.env.MONGO_URL;
 // Start MIDDLEWARES
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
+app.use("/", express.static(path.join(__dirname, "/dist")));
+app.get("/", (req, res) => res.sendFile(__dirname + "/dist/index.html"));
 app.use("/", userRouter);
 app.use("/dashboard", authMiddleware, dashboardRouter);
 
