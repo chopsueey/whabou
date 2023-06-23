@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import GeneralStore from "../store/GeneralContext";
 
 export default function Profile() {
-  const { userId } = GeneralStore();
   const [activeTab, setActiveTab] = useState("Info");
 
   // PROFILE get
@@ -14,7 +13,7 @@ export default function Profile() {
   async function getProfileData() {
     try {
       const response = await fetch(
-        `http://localhost:5000/dashboard/profile/${userId}`,
+        `http://localhost:5000/dashboard/profile`,
         { credentials: "include" }
       );
       const data = await response.json();
@@ -35,10 +34,9 @@ export default function Profile() {
   // user data is stored in variable data
   async function handleProfileUpdate(e) {
     e.preventDefault();
-    console.log(userId);
-    const data = { nationality, age, userId };
+    const data = { userName, nationality, age };
     try {
-      const response = await fetch(`http://localhost:5000/dashboard/profile/${userId}`, {
+      const response = await fetch(`http://localhost:5000/dashboard/profile`, {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {
@@ -133,11 +131,11 @@ export default function Profile() {
 
               <div style={{ color: "white" }}>
                 <h2>your profile data</h2>
-                {userData && userData.length > 0 ? (
+                {userData ? (
                   <>
-                    <h3>{userData[0].userName}</h3>
-                    <h3>{userData[0].nationality}</h3>
-                    <h3>{userData[0].age}</h3>
+                    <h3>{userData.userName}</h3>
+                    <h3>{userData.nationality}</h3>
+                    <h3>{userData.age}</h3>
                   </>
                 ) : (
                   ""

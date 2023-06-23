@@ -7,7 +7,7 @@ import GeneralStore from "../store/GeneralContext";
 export default function Home() {
   const navigate = useNavigate();
 
-  const { modal, setModal, setUserId, setProfileId, setIsLoggedIn } = GeneralStore();
+  const { modal, setModal, setHasCookie } = GeneralStore();
 
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
@@ -29,17 +29,14 @@ export default function Home() {
     if (!register) {
       const loginAttempt = await userLogin(data);
       if (loginAttempt) {
-        setUserId(loginAttempt.userId);
-        setProfileId(loginAttempt.profileId)
-        setIsLoggedIn(true);
+        setHasCookie(true);
         setModal(false);
         navigate("/dashboard");
         return;
       }
       return;
     }
-    const newRegistration = await userRegister(data);
-    setProfileId(newRegistration.profile._id)
+    await userRegister(data);
     setModal(false);
   };
 
@@ -110,7 +107,10 @@ export default function Home() {
             <form className="signin flex flex-col p-4 text-center">
               <span
                 style={{ cursor: "pointer" }}
-                onClick={() => setModal(false)}
+                onClick={() => {
+                  setModal(false);
+                  setRegister(false);
+                }}
               >
                 Close
               </span>

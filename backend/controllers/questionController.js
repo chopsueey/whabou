@@ -1,10 +1,13 @@
+import Profile from "../model/profileModel.js";
 import Question from "../model/questionModel.js";
 
 // get
 // Alle Fragen abrufen
 export async function getAllQuestions(req, res, next) {
   try {
-    const questions = await Question.find().populate("userId", "name").exec();
+    const questions = await Question.find()
+      .populate("profileId", "userName")
+      .exec();
 
     res.status(200).json(questions);
   } catch (error) {
@@ -39,7 +42,7 @@ export async function getLatestQuestion(req, res, next) {
   const sortBy = req.query.sortBy;
 
   // latest
-
+try {
   if (sortBy === "latest") {
     const sortedQuestions = await Question.find({})
       .sort("-createdAt")
@@ -96,16 +99,22 @@ export async function getLatestQuestion(req, res, next) {
   //     found: sortedQuestions,
   //   });
   // }
+  
+} catch (err) {
+  next(err)
+}
 }
 
 // post
 export async function postQuestion(req, res, next) {
-  const { question, profileId } = req.body;
+  const { question } = req.body;
+  const userId = req.user.userId;
 
   try {
+    const userProfile = await Profile.findOne({ userId: userId });
     const newQuestion = Question({
       question: question,
-      profileId: profileId,
+      profileId: userProfile._id,
     });
 
     const savedQuestion = await newQuestion.save();

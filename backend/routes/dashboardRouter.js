@@ -16,21 +16,24 @@ dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
 
 // DASHBOARD/PROFILE
 
+// changed the access to the userId to req.user.userId (which is from the jwt cookie)
+// so that we don't need send the :userId as params or query
+
 // get
-dashboardRouter.get("/profile/:userId", profileController.showProfile);
+dashboardRouter.get("/profile", profileController.showProfile);
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post
 dashboardRouter.post("/profile", profileController.postProfileData);
 
 // patch
-dashboardRouter.patch("/profile/:userId", profileController.updateProfileData);
+dashboardRouter.patch("/profile", profileController.updateProfileData);
 
 // put
 dashboardRouter.put("/profile", profileController.editProfile);
 
 // delete
-dashboardRouter.delete("/profile/:id", profileController.deleteAccount);
+dashboardRouter.delete("/profile", profileController.deleteAccount);
 //dashboardRouter.delete("/profile", profileController.deleteProfileData);
 
 // DASHBOARD/MYQUESTIONS
@@ -42,8 +45,7 @@ dashboardRouter.get("/myquestions/:id", questionController.getQuestion);
 // post
 dashboardRouter.post("/myquestions", questionController.postQuestion);
 
-// LIKE (wird noch ausgelagert)
-// added the router for the new postLike controller
+// LIKE
 // dashboardRouter.post("/:id", dashboard.postLike);
 
 //DASHBOARD/FEEDBACK

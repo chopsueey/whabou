@@ -35,7 +35,11 @@ export default function Feed() {
           <option value="last24Hours">24 hours</option>
         </select>
       </div>
-      {sortedQuestions ? <Questions questions={sortedQuestions} /> : ""}
+      {sortedQuestions && sortedQuestions.length > 0 ? (
+        <Questions questions={sortedQuestions} />
+      ) : (
+        <h2 className="text-center">Nothing found :/</h2>
+      )}
     </div>
   );
 }

@@ -23,7 +23,12 @@ export default function QuestionsOfWeek() {
 
   return (
     <div className="row most-clicked">
-      {allQuestions ? <Questions questions={allQuestions} /> : ""}
+      {/* {allQuestions ? <Questions questions={allQuestions} /> : ""} */}
+      {allQuestions && allQuestions.length > 0 ? (
+        <Questions questions={allQuestions} />
+      ) : (
+        <h2 className="text-center">Nothing found :/</h2>
+      )}
     </div>
   );
 }
