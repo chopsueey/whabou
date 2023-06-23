@@ -2,7 +2,7 @@ import express from "express";
 import * as user from "../controllers/userController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 // import { validateUser } from "../middleware/validateUser.js";
-import {check, validationResult} from "express-validator";
+// import {check, validationResult} from "express-validator";
 import { userPostSchema } from "./userSchema.js";
 import validate from "../middleware/validateAjv.js";
 
@@ -20,13 +20,15 @@ import validate from "../middleware/validateAjv.js";
 //     }
 // ]
 
-
 const userRouter = express.Router();
 
 // create / post
 //userRouter.post("/register", user.createUserController);
-userRouter.post("/register", validate(userPostSchema), user.createUserController);
-
+userRouter.post(
+  "/register",
+  validate(userPostSchema),
+  user.createUserController
+);
 
 // login
 userRouter.post("/login", user.loginController);
@@ -35,6 +37,5 @@ userRouter.post("/login", user.loginController);
 
 // logout
 userRouter.get("/logout", user.logoutController);
-
 
 export default userRouter;
