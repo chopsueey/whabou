@@ -42,15 +42,19 @@ export async function loginController(req, res, next) {
     if (user) {
       const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (isMatch) {
-        const userProfile = await Profile.find({ userId: user._id });
+        const userProfile = await Profile.findOne({ userId: user._id });
         // console.log(userProfile)
-        // console.log(userProfile[0]._id)
-        const profileId = userProfile[0]._id
+        const profileId = userProfile._id;
         const token = await createToken({ userId: user._id });
         return res
           .status(200)
-          .cookie("jwt", token, { maxAge: 60 * 60 * 1000, httpOnly: true }) // expires after 60 min
-          .json({ message: "Login successful", userId: user._id, profileId: profileId });
+          .cookie("jwt", token, { maxAge: 24 * 60 * 60 * 1000, httpOnly: true }) // expires after 24 hours
+          .cookie("isLoggedIn", true, { maxAge: 24 * 60 * 60 * 1000 })
+          .json({
+            message: "Login successful.",
+            userId: user._id,
+            profileId: profileId,
+          });
       }
       return res
         .status(401)
@@ -59,7 +63,6 @@ export async function loginController(req, res, next) {
     res.status(404).json("Benutzer nicht gefunden");
   } catch (error) {
     next(error);
-    //res.status(500).json(error);
   }
 }
 
@@ -70,6 +73,7 @@ export async function logoutController(req, res, next) {
     res
       .status(201)
       .clearCookie("jwt", { httpOnly: true })
+      .clearCookie("isLoggedIn")
       .json({ message: "Logout successful!" });
   } catch (err) {
     next(err);

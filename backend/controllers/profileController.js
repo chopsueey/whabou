@@ -6,10 +6,9 @@ import User from "../model/userModel.js";
 async function showProfile(req, res, next) {
   try {
     // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
-    const userId = req.params.userId;
-
+    const userId = req.user.userId;
     // Benutzer aus der Datenbank abrufen
-    const user = await Profile.find({ userId: userId });
+    const user = await Profile.findOne({ userId: userId });
 
     res.status(200).json(user);
   } catch (error) {
@@ -34,13 +33,12 @@ async function postProfileData(req, res, next) {
     res.status(201).json(savedProfile);
   } catch (err) {
     next(err);
-    //res.json(error);
   }
 }
 
 // patch
 async function updateProfileData(req, res, next) {
-  const updateId = req.params.userId;
+  const updateId = req.user.userId;
   try {
     const updatedItem = await Profile.findOneAndUpdate(
       { userId: updateId },
@@ -59,7 +57,7 @@ async function updateProfileData(req, res, next) {
 async function editProfile(req, res, next) {
   try {
     // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
-    const userId = req.body.userId;
+    const userId = req.user.userId;
 
     // Aktualisierte Profildaten aus dem Request-Body erhalten
     const updatedProfile = req.body;
@@ -78,7 +76,7 @@ async function editProfile(req, res, next) {
 // delete account
 async function deleteAccount(req, res, next) {
   try {
-    const accountId = req.body.userId;
+    const accountId = req.user.userId;
     const deletedAccount = await User.findByIdAndDelete(accountId);
     console.log(deletedAccount);
     if (!deletedAccount) {

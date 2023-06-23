@@ -6,14 +6,23 @@ import Footer from "./Footer";
 
 export default function Navigation() {
   const navigate = useNavigate();
-  const { modal, setModal, isLoggedIn, setIsLoggedIn } = GeneralStore();
+  const {
+    setModal,
+    hasCookie,
+    setHasCookie,
+  } = GeneralStore();
+
   return (
     <>
       <div className="p-6 sm:p-0" style={{ color: "grey" }}>
         <nav className="row border-2 flex justify-between">
           <div onClick={() => navigate("/")}>
             <Link>
-              <img style={{ aspectRatio: "1/1", width: "100px"}} src={logo} alt="wabooo logo" />
+              <img
+                style={{ aspectRatio: "1/1", width: "100px" }}
+                src={logo}
+                alt="wabooo logo"
+              />
             </Link>
           </div>
           <ul className="links flex">
@@ -26,23 +35,28 @@ export default function Navigation() {
           </ul>
 
           <div className="buttons">
-            {isLoggedIn ? (
+            {hasCookie || document.cookie.includes("isLoggedIn") ? (
               <button
-                onClick={() => {
-                  userLogout();
-                  setIsLoggedIn(false);
+                onClick={async () => {
+                  await userLogout();
+                  setHasCookie(false);
                   navigate("/logout");
                 }}
                 style={{ backgroundColor: "blue", color: "yellow" }}
               >
                 Logout
               </button>
-            ) : (<>
-              <span style={{cursor: "pointer"}} onClick={() => setModal(true)}>Sign in</span>
-              {/* <span style={{cursor: "pointer"}} onClick={() => d.showModal()}>Sign in</span> */}
-            </>
+            ) : (
+              <>
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setModal(true)}
+                >
+                  Sign in
+                </span>
+                {/* <span style={{cursor: "pointer"}} onClick={() => d.showModal()}>Sign in</span> */}
+              </>
             )}
-
           </div>
         </nav>
         <Outlet />

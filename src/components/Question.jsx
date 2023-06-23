@@ -1,10 +1,27 @@
+import { useState } from "react";
+
 export const Question = ({ question }) => {
-  async function handleYesClick() {
-    fetch(`http://localhost:5000/dashboard/${question._Id}`, {
+  const [userAnswer, setUserAnswer] = useState("");
+
+  async function handleClick(answer) {
+    answer === "yes" ? setUserAnswer("yes") : setUserAnswer("no");
+    const questionId = question._id;
+    const data = { questionId, userAnswer };
+    // fetch(
+    //   `http://localhost:5000/dashboard/?answer=${userAnswer}&question=${question._id}`,
+    //   {
+    //     credentials: "include",
+    //   }
+    // );
+    fetch(`http://localhost:5000/dashboard/question/answer`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
       credentials: "include",
     });
   }
-  function handleNoClick() {}
 
  return (
   <>
@@ -27,9 +44,21 @@ export const Question = ({ question }) => {
               No
             </button>
           </div>
-          <div className="italic">
-            <h3>By: {question.profileId.userName}</h3>
-            <h3>Posted: {new Date(question.createdAt).toLocaleString()}</h3>
+
+          <div className="flex justify-between">
+            <div className="flex">
+              <button className="mx-2" onClick={() => handleClick("yes")}>
+                Yes
+              </button>
+              <button className="mx-2" onClick={() => handleClick("no")}>
+                No
+              </button>
+            </div>
+            <div className="italic">
+              <h3>By: {question.profileId.userName}</h3>
+              <h3>Posted: {new Date(question.createdAt).toLocaleString()}</h3>
+            </div>
+
           </div>
         </div>
       </figure>
