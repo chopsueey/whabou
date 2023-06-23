@@ -6,7 +6,7 @@ export default function QuestionsOfWeek() {
 
   async function getQuestions() {
     const response = await fetch(
-      "http://localhost:5000/dashboard/myquestions",
+      "/dashboard/myquestions",
       {
         credentials: "include",
       }

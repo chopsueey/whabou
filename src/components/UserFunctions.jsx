@@ -42,7 +42,7 @@ export const userLogin = async (data) => {
 
 export async function userLogout() {
   try {
-    const response = await fetch("http://localhost:5000/logout", {
+    const response = await fetch("/logout", {
       credentials: "include",
     });
     if (response.status === 201) {

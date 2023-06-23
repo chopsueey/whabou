@@ -7,7 +7,7 @@ export default function Feed() {
 
   async function requestFeed() {
     const response = await fetch(
-      `http://localhost:5000/dashboard/feed/sort/?sortBy=${sortBy}`,
+      `/dashboard/feed/sort/?sortBy=${sortBy}`,
       {
         credentials: "include",
       }

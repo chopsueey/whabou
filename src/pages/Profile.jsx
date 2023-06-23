@@ -13,7 +13,7 @@ export default function Profile() {
   async function getProfileData() {
     try {
       const response = await fetch(
-        `https://wabooo.onrender.com/dashboard/profile`,
+        `/dashboard/profile`,
         { credentials: "include" }
       );
       const data = await response.json();
@@ -36,7 +36,7 @@ export default function Profile() {
     e.preventDefault();
     const data = { userName, nationality, age };
     try {
-      const response = await fetch(`https://wabooo.onrender.com/dashboard/profile`, {
+      const response = await fetch(`/dashboard/profile`, {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {

@@ -13,7 +13,7 @@ export const Question = ({ question }) => {
     //     credentials: "include",
     //   }
     // );
-    fetch(`http://localhost:5000/dashboard/question/answer`, {
+    fetch(`/dashboard/question/answer`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

@@ -9,7 +9,7 @@ export default function MyQuestions() {
     const data = { question };
     try {
       const response = await fetch(
-        "http://localhost:5000/dashboard/myquestions",
+        "/dashboard/myquestions",
         {
           method: "POST",
           body: JSON.stringify(data),
