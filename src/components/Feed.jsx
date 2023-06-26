@@ -32,7 +32,7 @@ export default function Feed() {
           <option value="latest">latest</option>
           <option value="lastHour">one hour</option>
           <option value="last12Hours">12 hours</option>
-          <option value="last24Hours">24 hours</option>
+          <option value="last24Hours">24 hoursblabal</option>
         </select>
       </div>
       {sortedQuestions && sortedQuestions.length > 0 ? (
