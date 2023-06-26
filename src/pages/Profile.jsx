@@ -73,7 +73,7 @@ export default function Profile() {
         <div>
           {activeTab === "Favorites" && (
             <div>
-              <h1 className="my-4 h-full text-lg decoration-sky-500 my-4 border-b-4 border-sky-500 text-center">
+              <h1 className="my-4 h-full text-lg decoration-sky-500 border-b-4 border-sky-500 text-center">
                 Favorites{" "}
               </h1>
               <div className="flex flex-col items-center my-4">
@@ -125,7 +125,7 @@ export default function Profile() {
           )}
           {activeTab === "Edit" && (
             <div>
-              <h1 className="my-4 h-full text-lg decoration-sky-500 my-4 border-b-4 border-sky-500 text-center">
+              <h1 className="my-4 h-full text-lg decoration-sky-500 border-b-4 border-sky-500 text-center">
                 Edit{" "}
               </h1>
               <div>

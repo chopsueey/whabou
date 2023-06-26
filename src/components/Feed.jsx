@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Questions } from "./Questions";
 import { getFeed } from "../fetchRequests/QuestionRequests";
+import GeneralStore, { GeneralContext } from "../store/GeneralContext";
 
 export default function Feed() {
   const [sortedQuestions, setSortedQuestions] = useState(null);
   const [sortBy, setSortBy] = useState("latest");
-  const [isLoading, setIsLoading] = useState(false);
+  const {isLoading, setIsLoading} = GeneralStore()
 
   useEffect(() => {
     (async function request() {
@@ -32,7 +33,7 @@ export default function Feed() {
 
       {isLoading ? (
         <div className="flex justify-center mt-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
         </div>
       ) : sortedQuestions && sortedQuestions.length > 0 ? (
         <Questions questions={sortedQuestions} />

@@ -10,7 +10,8 @@ export function GeneralContext({ children }) {
   // stored variables
   const [hasCookie, setHasCookie] = useState(false);
   const [modal, setModal] = useState(false);
-  const sharedData = { modal, setModal, hasCookie, setHasCookie };
+  const [isLoading, setIsLoading] = useState(false);
+  const sharedData = { modal, setModal, hasCookie, setHasCookie, isLoading, setIsLoading };
 
   return (
     <InitialContext.Provider value={sharedData}>
