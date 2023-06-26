@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userRegister, userLogin } from "./UserFunctions.jsx";
+import { userRegister, userLogin } from "../fetchRequests/UserRequests.jsx";
 import bg from "../assets/akin-cakiner-unsplash.jpg";
 import GeneralStore from "../store/GeneralContext";
 

@@ -1,37 +1,18 @@
 import { useEffect, useState } from "react";
 import { Questions } from "./Questions";
+import { getFeed } from "../fetchRequests/QuestionRequests";
 
 export default function Feed() {
   const [sortedQuestions, setSortedQuestions] = useState(null);
   const [sortBy, setSortBy] = useState("latest");
   const [isLoading, setIsLoading] = useState(false);
 
-  async function requestFeed() {
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(
-        `http://localhost:5000/dashboard/feed/sort/?sortBy=${sortBy}`,
-        {
-          credentials: "include",
-        }
-      );
-      const data = await response.json();
-
-      if (response.status === 200) {
-        console.log(data);
-        setSortedQuestions(data.found);
-      }
-
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Fehler bei der Anfrage:", error);
-      setIsLoading(false);
-    }
-  }
-
   useEffect(() => {
-    requestFeed();
+    (async function request() {
+      setIsLoading(true);
+      setSortedQuestions(await getFeed(sortBy));
+      setIsLoading(false);
+    })();
   }, [sortBy]);
 
   return (

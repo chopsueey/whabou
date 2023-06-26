@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { postAnswer } from "../fetchRequests/QuestionRequests";
 
 export const Question = ({ question }) => {
   const [userAnswer, setUserAnswer] = useState("");
@@ -13,14 +14,7 @@ export const Question = ({ question }) => {
     //     credentials: "include",
     //   }
     // );
-    fetch(`http://localhost:5000/dashboard/question/answer`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
+    await postAnswer(data)
   }
 
   return (
