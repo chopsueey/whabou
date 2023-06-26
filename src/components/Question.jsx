@@ -21,8 +21,8 @@ export const Question = ({ question }) => {
     <>
       {question ? (
         <figure
-          style={{ border: "1px solid white" }}
-          className="p-3 bg-gray-800 text-white mb-2 rounded-md w-full"
+          style={{ border: "2px solid #149eca" }}
+          className="p-3 bg-gray-800 text-white mb-2 rounded-md w-1/2 mx-auto"
         >
           <figcaption>
             <h1 className="text-center text-xl">{question.question}</h1>
@@ -54,3 +54,5 @@ export const Question = ({ question }) => {
     </>
   );
 };
+
+
