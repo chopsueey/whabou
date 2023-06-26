@@ -1,65 +1,33 @@
 import { useEffect, useState } from "react";
-import GeneralStore from "../store/GeneralContext";
+import { getProfile, patchProfile } from "../fetchRequests/ProfileRequests";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Info");
 
-  // PROFILE get
-  // get user profile data, refresh on every load
-  // of the dashboard component (see useEffect)
+  // PROFILE
 
   const [userData, setUserData] = useState(null);
-
-  async function getProfileData() {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/dashboard/profile`,
-        { credentials: "include" }
-      );
-      const data = await response.json();
-      if (response.status === 200) {
-        console.log(data);
-        setUserData(data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  // PROFILE update
   const [userName, setUserName] = useState(null);
   const [nationality, setNationality] = useState(null);
   const [age, setAge] = useState(null);
 
-  // post request to update user profile when 'save' button clicked
+  // patch request to update user profile when 'save' button clicked
   // user data is stored in variable data
   async function handleProfileUpdate(e) {
     e.preventDefault();
     const data = { userName, nationality, age };
-    try {
-      const response = await fetch(`http://localhost:5000/dashboard/profile`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      if (response.status === 200) {
-        const result = await response.json()
-        return console.log("Profile updated!", result);
-      }
-      throw new Error("Profile update failed");
-    } catch (err) {
-      console.log(err);
-    }
+    await patchProfile(data);
   }
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
+  // get user profile data, refresh on every load
   useEffect(() => {
-    getProfileData();
+    (async function request() {
+      setUserData(await getProfile());
+    })();
   }, []);
 
   return (

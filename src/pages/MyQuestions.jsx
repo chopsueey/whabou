@@ -1,5 +1,5 @@
 import { useState } from "react";
-import GeneralStore from "../store/GeneralContext";
+import { postQuestion } from "../fetchRequests/QuestionRequests";
 
 export default function MyQuestions() {
   const [question, setQuestion] = useState(null);
@@ -7,27 +7,7 @@ export default function MyQuestions() {
   async function handlePostQuestion(e) {
     e.preventDefault();
     const data = { question };
-    try {
-      const response = await fetch(
-        "http://localhost:5000/dashboard/myquestions",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-      if (response.status === 201) {
-        return console.log("Frage uploaded!");
-      }
-      // error or show the response message from the backend
-      // to let the user know, what is happening or why it doesn't work
-      throw new Error("Frage update failed");
-    } catch (err) {
-      console.log(err);
-    }
+    postQuestion(data)
   }
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>
