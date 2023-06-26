@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-// a Like Schema, that stores the id of the question
-// that was being liked and the id of the user,
-// who liked the question
 const likeSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +11,23 @@ const likeSchema = new mongoose.Schema({
     ref: "Question",
     required: true,
   },
+});
+
+// Add validation to the schema
+likeSchema.pre("validate", async function (next) {
+  // Validate the user field
+  if (!this.user) {
+    throw new Error("User field is required");
+  }
+
+  // Validate the question field
+  if (!this.question) {
+    throw new Error("Question field is required");
+  }
+
+  // You can add additional validation logic here if needed
+
+  next();
 });
 
 const Like = mongoose.model("Like", likeSchema);
