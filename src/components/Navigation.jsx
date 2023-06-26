@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import GeneralStore from "../store/GeneralContext";
 import logo from "../assets/Logo123.png";
-import { userLogout } from "./UserFunctions";
+import { userLogout } from "../fetchRequests/UserRequests";
 import Footer from "./Footer";
 
 export default function Navigation() {
