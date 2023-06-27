@@ -38,6 +38,7 @@ dashboardRouter.get("/myquestions/:id", questionController.getQuestion);
 
 // post
 dashboardRouter.post("/myquestions", questionController.postQuestion);
+dashboardRouter.post("/myquestions/likes", questionController.postQuestion);
 
 // LIKE (wird noch ausgelagert)
 // added the router for the new postLike controller
