@@ -21,9 +21,9 @@ const questionSchema = new mongoose.Schema(
     yes: { type: Number, default: 0 },
     no: { type: Number, default: 0 },
     likes: { type: Number, default: 0 },
-    userId: {
+    profileId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Profile",
       required: true,
     },
   },
