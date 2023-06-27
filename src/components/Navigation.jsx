@@ -57,10 +57,11 @@ export default function Navigation() {
             </div>
           </div>
           {/* searchbar */}
-          <form className="mb-3">
+
+          {/* <form className="mb-3">
             <input type="text" placeholder="mehr stylen alex, mehr mehr mehr" />
             <button className="bg-sky-500 text-white">search</button>
-          </form>
+          </form> */}
         </nav>
         <Outlet />
         <Footer />
