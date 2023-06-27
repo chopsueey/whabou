@@ -6,58 +6,61 @@ import Footer from "./Footer";
 
 export default function Navigation() {
   const navigate = useNavigate();
-  const {
-    setModal,
-    hasCookie,
-    setHasCookie,
-  } = GeneralStore();
+  const { setModal, hasCookie, setHasCookie } = GeneralStore();
 
   return (
     <>
       <div className="p-6 sm:p-0" style={{ color: "grey" }}>
-        <nav className="row border-2 flex justify-between">
-          <div onClick={() => navigate("/")}>
-            <Link>
-              <img
-                style={{ aspectRatio: "1/1", width: "100px" }}
-                src={logo}
-                alt="wabooo logo"
-              />
-            </Link>
-          </div>
-          <ul className="links flex">
-            <Link>
-              <li>About</li>
-            </Link>
-            <Link>
-              <li>Contact</li>
-            </Link>
-          </ul>
+        <nav className="row border-2 flex flex-col">
+          {/* navlinks + signin/logout button */}
+          <div className="flex justify-between">
+            <div className="flex" onClick={() => navigate("/")}>
+              <Link>
+                <img
+                  style={{ aspectRatio: "1/1", width: "100px" }}
+                  src={logo}
+                  alt="wabooo logo"
+                />
+              </Link>
+              <ul className="links flex items-center">
+                <Link>
+                  <li>About</li>
+                </Link>
+                <Link>
+                  <li>Contact</li>
+                </Link>
+              </ul>
+            </div>
 
-          <div className="buttons">
-            {hasCookie || document.cookie.includes("isLoggedIn") ? (
-              <button
-                onClick={async () => {
-                  await userLogout();
-                  setHasCookie(false);
-                  navigate("/logout");
-                }}
-                style={{ backgroundColor: "blue", color: "yellow" }}
-              >
-                Logout
-              </button>
-            ) : (
-              <>
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setModal(true)}
+            <div className="buttons">
+              {hasCookie || document.cookie.includes("isLoggedIn") ? (
+                <button
+                  onClick={async () => {
+                    await userLogout();
+                    setHasCookie(false);
+                    navigate("/logout");
+                  }}
+                  style={{ backgroundColor: "blue", color: "yellow" }}
                 >
-                  Sign in
-                </span>
-                {/* <span style={{cursor: "pointer"}} onClick={() => d.showModal()}>Sign in</span> */}
-              </>
-            )}
+                  Logout
+                </button>
+              ) : (
+                <>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setModal(true)}
+                  >
+                    Sign in
+                  </span>
+                </>
+              )}
+            </div>
           </div>
+          {/* searchbar */}
+          <form className="mb-3">
+            <input type="text" placeholder="mehr stylen alex, mehr mehr mehr" />
+            <button className="bg-sky-500 text-white">search</button>
+          </form>
         </nav>
         <Outlet />
         <Footer />

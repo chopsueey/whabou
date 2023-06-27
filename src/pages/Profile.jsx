@@ -17,6 +17,7 @@ export default function Profile() {
     e.preventDefault();
     const data = { userName, nationality, age };
     await patchProfile(data);
+    setUserData(await getProfile());
   }
 
   const handleTabClick = (tab) => {

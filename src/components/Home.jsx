@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userRegister, userLogin } from "../fetchRequests/UserRequests.jsx";
 import bg from "../assets/akin-cakiner-unsplash.jpg";
@@ -6,10 +6,7 @@ import GeneralStore from "../store/GeneralContext";
 
 export default function Home() {
   const navigate = useNavigate();
-
-
-  const { modal, setModal, setHasCookie } = GeneralStore();
-
+  const { modal, setModal, hasCookie, setHasCookie } = GeneralStore();
 
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
@@ -31,9 +28,7 @@ export default function Home() {
     if (!register) {
       const loginAttempt = await userLogin(data);
       if (loginAttempt) {
-
         setHasCookie(true);
-
         setModal(false);
         navigate("/dashboard");
         return;
@@ -46,6 +41,10 @@ export default function Home() {
     setModal(false);
   };
 
+  useEffect(() => {
+    if (hasCookie) navigate("/dashboard");
+  });
+  
   return (
     <div className="wrapper" style={{ height: "50vh" }}>
       <div
@@ -111,7 +110,8 @@ export default function Home() {
         {modal && (
           <div className="modal">
             <form className="signin flex flex-col p-4 text-center bg-gray-800 rounded-lg max-w-md mx-auto">
-              <span className="textc font-bold"
+              <span
+                className="textc font-bold"
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   setModal(false);
@@ -120,7 +120,9 @@ export default function Home() {
               >
                 Close
               </span>
-              <h3 className="text-white">{register ? "Sign up" : "Log into your account!"}</h3>
+              <h3 className="text-white">
+                {register ? "Sign up" : "Log into your account!"}
+              </h3>
               {register && (
                 <>
                   <label className="block text-white text-xs font-bold mb-2">
@@ -184,13 +186,14 @@ export default function Home() {
                 </p>
               ) : (
                 <p className="register mb-4">
-                 
-                  <span className="mt-4 text-white bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-br hover:from-gray-400 hover:via-gray-500 hover:to-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 shadow-lg shadow-gray-500/50 dark:shadow-lg dark:shadow-gray-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mx-auto block max-w-[10rem] mb-2"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setRegister(true)}>Register</span>
-                  
+                  <span
+                    className="mt-4 text-white bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-br hover:from-gray-400 hover:via-gray-500 hover:to-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800 shadow-lg shadow-gray-500/50 dark:shadow-lg dark:shadow-gray-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mx-auto block max-w-[10rem] mb-2"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setRegister(true)}
+                  >
+                    Register
+                  </span>
                 </p>
-                
               )}
             </form>
           </div>
