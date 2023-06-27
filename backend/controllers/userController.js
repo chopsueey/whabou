@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 // POST / CREATE
 
 export async function createUserController(req, res, next) {
-  console.log("in register", req.body);
   try {
     // hash and salt password
     const saltRound = 12;
