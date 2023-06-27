@@ -10,13 +10,20 @@ const questionSchema = new mongoose.Schema(
       required: true,
       minlength: 5, // Mindestlänge der Frage: 5 Zeichen
       maxlength: 1000, // Maximale Länge der Frage: 1000 Zeichen
+      validate: {
+        validator: (v) => {
+          return v.length >= 5 && v.length <= 1000;
+        },
+        message:
+          "Die Frage muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",
+      },
     },
     yes: { type: Number, default: 0 },
     no: { type: Number, default: 0 },
     likes: { type: Number, default: 0 },
-    profileId: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Profile",
+      ref: "User",
       required: true,
     },
   },
