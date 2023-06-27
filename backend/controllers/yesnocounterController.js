@@ -1,35 +1,98 @@
 import Question from "../model/questionModel.js";
 
-// Zähler für Yes und No aktualisieren
-async function updateCounter(req, res, next) {
+
+// Frage mit Yes-Zähler erhöhen
+async function increaseYes(req, res, next) {
   try {
-    const questionId = req.body.id;
+    const questionId = req.params.id;
     const question = await Question.findById(questionId);
 
     if (!question) {
+      //console.log("Frage nicht gefunden");
       return res.status(404).json({ message: "Frage nicht gefunden" });
     }
 
-    const { action } = req.body;
-
-    if (action === "increaseYes") {
-      question.yes += 1;
-    } else if (action === "decreaseYes" && question.yes > 0) {
-      question.yes -= 1;
-    } else if (action === "increaseNo") {
-      question.no += 1;
-    } else if (action === "decreaseNo" && question.no > 0) {
-      question.no -= 1;
-    } else {
-      return res.status(400).json({ message: "Ungültige Aktion" });
-    }
-
+    question.yes += 1;
     await question.save();
-
+    
+    //console.log(question);
     res.status(200).json(question);
   } catch (error) {
     next(error);
   }
 }
 
-export { updateCounter };
+// Frage mit Yes-Zähler verringern
+async function decreaseYes(req, res, next) {
+  try {
+    const questionId = req.params.id;
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      //console.log("Frage nicht gefunden");
+      return res.status(404).json({ message: "Frage nicht gefunden" });
+    }
+
+    if (question.yes > 0) {
+      question.yes -= 1;
+      await question.save();
+    }
+
+    //console.log(question);
+    res.status(200).json(question);
+  } catch (error) {
+    next(error);
+  }
+}
+
+// Frage mit No-Zähler erhöhen
+async function increaseNo(req, res, next) {
+  try {
+    const questionId = req.params.id;
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      //console.log("Frage nicht gefunden");
+      return res.status(404).json({ message: "Frage nicht gefunden" });
+    }
+
+    question.no += 1;
+    await question.save();
+
+    //console.log(question);
+    res.status(200).json(question);
+  } catch (error) {
+    next(error);
+  }
+}
+
+// Frage mit No-Zähler verringern
+async function decreaseNo(req, res, next) {
+  try {
+    const questionId = req.params.id;
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+      //console.log("Frage nicht gefunden");
+      return res.status(404).json({ message: "Frage nicht gefunden" });
+    }
+
+    if (question.no > 0) {
+      question.no -= 1;
+      await question.save();
+    }
+
+    //console.log(question);
+    res.status(200).json(question);
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+export {
+  increaseYes,
+  decreaseYes,
+  increaseNo,
+  decreaseNo,
+};
