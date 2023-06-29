@@ -8,6 +8,37 @@ export async function getQuestions() {
   }
 }
 
+export async function getQuestion(questionId) {
+  const response = await fetch(
+    `http://localhost:5000/dashboard/myquestions/${questionId}`,
+    {
+      credentials: "include",
+    }
+  );
+  const data = await response.json();
+  if (response.status === 200) {
+    return data;
+  }
+}
+
+export async function checkAnswer(questionId) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/dashboard/question/answer/${questionId}`,
+      {
+        credentials: "include",
+      }
+    );
+    const data = await response.json();
+    console.log(data)
+    if (response.status === 200) {
+      return data;
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function postQuestion(data) {
   try {
     const response = await fetch(
@@ -45,8 +76,8 @@ export async function postAnswer(data) {
         credentials: "include",
       }
     );
-    if (response.status === 201) {
-      return console.log("Answer posted.");
+    if (response.status === 200) {
+      return response;
     }
   } catch (err) {
     console.log(err);

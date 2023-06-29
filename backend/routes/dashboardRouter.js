@@ -2,7 +2,7 @@ import express from "express";
 import * as profileController from "../controllers/profileController.js";
 import * as questionController from "../controllers/questionController.js";
 import * as feedbackController from "../controllers/feedbackController.js";
-
+import * as answerController from "../controllers/answerController.js";
 const dashboardRouter = express.Router();
 
 // DASHBOARD
@@ -41,6 +41,8 @@ dashboardRouter.delete("/profile", profileController.deleteAccount);
 // get
 dashboardRouter.get("/myquestions", questionController.getAllQuestions);
 dashboardRouter.get("/myquestions/:id", questionController.getQuestion);
+dashboardRouter.get("/question/answer/:questionId", answerController.checkIfAnswered);
+
 
 // post
 dashboardRouter.post("/myquestions", questionController.postQuestion);
@@ -54,6 +56,6 @@ dashboardRouter.post("/myquestions", questionController.postQuestion);
 dashboardRouter.post("/feedback", feedbackController.postFeedback);
 
 //post like
-dashboardRouter.post("/feedback", feedbackController.postLike);
+dashboardRouter.post("/question/answer", answerController.answerCounter);
 
 export default dashboardRouter;
