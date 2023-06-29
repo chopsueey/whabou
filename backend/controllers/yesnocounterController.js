@@ -1,17 +1,22 @@
 import Question from "../model/questionModel.js";
 
-// Zähler für Yes und No aktualisieren
-async function updateCounter(req, res, next) {
+
+// Frage mit Yes-Zähler erhöhen
+async function increaseYes(req, res, next) {
   try {
+
     console.log(req.body)
     const userId = req.user.userId
     console.log(userId)
     const questionId = req.body.questionId;
+
     const question = await Question.findById(questionId);
 
     if (!question) {
+      //console.log("Frage nicht gefunden");
       return res.status(404).json({ message: "Frage nicht gefunden" });
     }
+
 
     const { userAnswer } = req.body;
 
@@ -27,14 +32,20 @@ async function updateCounter(req, res, next) {
       question.no -= 1;
     } else {
       return res.status(400).json({ message: "Ungültige Aktion" });
+
     }
 
-    await question.save();
-
+    //console.log(question);
     res.status(200).json(question);
   } catch (error) {
     next(error);
   }
 }
 
-export { updateCounter };
+
+
+
+
+export {
+  increaseYes
+};

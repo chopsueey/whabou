@@ -14,7 +14,7 @@ const ProfileSchema = new mongoose.Schema({
       message: "Der Username muss aus mindestens zwei Zeichen bestehen!",
     },
   },
-  nationality: {
+  country: {
     type: String,
     // required: true,
     // enum: [
@@ -46,20 +46,20 @@ const ProfileSchema = new mongoose.Schema({
     //   "Morocco",
     //   "Other",
     // ],
-    // validate: {
-    //   validator: (v) => {
-    //     return this.enum.includes(v);
-    //   },
-    //   message: "Wählen Sie eine Option aus der Liste",
-    // },
-  },
-  age: {
-    type: Number,
-    // required: true,
-    min: 12,
     validate: {
       validator: (v) => {
-        return v.length >= 12;
+        return this.enum.includes(v);
+      },
+      message: "Bitte machen Sie Angaben zu Ihrem Wohnort",
+    },
+  },
+  birthyear: {
+    type: Number,
+    // required: true,
+    min: 2011,
+    validate: {
+      validator: (v) => {
+        return v.length >= 2011;
       },
       message: "Das Alter muss mindestens 12 sein!",
     },
