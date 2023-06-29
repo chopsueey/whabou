@@ -56,12 +56,12 @@ const ProfileSchema = new mongoose.Schema({
   birthyear: {
     type: Number,
     // required: true,
-    min: 2011,
+    min: 2017,
     validate: {
       validator: (v) => {
-        return v.length >= 2011;
+        return v.length >= 2017;
       },
-      message: "Das Alter muss mindestens 12 sein!",
+      message: "Das Alter muss mindestens 18 sein!",
     },
   },
   userId: {

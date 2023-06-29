@@ -13,6 +13,9 @@ export const userRegister = async (data) => {
       return result;
     }
     console.log(result);
+    if (response.status === 400) {
+      return result
+    }
     // throw new Error("Registrierung fehlgeschlagen!");
   } catch (error) {
     console.log(error);
@@ -34,7 +37,11 @@ export const userLogin = async (data) => {
       console.log("Anmeldung erfolgreich!");
       return userData;
     }
-    throw new Error("Anmeldung fehlgeschlagen!");
+    console.log(userData);
+    if (response.status === 400) {
+      return userData;
+    }
+    //throw new Error("Anmeldung fehlgeschlagen!");
   } catch (error) {
     console.log(error);
   }

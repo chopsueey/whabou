@@ -3,6 +3,12 @@ import * as profileController from "../controllers/profileController.js";
 import * as questionController from "../controllers/questionController.js";
 import * as feedbackController from "../controllers/feedbackController.js";
 
+import { profilePostSchema } from "../schema/profileSchema.js";
+import { feedbackPostSchema } from "../schema/feedbackSchema.js";
+//import { likePostSchema } from "../schema/likeSchema.js";
+import { questionPostSchema } from "../schema/questionSchema.js";
+import validate from "../middleware/validateAjv.js";
+
 const dashboardRouter = express.Router();
 
 // DASHBOARD
@@ -24,10 +30,18 @@ dashboardRouter.get("/profile", profileController.showProfile);
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post
-dashboardRouter.post("/profile", profileController.postProfileData);
+dashboardRouter.post(
+  "/profile",
+  validate(profilePostSchema),
+  profileController.postProfileData
+);
 
 // patch
-dashboardRouter.patch("/profile", profileController.updateProfileData);
+dashboardRouter.patch(
+  "/profile",
+  validate(profilePostSchema),
+  profileController.updateProfileData
+);
 
 // put
 dashboardRouter.put("/profile", profileController.editProfile);
@@ -43,7 +57,11 @@ dashboardRouter.get("/myquestions", questionController.getAllQuestions);
 dashboardRouter.get("/myquestions/:id", questionController.getQuestion);
 
 // post
-dashboardRouter.post("/myquestions", questionController.postQuestion);
+dashboardRouter.post(
+  "/myquestions",
+  validate(questionPostSchema),
+  questionController.postQuestion
+);
 
 // LIKE
 // dashboardRouter.post("/:id", dashboard.postLike);
@@ -51,7 +69,11 @@ dashboardRouter.post("/myquestions", questionController.postQuestion);
 //DASHBOARD/FEEDBACK
 
 //post
-dashboardRouter.post("/feedback", feedbackController.postFeedback);
+dashboardRouter.post(
+  "/feedback",
+  validate(feedbackPostSchema),
+  feedbackController.postFeedback
+);
 
 //post like
 dashboardRouter.post("/feedback", feedbackController.postLike);
