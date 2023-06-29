@@ -3,22 +3,27 @@ import Question from "../model/questionModel.js";
 // Zähler für Yes und No aktualisieren
 async function updateCounter(req, res, next) {
   try {
-    const questionId = req.body.id;
+    console.log(req.body)
+    const userId = req.user.userId
+    console.log(userId)
+    const questionId = req.body.questionId;
     const question = await Question.findById(questionId);
 
     if (!question) {
       return res.status(404).json({ message: "Frage nicht gefunden" });
     }
 
-    const { action } = req.body;
+    const { userAnswer } = req.body;
 
-    if (action === "increaseYes") {
+    if (userAnswer === "yes") {
       question.yes += 1;
-    } else if (action === "decreaseYes" && question.yes > 0) {
+      console.log(question)
+    } else if (userAnswer === "decreaseYes" && question.yes > 0) {
       question.yes -= 1;
-    } else if (action === "increaseNo") {
+    } else if (userAnswer === "no") {
       question.no += 1;
-    } else if (action === "decreaseNo" && question.no > 0) {
+      console.log(question)
+    } else if (userAnswer === "decreaseNo" && question.no > 0) {
       question.no -= 1;
     } else {
       return res.status(400).json({ message: "Ungültige Aktion" });
