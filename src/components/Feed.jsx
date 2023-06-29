@@ -6,7 +6,7 @@ import GeneralStore, { GeneralContext } from "../store/GeneralContext";
 export default function Feed() {
   const [sortedQuestions, setSortedQuestions] = useState(null);
   const [sortBy, setSortBy] = useState("latest");
-  const {isLoading, setIsLoading} = GeneralStore()
+  const { isLoading, setIsLoading } = GeneralStore();
 
   useEffect(() => {
     (async function request() {
