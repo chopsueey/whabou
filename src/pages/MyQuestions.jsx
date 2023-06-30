@@ -26,7 +26,7 @@ export default function MyQuestions() {
           onClick={handlePostQuestion}
           style={{ backgroundColor: "green", color: "white" }}
         >
-          save
+          Save
         </button>
       </div>
     </div>

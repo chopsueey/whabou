@@ -22,14 +22,14 @@ export async function postQuestion(data) {
       }
     );
     if (response.status === 201) {
-      return console.log("Frage uploaded!");
+      return console.log("Question uploaded!");
     }
     if (response.status === 400) {
-      return console.log("Frage nicht uploaded!");;
+      return console.log("Question not uploaded!");;
     }
     // error or show the response message from the backend
     // to let the user know, what is happening or why it doesn't work
-    //throw new Error("Frage update failed");
+    //throw new Error("Question update failed");
   } catch (err) {
     console.log(err);
   }
@@ -52,7 +52,7 @@ export async function postAnswer(data) {
       return console.log("Answer posted");
     }
      if (response.status === 400) {
-       return console.log("Try again to post your answer");
+       return console.log("Answer not posted");
      }
   } catch (err) {
     console.log(err);

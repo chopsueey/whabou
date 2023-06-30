@@ -1,5 +1,7 @@
 const stringLength = { type: "string", minLength: 2, maxLength: 30 };
 
+
+// PROFILE SCHEMA*************************************************************************************************************************
 export const profilePostSchema = {
   type: "object",
   properties: {
@@ -10,9 +12,9 @@ export const profilePostSchema = {
   required: ["userName", "country", "birthyear"],
   errorMessage: {
     properties: {
-      userName: "Der Username muss zwischen 2 und 30 Zeichen lang sein!",
-      country: "Bitte machen Sie Angaben zu Ihrem Wohnort",
-      birthyear: "Das Alter muss mindestens 18 sein!",
+      userName: "The username must be between 2 and 30 characters long!",
+      country: "What is your 'country'? Information not provided.",
+      birthyear: "You must be minimum 18 years old!",
     },
   },
   additionalProperties: false,

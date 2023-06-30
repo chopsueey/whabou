@@ -2,7 +2,7 @@ import likeModel from "../model/likeModel.js";
 import feedbackModel from "../model/feedbackModel.js";
 
 
-// POST FEEDBACK
+// POST FEEDBACK*********************************************************************************************
 async function postFeedback(req, res, next) {
   //console.log("feedbackText",req.body)
   const { feedbackText } = req.body;
@@ -17,7 +17,7 @@ async function postFeedback(req, res, next) {
   }
 }
 
-// POST LIKE
+// POST LIKE***************************************************************************************************
 async function postLike(req, res, next) {
   const { user, question } = req.body;
   try {
@@ -31,8 +31,5 @@ async function postLike(req, res, next) {
     next(err);
   }
 }
-
-
-
 
 export { postLike, postFeedback };

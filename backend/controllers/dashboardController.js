@@ -1,9 +1,17 @@
 import likeModel from "../model/likeModel.js";
 
+// Deutsch#####################################################################################################
 // wird noch ausgelagert
 // new LIKE controller for the new likeModel
 // which needs the userId and the questionId which was liked
-// POST LIKE
+
+// English ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// still outsourced
+// new LIKE controller for the new likeModel
+// which needs the userId and the questionId which was liked
+
+// POST LIKE****************************************************************************************************
+
 async function postLike(req, res, next) {
   const { user, question } = req.body;
   try {

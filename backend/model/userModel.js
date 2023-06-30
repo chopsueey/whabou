@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const obj = {
-  minLength: [2, "Die mindestlänge beträgt 2 Zeichen!"],
-  maxLength: [30, "Die maximale Länge beträgt 30 Zeichen!"],
+  minLength: [2, "The minimum length is 2 characters!"],
+  maxLength: [30, "The maximum length is 30 characters!"],
 };
-
+// USER SCHEMA*************************************************************************************************************************
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
       validator: (v) => {
         return v.length >= 2;
       },
-      message: "Der Name muss aus mindestens zwei Zeichen bestehen!",
+      message: "The name must consist of at least two characters!",
     },
   },
 
@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
       validator: (v) => {
         return v.includes("@") && v.includes(".");
       },
-      message: (props) => `${props.value} ist keine gültige E-Mail!`,
+      message: (props) => `${props.value} is not a valid email!`,
     },
     // match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   },
@@ -36,11 +36,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     match: [
       /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
-      "Das Passwort muss aus Groß-und Kleinbuchstaben bestehen und mindestens eine Zahl enthalten!",
+      "The password must consist of upper and lower case letters and contain at least one number!",
     ],
   },
   //minlength: 8,
-  // Mindestlänge des Passworts
+  //Minimum password length
 });
 
 const User = mongoose.model("User", userSchema);

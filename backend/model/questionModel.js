@@ -2,20 +2,22 @@ import mongoose from "mongoose";
 
 // added a reference to the user, that posted the question
 // added a like counter, which will increase or decrease
-// when a user likes or removes his like on the question
+// when a user adds or removes his like about the question
+
+// QUESTION SCHEMA************************************************************************************************************************
 const questionSchema = new mongoose.Schema(
   {
     question: {
       type: String,
       required: true,
-      minlength: 5, // Mindestlänge der Frage: 5 Zeichen
-      maxlength: 1000, // Maximale Länge der Frage: 1000 Zeichen
+      minlength: 5, // Minimum length of the question: 5 characters
+      maxlength: 1000, // Maximum length of the question: 1000 characters
       validate: {
         validator: (v) => {
           return v.length >= 5 && v.length <= 1000;
         },
         message:
-          "Die Frage muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",
+          "The question must consist of at least 5 characters and no more than 1000 characters!",
       },
     },
     yes: { type: Number, default: 0 },

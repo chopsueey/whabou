@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-// added a reference to the user, the profile belongs to
+// PROFILE SCHEMA*************************************************************************************************************************
+// Added a reference to the user, the profile belongs to
 
 const ProfileSchema = new mongoose.Schema({
   userName: {
@@ -11,46 +12,46 @@ const ProfileSchema = new mongoose.Schema({
       validator: (v) => {
         return v.length >= 2;
       },
-      message: "Der Username muss aus mindestens zwei Zeichen bestehen!",
+      message: "The username must consist of at least two characters!",
     },
   },
   country: {
     type: String,
     // required: true,
-    // enum: [
-    //   "France",
-    //   "Spain",
-    //   "England",
-    //   "Germany",
-    //   "Austria",
-    //   "Ireland",
-    //   "Norway",
-    //   "Egypt",
-    //   "Russia",
-    //   "Turkey",
-    //   "China",
-    //   "Finland",
-    //   "Italy",
-    //   "Croatia",
-    //   "Serbia",
-    //   "Slovakia",
-    //   "Greece",
-    //   "Japan",
-    //   "Bulgaria",
-    //   "Bosnia-Herzegovina",
-    //   "Liechtenstein",
-    //   "Canada",
-    //   "USA",
-    //   "Congo",
-    //   "Nigeria",
-    //   "Morocco",
-    //   "Other",
-    // ],
+    enum: [
+      "France",
+      "Spain",
+      "England",
+      "Germany",
+      "Austria",
+      "Ireland",
+      "Norway",
+      "Egypt",
+      "Russia",
+      "Turkey",
+      "China",
+      "Finland",
+      "Italy",
+      "Croatia",
+      "Serbia",
+      "Slovakia",
+      "Greece",
+      "Japan",
+      "Bulgaria",
+      "Bosnia-Herzegovina",
+      "Liechtenstein",
+      "Canada",
+      "USA",
+      "Congo",
+      "Nigeria",
+      "Morocco",
+      "Other",
+    ],
     validate: {
       validator: (v) => {
         return this.enum.includes(v);
       },
-      message: "Bitte machen Sie Angaben zu Ihrem Wohnort",
+      message: "What is your country? Informaiton not provided",
     },
   },
   birthyear: {
@@ -61,7 +62,7 @@ const ProfileSchema = new mongoose.Schema({
       validator: (v) => {
         return v.length >= 2017;
       },
-      message: "Das Alter muss mindestens 18 sein!",
+      message: "You shall be minimum 18 years old",
     },
   },
   userId: {

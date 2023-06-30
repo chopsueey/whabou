@@ -1,5 +1,7 @@
 const stringLength = { type: "string", minLength: 2, maxLength: 30 };
 
+
+// LIKE SCHEMA*************************************************************************************************************************
 export const likePostSchema = {
   type: "object",
   properties: {
@@ -9,8 +11,9 @@ export const likePostSchema = {
   required: ["user", "question"],
   errorMessage: {
     properties: {
-      user: "Der Name muss zwischen 2 und 30 Zeichen lang sein!",
-      question: "Die Frage muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",
+      user: "The name must be between 2 and 30 characters long!",
+      question:
+        "The question must consist of at least 5 characters and no more than 1000 characters!",
     },
   },
   additionalProperties: false,

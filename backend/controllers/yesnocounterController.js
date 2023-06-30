@@ -1,7 +1,8 @@
 import Question from "../model/questionModel.js";
 
-
+// YES/NO COUNTER ****************************************************************************************************************************
 // Frage mit Yes-Zähler erhöhen
+//Increase question with Yes counter
 async function increaseYes(req, res, next) {
   try {
 
@@ -14,10 +15,8 @@ async function increaseYes(req, res, next) {
 
     if (!question) {
       //console.log("Frage nicht gefunden");
-      return res.status(404).json({ message: "Frage nicht gefunden" });
+      return res.status(404).json({ message: "Question not found." });
     }
-
-
     const { userAnswer } = req.body;
 
     if (userAnswer === "yes") {
@@ -31,20 +30,15 @@ async function increaseYes(req, res, next) {
     } else if (userAnswer === "decreaseNo" && question.no > 0) {
       question.no -= 1;
     } else {
-      return res.status(400).json({ message: "Ungültige Aktion" });
+      return res.status(400).json({ message: "Invalid action." });
 
     }
-
     //console.log(question);
     res.status(200).json(question);
   } catch (error) {
     next(error);
   }
 }
-
-
-
-
 
 export {
   increaseYes

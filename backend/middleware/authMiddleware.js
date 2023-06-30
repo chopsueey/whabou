@@ -1,5 +1,7 @@
 import { validateToken } from "../lib/auth.js";
 
+//AUTHENTICATION*************************************************************************************************************************
+
 export const authMiddleware = async (req, res, next) => {
   const authorization = req.headers.cookie;
   if (!authorization) {

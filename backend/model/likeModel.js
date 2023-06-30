@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+
+// LIKE SCHEMA *******************************************************************************************************************************
 const likeSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -13,19 +15,17 @@ const likeSchema = new mongoose.Schema({
   },
 });
 
-// Add validation to the schema
+// VALIDATION TO SCHEMA***********************************************************************************************************************
 likeSchema.pre("validate", async function (next) {
   // Validate the user field
   if (!this.user) {
     throw new Error("User field is required");
   }
 
-  // Validate the question field
+  // VALIDATE THE QUESTION FIELD**************************************************************************************************************
   if (!this.question) {
     throw new Error("Question field is required");
   }
-
-  // You can add additional validation logic here if needed
 
   next();
 });

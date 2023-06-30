@@ -11,7 +11,8 @@ import validate from "../middleware/validateAjv.js";
 
 const dashboardRouter = express.Router();
 
-// DASHBOARD
+// DASHBOARD****************************************************************************************************************************
+
 // GET
 dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
 // POST
@@ -20,7 +21,7 @@ dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
 
 // DELETE
 
-// DASHBOARD/PROFILE
+// DASHBOARD/PROFILE****************************************************************************************************************************
 
 // changed the access to the userId to req.user.userId (which is from the jwt cookie)
 // so that we don't need send the :userId as params or query
@@ -50,7 +51,7 @@ dashboardRouter.put("/profile", profileController.editProfile);
 dashboardRouter.delete("/profile", profileController.deleteAccount);
 //dashboardRouter.delete("/profile", profileController.deleteProfileData);
 
-// DASHBOARD/MYQUESTIONS
+// DASHBOARD/MYQUESTIONS****************************************************************************************************************************
 
 // get
 dashboardRouter.get("/myquestions", questionController.getAllQuestions);
@@ -63,19 +64,18 @@ dashboardRouter.post(
   questionController.postQuestion
 );
 
-// LIKE
+// LIKE****************************************************************************************************************************
 // dashboardRouter.post("/:id", dashboard.postLike);
 
-//DASHBOARD/FEEDBACK
+//DASHBOARD/FEEDBACK****************************************************************************************************************************
 
-//post
 dashboardRouter.post(
   "/feedback",
   validate(feedbackPostSchema),
   feedbackController.postFeedback
 );
 
-//post like
+//POST LIKE****************************************************************************************************************************
 dashboardRouter.post("/feedback", feedbackController.postLike);
 
 export default dashboardRouter;

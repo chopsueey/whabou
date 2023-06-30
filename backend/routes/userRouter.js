@@ -22,6 +22,9 @@ import validate from "../middleware/validateAjv.js";
 
 const userRouter = express.Router();
 
+
+
+// REGISTER**************************************************************************************************************************
 // create / post
 //userRouter.post("/register", user.createUserController);
 userRouter.post(
@@ -30,14 +33,12 @@ userRouter.post(
   user.createUserController
 );
 
-// login
+// LOGIN****************************************************************************************************************************
 userRouter.post("/login", user.loginController);
 
 // userRouter.get("/user/data", authMiddleware, user.getUserDataController);
 
-
-
-// logout
+// LOGOUT****************************************************************************************************************************
 userRouter.get("/logout", user.logoutController);
 
 export default userRouter;

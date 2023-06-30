@@ -4,7 +4,7 @@ import { getProfile, patchProfile } from "../fetchRequests/ProfileRequests";
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Info");
 
-  // PROFILE
+  // PROFILE*********************************************************************************************************************************
 
   const [userData, setUserData] = useState(null);
   const [userName, setUserName] = useState(null);
@@ -50,7 +50,7 @@ export default function Profile() {
               }`}
               onClick={() => handleTabClick("Favorites")}
             >
-              Favorites
+              Favourites
             </li>
 
             <li
@@ -78,16 +78,11 @@ export default function Profile() {
                 Favorites{" "}
               </h1>
               <div className="flex flex-col items-center my-4">
+                <p>Should Bella Swan choose Jacob over Edward?</p>
+                <p>Should I wash my dog in the washing machine?</p>
                 <p>
-                  Sollte sich Bella Swan für Jacob statt für Edward entscheiden?
-                </p>
-                <p>
-                  Darf ich meinen Hund in der Waschmachine waschen, bei
-                  niedriger Temperatur?
-                </p>
-                <p>
-                  Ich bin in den Vater meines Freundes verliebt... Soll ich es
-                  dem Vater sagen und evtl. mit ihm eine Affäre anfangen?
+                  I am in love with my boyfriend's father. Shall I date with
+                  him?
                 </p>
               </div>
             </div>
@@ -99,12 +94,12 @@ export default function Profile() {
               </h1>
 
               <div style={{ color: "white" }}>
-                <h2>your profile data</h2>
+                <h2>Your profile data</h2>
                 {userData ? (
                   <>
                     <h3>{userData.userName}</h3>
-                    <h3>{userData.nationality}</h3>
-                    <h3>{userData.age}</h3>
+                    <h3>{userData.country}</h3>
+                    <h3>{userData.birthyear}</h3>
                   </>
                 ) : (
                   ""
@@ -145,7 +140,7 @@ export default function Profile() {
                     </label>
 
                     <label className="block text-white text-xs font-bold mb-2">
-                      Nationality
+                      Country
                       <input
                         className="mt-2 px-4 py-2 bg-white text-gray-800 rounded-md w-full"
                         onChange={(e) => {
@@ -157,7 +152,7 @@ export default function Profile() {
                     </label>
 
                     <label className="block text-white text-xs font-bold mb-2">
-                      Age
+                      Birthyear
                       <input
                         className="mt-2 px-4 py-2 bg-white text-gray-800 rounded-md w-full"
                         onChange={(e) => {

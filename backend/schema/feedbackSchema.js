@@ -1,5 +1,7 @@
 const stringLength = { type: "string", minLength: 2, maxLength: 30 };
 
+
+// FEEDBACK SCHEMA *************************************************************************************************************************
 export const feedbackPostSchema = {
   type: "object",
   properties: {
@@ -9,7 +11,7 @@ export const feedbackPostSchema = {
   errorMessage: {
     properties: {
       feedback:
-        "Das Feedback muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",
+        "The feedback must consist of at least 5 characters and no more than 1000 characters!",
     },
   },
   additionalProperties: false,

@@ -9,14 +9,14 @@ export const userRegister = async (data) => {
     });
     const result = await response.json();
     if (response.status === 201) {
-      console.log("Registrierung erfolgreich!", result);
+      console.log("Registration successful.", result);
       return result;
     }
     console.log(result);
     if (response.status === 400) {
-      return result
+      return result;
     }
-    // throw new Error("Registrierung fehlgeschlagen!");
+    // throw new Error("Registration failed.");
   } catch (error) {
     console.log(error);
   }
@@ -34,14 +34,14 @@ export const userLogin = async (data) => {
     });
     const userData = await response.json();
     if (response.status === 200) {
-      console.log("Anmeldung erfolgreich!");
+      console.log("Login Successful.");
       return userData;
     }
     console.log(userData);
     if (response.status === 400) {
       return userData;
     }
-    //throw new Error("Anmeldung fehlgeschlagen!");
+    //throw new Error("Login failed.");
   } catch (error) {
     console.log(error);
   }
@@ -55,7 +55,7 @@ export async function userLogout() {
     if (response.status === 201) {
       return console.log(response);
     }
-    throw new Error("Logout fehlgeschlagen!");
+    throw new Error("Logout failed.");
   } catch (error) {
     console.log(error);
   }

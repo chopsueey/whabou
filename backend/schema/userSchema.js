@@ -1,5 +1,7 @@
 const stringLength = { type: "string", minLength: 2, maxLength: 30 };
 
+
+// USER SCHEMA*************************************************************************************************************************
 export const userPostSchema = {
   type: "object",
   properties: {
@@ -17,10 +19,10 @@ export const userPostSchema = {
   required: ["name", "userName", "email", "password"],
   errorMessage: {
     properties: {
-      name: "Der Name muss zwischen 2 und 30 Zeichen lang sein!",
-      userName: "Der Name muss zwischen 2 und 30 Zeichen lang sein!",
-      email: "Das Email  muss zwischen 2 und 30 Zeichen lang sein!",
-      password: "Das Password  muss mindestens 8 Zeichen lang sein!",
+      name: "The name must be between 2 and 30 characters long!",
+      userName: "The name must be between 2 and 30 characters long!",
+      email: "The email must be between 2 and 30 characters long!",
+      password: "The password must be at least 8 characters long!",
     },
   },
   additionalProperties: false,

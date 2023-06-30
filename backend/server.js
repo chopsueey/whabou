@@ -36,13 +36,15 @@ app.use("/dashboard", authMiddleware, dashboardRouter);
 //   res.status(500).send("Something broke!");
 // });
 
+
+// CONNECT TO MONGODB*************************************************************************************************************************
 (async () => {
   try {
     await connectDB(connectionString);
-    console.log("Mit MONGODB verbunden!");
+    console.log("Connected to MONGODB!");
     //
     app.listen(port, () => {
-      console.log(`Server läuft auf Port: ${port}`);
+      console.log(`Server running on port: ${port}`);
     });
   } catch (error) {
     console.log(error);

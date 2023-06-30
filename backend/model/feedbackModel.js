@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// FEEDBACK SCHEMA*************************************************************************************************************************
+
 const feedbackSchema = new mongoose.Schema({
   feedbackText: {
     type: String,
@@ -9,7 +11,7 @@ const feedbackSchema = new mongoose.Schema({
         return v.length >= 5 && v.length <= 1000;
       },
       message:
-        "Das Feedback muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",
+        "The feedback must consist of at least 5 characters and no more than 1000 characters!",
     },
   },
 });

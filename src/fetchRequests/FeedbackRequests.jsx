@@ -25,7 +25,7 @@ export async function postFeedback (data) {
       return console.log("Feedback uploaded!");
     }
     if (response.status === 400) {
-      return console.log("Feedback nicht uploaded!");
+      return console.log("Feedback not uploaded!");
     }
     //throw new Error("Feedback update failed");
   } catch (err) {

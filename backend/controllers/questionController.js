@@ -1,8 +1,10 @@
 import Profile from "../model/profileModel.js";
 import Question from "../model/questionModel.js";
 
+// GET ALL QUESTIONS**************************************************************************************************************************
 // get
 // Alle Fragen abrufen
+
 export async function getAllQuestions(req, res, next) {
   try {
     const questions = await Question.find()
@@ -14,8 +16,9 @@ export async function getAllQuestions(req, res, next) {
     next(error);
   }
 }
-
+// FIND QUESTION BY ID***********************************************************************************************************************
 // Eine einzelne Frage anzeigen
+// View a single question
 export async function getQuestion(req, res, next) {
   try {
     const questionId = req.params.id;
@@ -32,7 +35,8 @@ export async function getQuestion(req, res, next) {
   }
 }
 
-// controller for providing frontend with the latest questions
+// FIND THE LATEST QUESTION*******************************************************************************************************************
+// Controller for providing frontend with the latest questions
 // for the user feed
 // user can check certain time range for created questions
 
@@ -41,7 +45,7 @@ export async function getLatestQuestion(req, res, next) {
 
   const sortBy = req.query.sortBy;
 
-  // latest
+  // GET THE LATEST QUESTION *****************************************************************************************************************
 try {
   if (sortBy === "latest") {
     const sortedQuestions = await Question.find({})
@@ -55,7 +59,7 @@ try {
     });
   }
 
-  // hour
+  // SHOW A QUESTION DURING THE LAST HOUR***************************************************************************************************
 
   if (sortBy === "lastHour") {
     const oneHourAgo = new Date();
@@ -76,7 +80,7 @@ try {
   // 24 hours
   // week
   // month
-  // oldest?
+  // oldest
 
   // const oneDayAgo = new Date();
 
@@ -105,7 +109,7 @@ try {
 }
 }
 
-// post
+// POST A QUESTION****************************************************************************************************************************
 export async function postQuestion(req, res, next) {
   const { question } = req.body;
   const userId = req.user.userId;
