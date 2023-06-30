@@ -14,7 +14,7 @@ export const Question = ({ question }) => {
     //     credentials: "include",
     //   }
     // );
-    await postAnswer(data)
+    await postAnswer(data);
   }
 
   return (
@@ -22,7 +22,7 @@ export const Question = ({ question }) => {
       {question ? (
         <figure
           style={{ border: "2px solid #149eca" }}
-          className="p-3 bg-gray-800 text-white mb-2 rounded-md w-1/2 mx-auto"
+          className="p-3 bg-gray-800 text-white mb-2 rounded-md w-full sm:w-4/5 md:w-3/4 lg:w-2/3 mx-auto m-2"
         >
           <figcaption>
             <h1 className="text-center text-xl">{question.question}</h1>
@@ -33,7 +33,7 @@ export const Question = ({ question }) => {
             <p className="mx-2">No: {question.no}</p>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex flex-col sm:flex-row justify-between">
             <div className="flex">
               <button className="mx-2" onClick={() => handleClick("yes")}>
                 Yes
@@ -42,7 +42,7 @@ export const Question = ({ question }) => {
                 No
               </button>
             </div>
-            <div className="italic">
+            <div className="italic mt-2 lg:mt-0">
               <h3>By: {question.profileId.userName}</h3>
               <h3>Posted: {new Date(question.createdAt).toLocaleString()}</h3>
             </div>
@@ -54,5 +54,3 @@ export const Question = ({ question }) => {
     </>
   );
 };
-
-
