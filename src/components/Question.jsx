@@ -15,10 +15,12 @@ export const Question = ({ question, answer, like }) => {
     const userAnswer = userClick;
     const questionId = question._id;
     const data = { questionId, userAnswer };
+
     await postAnswer(data);
     const updatedData = await getQuestion(question._id);
     setQuestionData(updatedData.found);
     setIsAnswered(true);
+
   }
 
   async function handleLikeClick(likeOrUnlike) {
@@ -45,13 +47,14 @@ export const Question = ({ question, answer, like }) => {
       {questionData ? (
         <figure
           style={{ border: "2px solid #149eca" }}
-          className="p-3 bg-gray-800 text-white mb-2 rounded-md w-1/2 mx-auto"
+          className="p-3 bg-gray-800 text-white mb-2 rounded-md w-full sm:w-4/5 md:w-3/4 lg:w-2/3 mx-auto m-2"
         >
           <figcaption>
             <h1 className="text-center text-xl">{questionData.question}</h1>
           </figcaption>
+
           {!isAnswered ? (
-            <div className="flex justify-center">
+            <div className="flex flex-col sm:flex-row justify-center">
               <button className="mx-2" onClick={() => handleAnswerClick("yes")}>
                 Yes
               </button>
@@ -59,6 +62,7 @@ export const Question = ({ question, answer, like }) => {
                 No
               </button>
             </div>
+
           ) : (
             <div className="flex justify-center">
               <p className="mx-2">Yes: {questionData.yes}</p>
@@ -86,7 +90,7 @@ export const Question = ({ question, answer, like }) => {
               </div>
             )}
 
-            <div className="italic">
+            <div className="italic mt-2 lg:mt-0">
               <h3>By: {questionData.profileId.userName}</h3>
               <h3>
                 Posted: {new Date(questionData.createdAt).toLocaleString()}

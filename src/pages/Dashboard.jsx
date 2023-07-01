@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QuestionsOfWeek from "../components/QuestionsOfWeek.jsx";
 import UserPanel from "../components/UserPanel.jsx";
 import Feed from "../components/Feed.jsx";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("Feed");
@@ -9,6 +11,18 @@ export default function Dashboard() {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      mirror: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    AOS.refresh(); // AOS-Animation manuell auslösen
+  }, [activeTab]);
 
   return (
     <div className="container mx-auto">
@@ -58,18 +72,23 @@ export default function Dashboard() {
               >
                 Questions of the week
               </li>
-              {/* <li
-              className={activeTab === "UserPanel" ? "active" : ""}
-              onClick={() => handleTabClick("UserPanel")}
-            >
-              User panel
-            </li> */}
             </ul>
           </nav>
 
-          {activeTab === "Feed" && <Feed />}
-          {activeTab === "Questions" && <QuestionsOfWeek />}
-          {/* {activeTab === "UserPanel" && <UserPanel />} */}
+          <div
+            data-aos="zoom-in-down"
+            data-aos-delay="100"
+            className={activeTab === "Feed" ? "" : "hidden"}
+          >
+            <Feed />
+          </div>
+          <div
+            data-aos="zoom-in-down"
+            data-aos-delay="100"
+            className={activeTab === "Questions" ? "" : "hidden"}
+          >
+            <QuestionsOfWeek />
+          </div>
         </div>
       </section>
     </div>
