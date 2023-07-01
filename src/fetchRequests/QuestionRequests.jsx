@@ -8,6 +8,19 @@ export async function getQuestions() {
   }
 }
 
+export async function getQuestion(questionId) {
+  const response = await fetch(
+    `http://localhost:5000/dashboard/myquestions/${questionId}`,
+    {
+      credentials: "include",
+    }
+  );
+  const data = await response.json();
+  if (response.status === 200) {
+    return data;
+  }
+}
+
 export async function postQuestion(data) {
   try {
     const response = await fetch(
@@ -45,8 +58,51 @@ export async function postAnswer(data) {
         credentials: "include",
       }
     );
-    if (response.status === 201) {
-      return console.log("Answer posted.");
+    if (response.status === 200) {
+      return response;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function postLike(data) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/dashboard/question/likes`,
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    console.log()
+    if (response.status === 200) {
+      return response;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function deleteLike(data) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/dashboard/question/likes`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    if (response.status === 200) {
+      return response;
     }
   } catch (err) {
     console.log(err);
@@ -61,8 +117,9 @@ export async function getFeed(sortBy) {
     }
   );
   const data = await response.json();
+  console.log(data)
   if (response.status === 200) {
-    console.log(data);
-    return data.found;
+    // console.log(data);
+    return data;
   }
 }
