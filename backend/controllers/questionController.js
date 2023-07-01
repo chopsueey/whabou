@@ -1,3 +1,5 @@
+import Answer from "../model/answeredModel.js";
+import Like from "../model/likeModel.js";
 import Profile from "../model/profileModel.js";
 import Question from "../model/questionModel.js";
 
@@ -5,11 +7,16 @@ import Question from "../model/questionModel.js";
 // Alle Fragen abrufen
 export async function getAllQuestions(req, res, next) {
   try {
-    const questions = await Question.find()
+    const questions = await Question.find({})
       .populate("profileId", "userName")
       .exec();
-
-    res.status(200).json(questions);
+    const userAnswers = await Answer.find({
+      user: req.user.userId,
+    });
+    const userLikes = await Like.find({
+      user: req.user.userId,
+    });
+    res.status(200).json({ found: questions, userAnswers: userAnswers, userLikes: userLikes });
   } catch (error) {
     next(error);
   }
@@ -20,15 +27,21 @@ export async function getQuestion(req, res, next) {
   try {
     const questionId = req.params.id;
 
-    const question = await Question.findById(questionId)
+    const questions = await Question.findById(questionId)
       .populate("profileId", "userName")
       .exec();
 
-    if (!question) {
+    const userAnswers = await Answer.find({
+      user: req.user.userId,
+    });
+    const userLikes = await Like.find({
+      user: req.user.userId,
+    });
+    if (!questions) {
       return res.status(404).json({ message: "Frage nicht gefunden" });
     }
 
-    res.status(200).json(question);
+    res.status(200).json({ found: questions, userAnswers: userAnswers, userLikes: userLikes });
   } catch (error) {
     next(error);
   }
@@ -51,9 +64,17 @@ export async function getLatestQuestion(req, res, next) {
         .limit(numOfQuestionsToShow)
         .populate("profileId", "userName")
         .exec();
+      const userAnswers = await Answer.find({
+        user: req.user.userId,
+      });
+      const userLikes = await Like.find({
+        user: req.user.userId,
+      });
       return res.status(200).json({
         sortBy: sortBy,
         found: sortedQuestions,
+        userAnswers: userAnswers,
+        userLikes: userLikes,
       });
     }
 
@@ -69,9 +90,17 @@ export async function getLatestQuestion(req, res, next) {
         .limit(numOfQuestionsToShow)
         .populate("profileId", "userName")
         .exec();
+      const userAnswers = await Answer.find({
+        user: req.user.userId,
+      });
+      const userLikes = await Like.find({
+        user: req.user.userId,
+      });
       return res.status(200).json({
         sortBy: sortBy,
         found: sortedQuestions,
+        userAnswers: userAnswers,
+        userLikes: userLikes,
       });
     }
     // 12 hours

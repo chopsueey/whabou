@@ -1,34 +1,45 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  checkAnswer,
-  getFeed,
+  deleteLike,
   getQuestion,
   postAnswer,
+  postLike,
 } from "../fetchRequests/QuestionRequests";
 
-export const Question = ({ question }) => {
+export const Question = ({ question, answer, like }) => {
   const [questionData, setQuestionData] = useState(question);
-  const [isAnswered, setIsAnswered] = useState(false);
-  async function handleClick(answer) {
-    const userAnswer = answer;
+  const [isAnswered, setIsAnswered] = useState(answer);
+  const [isLiked, setIsLiked] = useState(like);
+
+  async function handleAnswerClick(userClick) {
+    const userAnswer = userClick;
     const questionId = question._id;
     const data = { questionId, userAnswer };
-    const response = await postAnswer(data);
-    const responseData = await response.json();
-    console.log(responseData);
+    await postAnswer(data);
     const updatedData = await getQuestion(question._id);
-    setQuestionData(updatedData);
+    setQuestionData(updatedData.found);
+    setIsAnswered(true);
   }
 
-  useEffect(() => {
-    (async function request() {
-      const response = await checkAnswer(question._id);
-      if (response) {
-        setIsAnswered(true);
-      }
-    })();
-  }, []);
-
+  async function handleLikeClick(likeOrUnlike) {
+    const questionId = question._id;
+    // request postLike() or deleteLike()
+    if (likeOrUnlike === "like") {
+      const response = await postLike({ questionId });
+      const responseData = await response.json();
+      console.log(responseData);
+      const updatedData = await getQuestion(questionId);
+      setQuestionData(updatedData.found);
+      setIsLiked(true);
+    } else {
+      const response = await deleteLike({ questionId });
+      const responseData = await response.json();
+      console.log(responseData);
+      const updatedData = await getQuestion(questionId);
+      setQuestionData(updatedData.found);
+      setIsLiked(false);
+    }
+  }
   return (
     <>
       {questionData ? (
@@ -39,25 +50,42 @@ export const Question = ({ question }) => {
           <figcaption>
             <h1 className="text-center text-xl">{questionData.question}</h1>
           </figcaption>
-
-          <div className="flex justify-center">
-            <p className="mx-2">Yes: {questionData.yes}</p>
-            <p className="mx-2">No: {questionData.no}</p>
-          </div>
-
+          {!isAnswered ? (
+            <div className="flex justify-center">
+              <button className="mx-2" onClick={() => handleAnswerClick("yes")}>
+                Yes
+              </button>
+              <button className="mx-2" onClick={() => handleAnswerClick("no")}>
+                No
+              </button>
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <p className="mx-2">Yes: {questionData.yes}</p>
+              <p className="mx-2">No: {questionData.no}</p>
+            </div>
+          )}
           <div className="flex justify-between">
-            {!isAnswered ? (
-              <div className="flex">
-                <button className="mx-2" onClick={() => handleClick("yes")}>
-                  Yes
-                </button>
-                <button className="mx-2" onClick={() => handleClick("no")}>
-                  No
+            {!isLiked ? (
+              <div>
+                <button
+                  className="bg-emerald-700"
+                  onClick={() => handleLikeClick("like")}
+                >
+                  like
                 </button>
               </div>
             ) : (
-              ""
+              <div>
+                <button
+                  className="bg-red-800"
+                  onClick={() => handleLikeClick("unlike")}
+                >
+                  unlike
+                </button>
+              </div>
             )}
+
             <div className="italic">
               <h3>By: {questionData.profileId.userName}</h3>
               <h3>
