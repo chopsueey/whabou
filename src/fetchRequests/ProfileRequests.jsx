@@ -1,6 +1,6 @@
 export async function getProfile() {
     try {
-      const response = await fetch(`http://localhost:5000/dashboard/profile`, {
+      const response = await fetch(`https://wabooo-server.up.railway.app/dashboard/profile`, {
         credentials: "include",
       });
       const data = await response.json();
@@ -15,7 +15,7 @@ export async function getProfile() {
 
 export async function patchProfile(data) {
   try {
-    const response = await fetch(`http://localhost:5000/dashboard/profile`, {
+    const response = await fetch(`https://wabooo-server.up.railway.app/dashboard/profile`, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {

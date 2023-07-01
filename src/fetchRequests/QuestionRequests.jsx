@@ -1,5 +1,5 @@
 export async function getQuestions() {
-  const response = await fetch("http://localhost:5000/dashboard/myquestions", {
+  const response = await fetch("https://wabooo-server.up.railway.app/dashboard/myquestions", {
     credentials: "include",
   });
   const data = await response.json();
@@ -10,7 +10,7 @@ export async function getQuestions() {
 
 export async function getQuestion(questionId) {
   const response = await fetch(
-    `http://localhost:5000/dashboard/myquestions/${questionId}`,
+    `https://wabooo-server.up.railway.app/dashboard/myquestions/${questionId}`,
     {
       credentials: "include",
     }
@@ -24,7 +24,7 @@ export async function getQuestion(questionId) {
 export async function postQuestion(data) {
   try {
     const response = await fetch(
-      "http://localhost:5000/dashboard/myquestions",
+      "https://wabooo-server.up.railway.app/dashboard/myquestions",
       {
         method: "POST",
         body: JSON.stringify(data),
@@ -48,7 +48,7 @@ export async function postQuestion(data) {
 export async function postAnswer(data) {
   try {
     const response = await fetch(
-      `http://localhost:5000/dashboard/question/answer`,
+      `https://wabooo-server.up.railway.app/dashboard/question/answer`,
       {
         method: "POST",
         body: JSON.stringify(data),
@@ -69,7 +69,7 @@ export async function postAnswer(data) {
 export async function postLike(data) {
   try {
     const response = await fetch(
-      `http://localhost:5000/dashboard/question/likes`,
+      `https://wabooo-server.up.railway.app/dashboard/question/likes`,
       {
         method: "POST",
         body: JSON.stringify(data),
@@ -91,7 +91,7 @@ export async function postLike(data) {
 export async function deleteLike(data) {
   try {
     const response = await fetch(
-      `http://localhost:5000/dashboard/question/likes`,
+      `https://wabooo-server.up.railway.app/dashboard/question/likes`,
       {
         method: "DELETE",
         body: JSON.stringify(data),
@@ -111,7 +111,7 @@ export async function deleteLike(data) {
 
 export async function getFeed(sortBy) {
   const response = await fetch(
-    `http://localhost:5000/dashboard/feed/sort/?sortBy=${sortBy}`,
+    `https://wabooo-server.up.railway.app/dashboard/feed/sort/?sortBy=${sortBy}`,
     {
       credentials: "include",
     }
