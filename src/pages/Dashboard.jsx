@@ -7,15 +7,13 @@ import "aos/dist/aos.css";
 import Profile from "./Profile.jsx";
 import MyQuestions from "./MyQuestions.jsx";
 import { InfoSidebar } from "../components/InfoSidebar.jsx";
+import GeneralStore from "../store/GeneralContext.jsx";
+import Recommended from "../components/Recommended.jsx";
 
 // window.addEventListener("scroll", () => console.log(window.scrollbars))
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState("Feed");
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  const { activeTab, setActiveTab } = GeneralStore();
 
   useEffect(() => {
     AOS.init({
@@ -31,7 +29,7 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-2xl mx-auto lg:max-w-5xl xl:max-w-none sm:px-6 lg:px-8">
-      {/* heading */}
+      {/* searchbar */}
       <section
         className="row"
         style={{
@@ -59,73 +57,11 @@ export default function Dashboard() {
           color: "white",
         }}
       >
-        <div className="hidden sm:block lg:fixed lg:w-1/4 xl:w-auto sm:px-6 lg:px-10">
-          {/* <UserPanel /> */}
-          <div className="user-panel flex lg:flex-col border-l-2">
-            <div
-              style={{ cursor: "pointer" }}
-              // onClick={() => navigate("/dashboard/myquestions")}
-              className={(activeTab === "Feed" ? "active" : "") + " p-2"}
-              onClick={() => handleTabClick("Feed")}
-            >
-              feed
-            </div>
-            <div
-              className={(activeTab === "Questions" ? "active" : "") + " p-2"}
-              onClick={() => handleTabClick("Questions")}
-              style={{ cursor: "pointer" }}
-              // onClick={() => navigate("/dashboard/myquestions")}
-            >
-              trend
-            </div>
-            <div
-              className={(activeTab === "Recommended" ? "active" : "") + " p-2"}
-              onClick={() => handleTabClick("Recommended")}
-              style={{ cursor: "pointer" }}
-              // onClick={() => navigate("/dashboard/myquestions")}
-            >
-              recommended
-            </div>
-
-            <div
-              className={(activeTab === "AskQuestion" ? "active" : "") + " p-2"}
-              onClick={() => handleTabClick("AskQuestion")}
-              style={{ cursor: "pointer" }}
-              // onClick={() => navigate("/dashboard/myquestions")}
-            >
-              ask a question
-            </div>
-            <div
-              className={(activeTab === "Profile" ? "active" : "") + " p-2"}
-              onClick={() => handleTabClick("Profile")}
-              style={{ cursor: "pointer" }}
-              // onClick={() => navigate("/dashboard/profile")}
-            >
-              profile
-            </div>
-          </div>
-        </div>
+        <UserPanel />
         <div
           style={{ minHeight: "30vh" }}
-          className="grow sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem] 2xl:px-[20rem]"
+          className="grow px-4 sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem] 2xl:px-[20rem]"
         >
-          {/* <nav className="submenu">
-            <ul className="flex">
-              <li
-                className={activeTab === "Feed" ? "active" : ""}
-                onClick={() => handleTabClick("Feed")}
-              >
-                Feed
-              </li>
-              <li
-                className={activeTab === "Questions" ? "active" : ""}
-                onClick={() => handleTabClick("Questions")}
-              >
-                Questions of the week
-              </li>
-            </ul>
-          </nav> */}
-
           <div
             data-aos="zoom-in-down"
             data-aos-delay="100"
@@ -140,11 +76,18 @@ export default function Dashboard() {
           >
             <QuestionsOfWeek />
           </div>
+          <div
+            data-aos="zoom-in-down"
+            data-aos-delay="100"
+            className={activeTab === "Recommended" ? "" : "hidden"}
+          >
+            <Recommended />
+          </div>
 
           {activeTab === "AskQuestion" ? <MyQuestions /> : ""}
           {activeTab === "Profile" ? <Profile /> : ""}
         </div>
-        <InfoSidebar/>
+        <InfoSidebar />
       </section>
     </div>
   );

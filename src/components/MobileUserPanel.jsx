@@ -1,53 +1,49 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import GeneralStore from "../store/GeneralContext";
 
-export function InfoSidebar() {
-    const [activeTab, setActiveTab] = useState("Feed");
-
+export default function MobileUserPanel() {
+  const { activeTab, setActiveTab } = GeneralStore();
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+  const navigate = useNavigate();
   return (
-    <div className="user-panel hidden xl:flex xl:fixed right-[max(0px,calc(50%-48rem))] flex-col px-10 pr-36">
+    <div className="fixed flex justify-around bottom-0 left-0 w-full px-4 bg-white sm:hidden">
       <div
         style={{ cursor: "pointer" }}
-        // onClick={() => navigate("/dashboard/myquestions")}
         className={(activeTab === "Feed" ? "active" : "") + " p-2"}
         onClick={() => handleTabClick("Feed")}
       >
-        testdfsdfsdfsdffd
+        feed
       </div>
       <div
         className={(activeTab === "Questions" ? "active" : "") + " p-2"}
         onClick={() => handleTabClick("Questions")}
         style={{ cursor: "pointer" }}
-        // onClick={() => navigate("/dashboard/myquestions")}
       >
-        test
+        trend
       </div>
       <div
         className={(activeTab === "Recommended" ? "active" : "") + " p-2"}
         onClick={() => handleTabClick("Recommended")}
         style={{ cursor: "pointer" }}
-        // onClick={() => navigate("/dashboard/myquestions")}
       >
-        test
+        rec
       </div>
 
       <div
         className={(activeTab === "AskQuestion" ? "active" : "") + " p-2"}
         onClick={() => handleTabClick("AskQuestion")}
         style={{ cursor: "pointer" }}
-        // onClick={() => navigate("/dashboard/myquestions")}
       >
-        test
+        ask
       </div>
       <div
         className={(activeTab === "Profile" ? "active" : "") + " p-2"}
         onClick={() => handleTabClick("Profile")}
         style={{ cursor: "pointer" }}
-        // onClick={() => navigate("/dashboard/profile")}
       >
-        test
+        prof
       </div>
     </div>
   );
