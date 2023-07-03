@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Profile from "./Profile.jsx";
 import MyQuestions from "./MyQuestions.jsx";
+import { InfoSidebar } from "../components/InfoSidebar.jsx";
 
 // window.addEventListener("scroll", () => console.log(window.scrollbars))
 
@@ -29,7 +30,7 @@ export default function Dashboard() {
   }, [activeTab]);
 
   return (
-    <div className="container mx-auto lg:max-w-screen-lg sm:px-6 lg:px-8">
+    <div className="max-w-2xl mx-auto lg:max-w-5xl xl:max-w-none sm:px-6 lg:px-8">
       {/* heading */}
       <section
         className="row"
@@ -52,7 +53,7 @@ export default function Dashboard() {
       </section>
       {/* content of dashboard page */}
       <section
-        className="row flex flex-col lg:flex-row sm:px-6 lg:px-8 xl:px-20"
+        className="row flex flex-col lg:flex-row sm:px-6 lg:px-8 xl:px-20 relative"
         style={{
           backgroundColor: "#23272f",
           color: "white",
@@ -106,7 +107,7 @@ export default function Dashboard() {
         </div>
         <div
           style={{ minHeight: "30vh" }}
-          className="grow sm:px-6 lg:px-10 lg:pl-[15rem] min-h"
+          className="grow sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem] 2xl:px-[20rem]"
         >
           {/* <nav className="submenu">
             <ul className="flex">
@@ -143,6 +144,7 @@ export default function Dashboard() {
           {activeTab === "AskQuestion" ? <MyQuestions /> : ""}
           {activeTab === "Profile" ? <Profile /> : ""}
         </div>
+        <InfoSidebar/>
       </section>
     </div>
   );

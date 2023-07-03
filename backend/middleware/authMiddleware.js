@@ -6,7 +6,8 @@ export const authMiddleware = async (req, res, next) => {
     return res.status(403).json({ msg: "Authentication failed." });
   }
   try {
-    const token = authorization.split("=")[1].split(";")[0];
+    // const token = authorization.split("=")[1].split(";")[0];
+    const token = req.cookies.jwt
     if (!token) {
       return res
         .status(403)

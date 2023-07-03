@@ -45,7 +45,7 @@ async function updateProfileData(req, res, next) {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true , runValidators: true}
     );
     res.status(200).json(updatedItem);
   } catch (err) {
