@@ -5,10 +5,8 @@ export async function getProfile() {
     });
     const data = await response.json();
     if (response.status === 200) {
-      console.log("Profile uploaded");
       return data;
     }
-    console.log(data);
     if (response.status === 400) {
       return data;
     }
