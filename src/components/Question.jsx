@@ -17,10 +17,9 @@ export const Question = ({ question, answer, like }) => {
     const data = { questionId, userAnswer };
 
     await postAnswer(data);
+    setIsAnswered(true);
     const updatedData = await getQuestion(question._id);
     setQuestionData(updatedData.found);
-    setIsAnswered(true);
-
   }
 
   async function handleLikeClick(likeOrUnlike) {
@@ -28,18 +27,16 @@ export const Question = ({ question, answer, like }) => {
     // request postLike() or deleteLike()
     if (likeOrUnlike === "like") {
       const response = await postLike({ questionId });
-      const responseData = await response.json();
-      console.log(responseData);
+      setIsLiked(true);
+
       const updatedData = await getQuestion(questionId);
       setQuestionData(updatedData.found);
-      setIsLiked(true);
     } else {
       const response = await deleteLike({ questionId });
-      const responseData = await response.json();
-      console.log(responseData);
+      setIsLiked(false);
+
       const updatedData = await getQuestion(questionId);
       setQuestionData(updatedData.found);
-      setIsLiked(false);
     }
   }
   return (
@@ -47,10 +44,11 @@ export const Question = ({ question, answer, like }) => {
       {questionData ? (
         <figure
           style={{ border: "2px solid #149eca" }}
-          className="p-3 bg-gray-800 text-white mb-2 rounded-md w-full sm:w-4/5 md:w-3/4 lg:w-2/3 mx-auto m-2"
+          className="p-3 bg-gray-800 text-white mb-2 rounded-md mx-auto m-2"
         >
+          <div>profilepicture</div>
           <figcaption>
-            <h1 className="text-center text-xl">{questionData.question}</h1>
+            <h1 className="text-center text-2xl">{questionData.question}</h1>
           </figcaption>
 
           {!isAnswered ? (
@@ -62,7 +60,6 @@ export const Question = ({ question, answer, like }) => {
                 No
               </button>
             </div>
-
           ) : (
             <div className="flex justify-center">
               <p className="mx-2">Yes: {questionData.yes}</p>

@@ -4,6 +4,7 @@ import GeneralStore from "../store/GeneralContext";
 import logo from "../assets/Logo123.png";
 import { userLogout } from "../fetchRequests/UserRequests";
 import Footer from "./Footer";
+import UserPanel from "./UserPanel";
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -85,11 +86,14 @@ export default function Navigation() {
               )}
             </div>
           </div>
-
-          <Outlet />
-          <Footer />
         </nav>
       </div>
+      <Outlet />
+      {/* mobile user panel */}
+      <section className="fixed bottom-0 left-0 w-full m-0 bg-white sm:hidden">
+        <UserPanel />
+      </section>
+      <Footer />
     </>
   );
 }

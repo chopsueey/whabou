@@ -4,6 +4,10 @@ import UserPanel from "../components/UserPanel.jsx";
 import Feed from "../components/Feed.jsx";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Profile from "./Profile.jsx";
+import MyQuestions from "./MyQuestions.jsx";
+
+// window.addEventListener("scroll", () => console.log(window.scrollbars))
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("Feed");
@@ -25,10 +29,10 @@ export default function Dashboard() {
   }, [activeTab]);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto lg:max-w-screen-lg sm:px-6 lg:px-8">
       {/* heading */}
       <section
-        className="row mt-"
+        className="row"
         style={{
           backgroundColor: "#23272f",
           color: "white",
@@ -45,20 +49,66 @@ export default function Dashboard() {
             🔎
           </button>
         </div>
-
-        {/* {userData ? <h2>Welcome, {userData[0].userName}</h2> : ""} */}
       </section>
       {/* content of dashboard page */}
       <section
-        className="row flex flex-col lg:flex-row"
+        className="row flex flex-col lg:flex-row sm:px-6 lg:px-8 xl:px-20"
         style={{
           backgroundColor: "#23272f",
           color: "white",
         }}
       >
-        <UserPanel />
-        <div className="grow">
-          <nav className="submenu">
+        <div className="hidden sm:block lg:fixed lg:w-1/4 xl:w-auto sm:px-6 lg:px-10">
+          {/* <UserPanel /> */}
+          <div className="user-panel flex lg:flex-col border-l-2">
+            <div
+              style={{ cursor: "pointer" }}
+              // onClick={() => navigate("/dashboard/myquestions")}
+              className={(activeTab === "Feed" ? "active" : "") + " p-2"}
+              onClick={() => handleTabClick("Feed")}
+            >
+              feed
+            </div>
+            <div
+              className={(activeTab === "Questions" ? "active" : "") + " p-2"}
+              onClick={() => handleTabClick("Questions")}
+              style={{ cursor: "pointer" }}
+              // onClick={() => navigate("/dashboard/myquestions")}
+            >
+              trend
+            </div>
+            <div
+              className={(activeTab === "Recommended" ? "active" : "") + " p-2"}
+              onClick={() => handleTabClick("Recommended")}
+              style={{ cursor: "pointer" }}
+              // onClick={() => navigate("/dashboard/myquestions")}
+            >
+              recommended
+            </div>
+
+            <div
+              className={(activeTab === "AskQuestion" ? "active" : "") + " p-2"}
+              onClick={() => handleTabClick("AskQuestion")}
+              style={{ cursor: "pointer" }}
+              // onClick={() => navigate("/dashboard/myquestions")}
+            >
+              ask a question
+            </div>
+            <div
+              className={(activeTab === "Profile" ? "active" : "") + " p-2"}
+              onClick={() => handleTabClick("Profile")}
+              style={{ cursor: "pointer" }}
+              // onClick={() => navigate("/dashboard/profile")}
+            >
+              profile
+            </div>
+          </div>
+        </div>
+        <div
+          style={{ minHeight: "30vh" }}
+          className="grow sm:px-6 lg:px-10 lg:pl-[15rem] min-h"
+        >
+          {/* <nav className="submenu">
             <ul className="flex">
               <li
                 className={activeTab === "Feed" ? "active" : ""}
@@ -73,7 +123,7 @@ export default function Dashboard() {
                 Questions of the week
               </li>
             </ul>
-          </nav>
+          </nav> */}
 
           <div
             data-aos="zoom-in-down"
@@ -89,6 +139,9 @@ export default function Dashboard() {
           >
             <QuestionsOfWeek />
           </div>
+
+          {activeTab === "AskQuestion" ? <MyQuestions /> : ""}
+          {activeTab === "Profile" ? <Profile /> : ""}
         </div>
       </section>
     </div>

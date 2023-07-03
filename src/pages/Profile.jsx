@@ -74,9 +74,9 @@ export default function Profile() {
         <div>
           {activeTab === "Favorites" && (
             <div>
-              <h1 className="my-4 h-full text-lg decoration-sky-500 border-b-4 border-sky-500 text-center">
+              {/* <h1 className="my-4 h-full text-lg decoration-sky-500 border-b-4 border-sky-500 text-center">
                 Favorites{" "}
-              </h1>
+              </h1> */}
               <div className="flex flex-col items-center my-4">
                 <p>
                   Sollte sich Bella Swan für Jacob statt für Edward entscheiden?
@@ -94,9 +94,9 @@ export default function Profile() {
           )}
           {activeTab === "Info" && (
             <div>
-              <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
+              {/* <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
                 Info{" "}
-              </h1>
+              </h1> */}
 
               <div style={{ color: "white" }}>
                 <h2>your profile data</h2>
@@ -114,9 +114,9 @@ export default function Profile() {
           )}
           {activeTab === "Friends" && (
             <div className="">
-              <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
+              {/* <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
                 Friends{" "}
-              </h1>
+              </h1> */}
               <div className="flex flex-col items-center my-4">
                 <p>Klaus Dieter</p>
                 <p>Frankie goes to Hollywood</p>
@@ -126,9 +126,9 @@ export default function Profile() {
           )}
           {activeTab === "Edit" && (
             <div>
-              <h1 className="my-4 h-full text-lg decoration-sky-500 border-b-4 border-sky-500 text-center">
+              {/* <h1 className="my-4 h-full text-lg decoration-sky-500 border-b-4 border-sky-500 text-center">
                 Edit{" "}
-              </h1>
+              </h1> */}
               <div>
                 <div>
                   <form className="bg-gray-800 p-8 rounded-lg max-w-md mx-auto">
