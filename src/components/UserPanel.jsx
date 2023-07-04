@@ -41,9 +41,9 @@ export default function UserPanel() {
         </div>
         <div
           className={(activeTab === "Profile" ? "active" : "") + " p-2"}
-          onClick={() => handleTabClick("Profile")}
+          // onClick={() => handleTabClick("Profile")}
           style={{ cursor: "pointer" }}
-          // onClick={() => navigate("/dashboard/profile")}
+          onClick={() => navigate("/dashboard/profile")}
         >
           profile
         </div>

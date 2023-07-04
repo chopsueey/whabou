@@ -85,7 +85,7 @@ export default function Dashboard() {
           </div>
 
           {activeTab === "AskQuestion" ? <MyQuestions /> : ""}
-          {activeTab === "Profile" ? <Profile /> : ""}
+          {/* {activeTab === "Profile" ? <Profile /> : ""} */}
         </div>
         <InfoSidebar />
       </section>
