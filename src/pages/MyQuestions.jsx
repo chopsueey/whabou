@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { postQuestion } from "../fetchRequests/QuestionRequests";
+import GeneralStore from "../store/GeneralContext";
 
 export default function MyQuestions() {
+  const { setActiveTab } = GeneralStore()
+
   const [question, setQuestion] = useState(null);
 
   async function handlePostQuestion(e) {
     e.preventDefault();
     const data = { question };
-    postQuestion(data)
+    await postQuestion(data);
+    setActiveTab("Feed")
   }
   return (
     <div style={{ display: "flex", flexDirection: "column", width: "25%" }}>

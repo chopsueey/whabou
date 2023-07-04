@@ -7,7 +7,7 @@ import {
 } from "../fetchRequests/QuestionRequests";
 import { useNavigate } from "react-router-dom";
 
-export const Question = ({ question, answer, like }) => {
+export const QuestionDetails = ({ question, answer, like }) => {
   const [questionData, setQuestionData] = useState(question);
   const [isAnswered, setIsAnswered] = useState(answer);
   const [isLiked, setIsLiked] = useState(like);
@@ -105,12 +105,18 @@ export const Question = ({ question, answer, like }) => {
               </div>
             </div>
             {!isLiked ? (
-              <button onClick={() => handleLikeClick("like")}>
-                {"🤍 " + questionData.likes}
+              <button
+                className="bg-emerald-700"
+                onClick={() => handleLikeClick("like")}
+              >
+                like
               </button>
             ) : (
-              <button onClick={() => handleLikeClick("unlike")}>
-                {"💚 " + questionData.likes}
+              <button
+                className="bg-red-800"
+                onClick={() => handleLikeClick("unlike")}
+              >
+                unlike
               </button>
             )}
           </div>
