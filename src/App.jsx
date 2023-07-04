@@ -31,7 +31,7 @@ function App() {
   }, [hasCookie]);
 
   return (
-    <div className="text-center">
+    <div className="max-w-screen-2xl mx-auto">
       {isLoading ? (
         <h2 style={{ color: "white" }}>Loading...</h2>
       ) : (

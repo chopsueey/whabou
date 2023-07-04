@@ -4,13 +4,16 @@ import UserPanel from "../components/UserPanel.jsx";
 import Feed from "../components/Feed.jsx";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Profile from "./Profile.jsx";
+import MyQuestions from "./MyQuestions.jsx";
+import { InfoSidebar } from "../components/InfoSidebar.jsx";
+import GeneralStore from "../store/GeneralContext.jsx";
+import Recommended from "../components/Recommended.jsx";
+
+// window.addEventListener("scroll", () => console.log(window.scrollbars))
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState("Feed");
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  const { activeTab, setActiveTab } = GeneralStore();
 
   useEffect(() => {
     AOS.init({
@@ -25,10 +28,10 @@ export default function Dashboard() {
   }, [activeTab]);
 
   return (
-    <div className="container mx-auto">
-      {/* heading */}
+    <div className="max-w-2xl mx-auto lg:max-w-5xl xl:max-w-none sm:px-6 lg:px-8">
+      {/* searchbar */}
       <section
-        className="row mt-"
+        className="row"
         style={{
           backgroundColor: "#23272f",
           color: "white",
@@ -45,36 +48,20 @@ export default function Dashboard() {
             🔎
           </button>
         </div>
-
-        {/* {userData ? <h2>Welcome, {userData[0].userName}</h2> : ""} */}
       </section>
       {/* content of dashboard page */}
       <section
-        className="row flex flex-col lg:flex-row"
+        className="row flex flex-col lg:flex-row sm:px-6 lg:px-8 xl:px-20 relative"
         style={{
           backgroundColor: "#23272f",
           color: "white",
         }}
       >
         <UserPanel />
-        <div className="grow">
-          <nav className="submenu">
-            <ul className="flex">
-              <li
-                className={activeTab === "Feed" ? "active" : ""}
-                onClick={() => handleTabClick("Feed")}
-              >
-                Feed
-              </li>
-              <li
-                className={activeTab === "Questions" ? "active" : ""}
-                onClick={() => handleTabClick("Questions")}
-              >
-                Questions of the week
-              </li>
-            </ul>
-          </nav>
-
+        <div
+          style={{ minHeight: "30vh" }}
+          className="grow px-4 sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem] 2xl:px-[20rem]"
+        >
           <div
             data-aos="zoom-in-down"
             data-aos-delay="100"
@@ -89,7 +76,18 @@ export default function Dashboard() {
           >
             <QuestionsOfWeek />
           </div>
+          <div
+            data-aos="zoom-in-down"
+            data-aos-delay="100"
+            className={activeTab === "Recommended" ? "" : "hidden"}
+          >
+            <Recommended />
+          </div>
+
+          {activeTab === "AskQuestion" ? <MyQuestions /> : ""}
+          {/* {activeTab === "Profile" ? <Profile /> : ""} */}
         </div>
+        <InfoSidebar />
       </section>
     </div>
   );
