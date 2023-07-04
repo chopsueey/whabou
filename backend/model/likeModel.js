@@ -14,21 +14,19 @@ const likeSchema = new mongoose.Schema({
 });
 
 // Add validation to the schema
-likeSchema.pre("validate", async function (next) {
+//likeSchema.pre("validate", async function (next) {
   // Validate the user field
-  if (!this.user) {
-    throw new Error("User field is required");
-  }
+  //if (!this.user) {
+    //throw new Error("User field is required");
+  //}
 
   // Validate the question field
-  if (!this.question) {
-    throw new Error("Question field is required");
-  }
+ // if (!this.question) {
+   // throw new Error("Question field is required");
+  //}
 
-  // You can add additional validation logic here if needed
-
-  next();
-});
+  //next();
+//});
 
 const Like = mongoose.model("Like", likeSchema);
 export default Like;

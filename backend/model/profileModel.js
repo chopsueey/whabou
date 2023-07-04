@@ -17,7 +17,7 @@ const ProfileSchema = new mongoose.Schema({
   country: {
     type: String,
     // required: true,
-    // enum: [
+    // let enums = {values: [
     //   "France",
     //   "Spain",
     //   "England",
@@ -45,7 +45,7 @@ const ProfileSchema = new mongoose.Schema({
     //   "Nigeria",
     //   "Morocco",
     //   "Other",
-    // ],
+    // ], message: "choose a country"},
     validate: {
       validator: (v) => {
         return this.enum.includes(v);
@@ -53,15 +53,15 @@ const ProfileSchema = new mongoose.Schema({
       message: "Bitte machen Sie Angaben zu Ihrem Wohnort",
     },
   },
-  birthyear: {
+  birthYear: {
     type: Number,
     // required: true,
-    min: 2011,
+    max: 2005,
     validate: {
       validator: (v) => {
-        return v.length >= 2011;
+        return v.length >= 2005;
       },
-      message: "Das Alter muss mindestens 12 sein!",
+      message: "Das Alter muss mindestens 18 sein!",
     },
   },
   userId: {

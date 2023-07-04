@@ -4,10 +4,6 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 // import { validateUser } from "../middleware/validateUser.js";
 // import {check, validationResult} from "express-validator";
 import { userPostSchema } from "../schema/userSchema.js";
-import { profilePostSchema } from "../schema/profileSchema.js";
-import { feedbackPostSchema } from "../schema/feedbackSchema.js";
-import { likePostSchema } from "../schema/likeSchema.js";
-import { questionPostSchema } from "../schema/questionSchema.js";
 import validate from "../middleware/validateAjv.js";
 
 // const validateUserInput = [
