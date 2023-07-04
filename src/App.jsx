@@ -9,6 +9,8 @@ import Navigation from "./components/Navigation";
 import { useEffect, useState } from "react";
 import NotFound from "./pages/NotFound";
 import GeneralStore from "./store/GeneralContext";
+import OthersProfile from "./pages/OthersProfile";
+import { QuestionPage } from "./pages/QuestionPage";
 
 function App() {
   const navigate = useNavigate();
@@ -38,6 +40,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="dashboard/profile" element={<Profile />} />
+            <Route path="dashboard/:userName/:profileId" element={<OthersProfile />} />
+            <Route path="dashboard/question/:userName/:questionId" element={<QuestionPage />} />
             <Route path="dashboard/myquestions" element={<MyQuestions />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="*" element={<NotFound />} />

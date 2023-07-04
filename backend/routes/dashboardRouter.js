@@ -25,7 +25,7 @@ dashboardRouter.get("/profile", profileController.showProfile);
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post
-dashboardRouter.post("/profile", profileController.postProfileData);
+// dashboardRouter.post("/profile", profileController.postProfileData);
 
 // patch
 dashboardRouter.patch("/profile", profileController.updateProfileData);
