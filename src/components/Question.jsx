@@ -5,6 +5,7 @@ import {
   postAnswer,
   postLike,
 } from "../fetchRequests/QuestionRequests";
+import { Link } from "react-router-dom";
 
 export const Question = ({ question, answer, like }) => {
   const [questionData, setQuestionData] = useState(question);
@@ -20,7 +21,6 @@ export const Question = ({ question, answer, like }) => {
     const updatedData = await getQuestion(question._id);
     setQuestionData(updatedData.found);
     setIsAnswered(true);
-
   }
 
   async function handleLikeClick(likeOrUnlike) {
@@ -50,7 +50,11 @@ export const Question = ({ question, answer, like }) => {
           className="p-3 bg-gray-800 text-white mb-2 rounded-md w-full sm:w-4/5 md:w-3/4 lg:w-2/3 mx-auto m-2"
         >
           <figcaption>
-            <h1 className="text-center text-xl">{questionData.question}</h1>
+            <Link
+              to={`/dashboard/question/${questionData.profileId.userName}/${questionData._id}`}
+            >
+              <h1 className="text-center text-xl">{questionData.question}</h1>
+            </Link>
           </figcaption>
 
           {!isAnswered ? (
@@ -62,7 +66,6 @@ export const Question = ({ question, answer, like }) => {
                 No
               </button>
             </div>
-
           ) : (
             <div className="flex justify-center">
               <p className="mx-2">Yes: {questionData.yes}</p>
@@ -91,9 +94,19 @@ export const Question = ({ question, answer, like }) => {
             )}
 
             <div className="italic mt-2 lg:mt-0">
-              <h3>By: {questionData.profileId.userName}</h3>
+              <Link
+                to={`/dashboard/${questionData.profileId.userName}/${questionData.profileId._id}`}
+              >
+                <h3 className="text-cyan-300">
+                  {questionData.profileId.userName}
+                </h3>
+              </Link>
               <h3>
-                Posted: {new Date(questionData.createdAt).toLocaleString()}
+                {new Date(questionData.createdAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
               </h3>
             </div>
           </div>

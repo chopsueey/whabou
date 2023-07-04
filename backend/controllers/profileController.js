@@ -16,25 +16,25 @@ async function showProfile(req, res, next) {
   }
 }
 
-// post
+// // post
 
-async function postProfileData(req, res, next) {
-  const { userName, nationality, age, userId } = req.body;
+// async function postProfileData(req, res, next) {
+//   const { userName, nationality, age, userId } = req.body;
 
-  try {
-    const newProfile = Profile({
-      userName: userName,
-      nationality: nationality,
-      age: age,
-      userId: userId,
-    });
+//   try {
+//     const newProfile = Profile({
+//       userName: userName,
+//       nationality: nationality,
+//       age: age,
+//       userId: userId,
+//     });
 
-    const savedProfile = await newProfile.save();
-    res.status(201).json(savedProfile);
-  } catch (err) {
-    next(err);
-  }
-}
+//     const savedProfile = await newProfile.save();
+//     res.status(201).json(savedProfile);
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 
 // patch
 async function updateProfileData(req, res, next) {
@@ -92,7 +92,7 @@ async function deleteAccount(req, res, next) {
 export {
   showProfile,
   editProfile,
-  postProfileData,
+  // postProfileData,
   updateProfileData,
   deleteAccount,
 };
