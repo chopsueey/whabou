@@ -109,9 +109,45 @@ export async function deleteLike(data) {
   }
 }
 
+export async function deleteAnswer(data) {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/dashboard/question/answer`,
+      {
+        method: "DELETE",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    if (response.status === 200) {
+      return response;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function getFeed(sortBy) {
   const response = await fetch(
     `http://localhost:5000/dashboard/feed/sort/?sortBy=${sortBy}`,
+    {
+      credentials: "include",
+    }
+  );
+  const data = await response.json();
+  console.log(data)
+  if (response.status === 200) {
+    // console.log(data);
+    return data;
+  }
+}
+
+export async function getTrend(sortBy) {
+  const response = await fetch(
+    `http://localhost:5000/dashboard/trend/sort/?sortBy=${sortBy}`,
     {
       credentials: "include",
     }

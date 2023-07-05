@@ -23,8 +23,8 @@ export default function UserPanel() {
       // const response = await getTestProfile()
       const response = await getProfile();
       console.log(response);
-      setProfileId(response._id);
-      setUserName(response.userName);
+      setProfileId(response.userProfile._id);
+      setUserName(response.userProfile.userName);
     })();
   }, []);
   const handleTabClick = (tab) => {
@@ -66,7 +66,7 @@ export default function UserPanel() {
           className={(activeTab === "Profile" ? "active" : "") + " p-2"}
           // onClick={() => handleTabClick("Profile")}
           style={{ cursor: "pointer" }}
-          onClick={() => navigate(`/dashboard/user/${profileId}`)}
+          onClick={() => navigate(`/dashboard/user/profile/${profileId}`)}
         >
           profile
         </div>
