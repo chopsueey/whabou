@@ -1,18 +1,43 @@
 export default function Footer() {
   return (
-    <section className="row flex flex-col text-center sm:flex-row justify-around border-2">
-      <ul>
-        <li>About</li>
-        <li>Career</li>
-        <li>Community</li>
-        <li>Network</li>
-      </ul>
-      <ul>
-        <li>Locations</li>
-        <li>News</li>
-        <li>Media</li>
-        <li>Investor Relations</li>
-      </ul>
-    </section>
+    <footer className="bg-gray-800 flex items-center justify-center">
+      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+          <div>
+            <h2 className="textc text-lg font-semibold mb-4">About</h2>
+            <ul>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300">
+                The Team
+              </li>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300">
+                How to
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="textc text-lg font-semibold mb-4">Community</h2>
+            <ul>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300">
+                Facebook
+              </li>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300">
+                Twitter
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="textc text-lg font-semibold mb-4">More</h2>
+            <ul>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300">
+                Terms
+              </li>
+              <li className="text-gray-400 hover:text-white transition-colors duration-300">
+                Privacy
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }
