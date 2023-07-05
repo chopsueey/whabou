@@ -6,6 +6,7 @@ import {
   postLike,
 } from "../fetchRequests/QuestionRequests";
 import { useNavigate } from "react-router-dom";
+import profilePic from "../assets/tg-stockach-de-dummy-profile-pic.png";
 
 export const Question = ({ question, answer, like }) => {
   const [questionData, setQuestionData] = useState(question);
@@ -72,12 +73,20 @@ export const Question = ({ question, answer, like }) => {
     <>
       {questionData ? (
         <figure
-          style={{ border: "2px solid #149eca" }}
+          style={{ border: "2px solid #149eca", maxWidth: "600px" }}
           className="bg-gray-800 text-white mb-2 rounded-md mx-auto m-2"
         >
           <div className="flex justify-between p-6 flex-wrap">
             <div className="flex flex-wrap">
-              <h5>picture</h5>
+              <div
+                style={{
+                  backgroundImage: `url(${profilePic})`,
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              >
+                .....
+              </div>
               <div className="italic ml-2">
                 <h5
                   style={{ cursor: "pointer" }}
@@ -87,35 +96,24 @@ export const Question = ({ question, answer, like }) => {
                       { state: { question, answer, like } }
                     )
                   }
-                  className="textc"
+                  className="text-violet-600"
                 >
                   {questionData.profileId.userName}
-                </h5>
-
-                <h5>
-                  {new Date(questionData.createdAt).toLocaleDateString(
-                    "en-US",
-                    {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    }
-                  )}
                 </h5>
               </div>
             </div>
             {!isLiked ? (
               <button onClick={() => handleLikeClick("like")}>
-                {"🤍 " + questionData.likes}
+                {questionData.likes + " 🤍"}
               </button>
             ) : (
               <button onClick={() => handleLikeClick("unlike")}>
-                {"💚 " + questionData.likes}
+                {questionData.likes + " 💙"}
               </button>
             )}
           </div>
 
-          <figcaption className="px-6 pb-6">
+          <figcaption className="p-6">
             <h1
               style={{ cursor: "pointer" }}
               onClick={() =>
@@ -124,19 +122,27 @@ export const Question = ({ question, answer, like }) => {
                   { state: { question, answer, like } }
                 )
               }
-              className="text-start text-2xl"
+              className="text-center text-2xl"
             >
               {questionData.question}
             </h1>
           </figcaption>
-          {isAnswered ? (
-            <div className="italic text-white">Answers: {allAnswers}</div>
-          ) : (
-            ""
-          )}
+
+          <div className="text-xs textc text-end px-6 pb-6">
+            {isAnswered ? (
+              <div className="italic">Answers: {allAnswers}</div>
+            ) : (
+              ""
+            )}
+            {new Date(questionData.createdAt).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </div>
 
           {!isAnswered ? (
-            <div className="flex text-black text-xl">
+            <div className="flex text-black text-lg">
               <button
                 style={{ width: "100%" }}
                 className="bg-green-400"
@@ -153,11 +159,11 @@ export const Question = ({ question, answer, like }) => {
               </button>
             </div>
           ) : (
-            <div className="flex text-black text-xl text-center">
-              <div style={{ width: `${yesWidth}%` }} className="bg-green-400">
+            <div className="flex text-black text-lg text-center">
+              <div style={{ width: `${yesWidth}%` }} className="bg-cyan-600">
                 {yesWidth / 2 + "%"}
               </div>
-              <div style={{ width: `${noWidth}%` }} className="bg-red-400">
+              <div style={{ width: `${noWidth}%` }} className="bg-gray-500">
                 {noWidth === 0 ? "" : noWidth / 2 + "%"}
               </div>
             </div>
