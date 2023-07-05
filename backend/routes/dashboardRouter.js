@@ -68,7 +68,7 @@ dashboardRouter.post("/feedback", feedbackController.postFeedback);
 //post answer
 dashboardRouter.post("/question/answer", answerController.answerCounter);
 
-// delete like
+// delete answer
 dashboardRouter.delete("/question/answer", answerController.deleteAnswer);
 
 //post like
