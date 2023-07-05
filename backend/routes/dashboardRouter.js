@@ -16,6 +16,7 @@ const dashboardRouter = express.Router();
 // DASHBOARD
 // GET
 dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
+dashboardRouter.get("/trend/sort", questionController.getAllQuestions);
 // POST
 
 // UPDATE
@@ -66,6 +67,9 @@ dashboardRouter.post("/feedback", feedbackController.postFeedback);
 
 //post answer
 dashboardRouter.post("/question/answer", answerController.answerCounter);
+
+// delete like
+dashboardRouter.delete("/question/answer", answerController.deleteAnswer);
 
 //post like
 dashboardRouter.post("/question/likes", likeController.increaseLike);

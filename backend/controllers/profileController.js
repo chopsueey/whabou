@@ -1,16 +1,50 @@
+import Answer from "../model/answeredModel.js";
+import Like from "../model/likeModel.js";
 import Profile from "../model/profileModel.js";
+import Question from "../model/questionModel.js";
 import User from "../model/userModel.js";
 
 // get
 // Profil anzeigen
 async function showProfile(req, res, next) {
+  const numOfQuestionsToShow = 10;
   try {
-    // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
     const userId = req.user.userId;
-    // Benutzer aus der Datenbank abrufen
-    const user = await Profile.findOne({ userId: userId });
 
-    res.status(200).json(user);
+    const userProfile = await Profile.findOne({ userId: userId });
+
+    // find only questions of user profile
+    const askedQuestions = await Question.find({
+      profileId: { $eq: `${userProfile._id}` },
+    })
+      .sort("-createdAt")
+      .limit(numOfQuestionsToShow)
+      .populate("profileId", "userName")
+      .exec();
+
+    const userAnswers = await Answer.find({
+      user: req.user.userId,
+    });
+    const userLikes = await Like.find({
+      user: req.user.userId,
+    });
+    // find only liked questions by the user profile
+    const likedQuestionsIds = userLikes.map((question) => question.question);
+    const likedQuestions = await Question.find({
+      _id: { $in: likedQuestionsIds },
+    })
+      .sort("-createdAt")
+      .limit(numOfQuestionsToShow)
+      .populate("profileId", "userName")
+      .exec();
+
+    res.status(200).json({
+      askedQuestions: askedQuestions,
+      likedQuestions: likedQuestions,
+      userProfile: userProfile,
+      userAnswers: userAnswers,
+      userLikes: userLikes,
+    });
   } catch (error) {
     next(error);
   }

@@ -11,6 +11,10 @@ const answerSchema = new mongoose.Schema({
     ref: "Question",
     required: true,
   },
+  answer: {
+    type: String,
+    required: true,
+  },
 });
 
 const Answer = mongoose.model("Answer", answerSchema);

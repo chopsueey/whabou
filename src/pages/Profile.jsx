@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProfile, patchProfile } from "../fetchRequests/ProfileRequests";
+import { Questions } from "../components/Questions";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Info");
@@ -7,6 +8,11 @@ export default function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
+  // set own Questions
+  const [askedQuestions, setAskedQuestions] = useState(null);
+  const [likedQuestions, setLikedQuestions] = useState(null);
+  const [answersOfUser, setAnswersOfUser] = useState(null);
+  const [likesOfUser, setLikesOfUser] = useState(null);
 
   // PROFILE
 
@@ -22,7 +28,12 @@ export default function Profile() {
     const data = { userName, nationality, age };
     setIsSaving(true);
     await patchProfile(data);
-    setUserData(await getProfile());
+    const profileData = await getProfile();
+    setUserData(profileData);
+    setAskedQuestions(profileData.askedQuestions);
+    setLikedQuestions(profileData.likedQuestions)
+    setAnswersOfUser(profileData.userAnswers);
+    setLikesOfUser(profileData.userLikes);
     setIsSaving(false);
   }
 
@@ -34,7 +45,12 @@ export default function Profile() {
   useEffect(() => {
     (async function request() {
       setIsLoading(true);
-      setUserData(await getProfile());
+      const profileData = await getProfile();
+      setUserData(profileData);
+      setAskedQuestions(profileData.askedQuestions);
+      setLikedQuestions(profileData.likedQuestions)
+      setAnswersOfUser(profileData.userAnswers);
+      setLikesOfUser(profileData.userLikes);
       setIsLoading(false);
     })();
   }, []);
@@ -51,6 +67,14 @@ export default function Profile() {
               onClick={() => handleTabClick("Info")}
             >
               Info
+            </li>
+            <li
+              className={`px-4 py-2 cursor-pointer ${
+                activeTab === "Questions" ? "selected-tab rounded-full" : ""
+              }`}
+              onClick={() => handleTabClick("Questions")}
+            >
+              Questions
             </li>
             <li
               className={`px-4 py-2 cursor-pointer ${
@@ -80,26 +104,6 @@ export default function Profile() {
           </ul>
         </nav>
         <div>
-          {activeTab === "Favorites" && (
-            <div>
-              {/* <h1 className="my-4 h-full text-lg decoration-sky-500 border-b-4 border-sky-500 text-center">
-                Favorites{" "}
-              </h1> */}
-              <div className="flex flex-col items-center my-4">
-                <p>
-                  Sollte sich Bella Swan für Jacob statt für Edward entscheiden?
-                </p>
-                <p>
-                  Darf ich meinen Hund in der Waschmaschine waschen, bei
-                  niedriger Temperatur?
-                </p>
-                <p>
-                  Ich bin in den Vater meines Freundes verliebt... Soll ich es
-                  dem Vater sagen und eventuell mit ihm eine Affäre anfangen?
-                </p>
-              </div>
-            </div>
-          )}
           {activeTab === "Info" && (
             <div>
               {/* <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">
@@ -115,9 +119,9 @@ export default function Profile() {
                   <div>
                     {userData ? (
                       <>
-                        <h3>{userData.userName}</h3>
-                        <h3>{userData.nationality}</h3>
-                        <h3>{userData.age}</h3>
+                        <h3>{userData.userProfile.userName}</h3>
+                        <h3>{userData.userProfile.nationality}</h3>
+                        <h3>{userData.userProfile.age}</h3>
                       </>
                     ) : (
                       ""
@@ -127,6 +131,34 @@ export default function Profile() {
               </div>
             </div>
           )}
+          {activeTab === "Questions" &&
+            (isLoading ? (
+              <div className="flex justify-center mt-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
+              </div>
+            ) : askedQuestions && askedQuestions.length > 0 ? (
+              <Questions
+                questions={askedQuestions}
+                answers={answersOfUser}
+                likes={likesOfUser}
+              />
+            ) : (
+              <h2 className="text-center">Nothing found :/</h2>
+            ))}
+          {activeTab === "Favorites" &&
+            (isLoading ? (
+              <div className="flex justify-center mt-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
+              </div>
+            ) : likedQuestions && likedQuestions.length > 0 ? (
+              <Questions
+                questions={likedQuestions}
+                answers={answersOfUser}
+                likes={likesOfUser}
+              />
+            ) : (
+              <h2 className="text-center">Nothing found :/</h2>
+            ))}
           {activeTab === "Friends" && (
             <div className="">
               {/* <h1 className="my-4 text-lg border-b-4 border-sky-500 text-center">

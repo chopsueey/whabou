@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  deleteAnswer,
   deleteLike,
   getQuestion,
   postAnswer,
@@ -68,7 +69,14 @@ export const Question = ({ question, answer, like }) => {
     }
   }
 
-  useEffect(() => {});
+  async function handleDeleteClick() {
+    const questionId = question._id;
+    const response = await deleteAnswer({ questionId });
+    const responseData = await response.json()
+    console.log(responseData)
+    setIsAnswered(false);
+  }
+
   return (
     <>
       {questionData ? (
@@ -92,7 +100,7 @@ export const Question = ({ question, answer, like }) => {
                   style={{ cursor: "pointer" }}
                   onClick={() =>
                     navigate(
-                      `/dashboard/${questionData.profileId.userName}/${questionData.profileId._id}`,
+                      `/dashboard/${questionData.profileId.userName}/profile/${questionData.profileId._id}`,
                       { state: { question, answer, like } }
                     )
                   }
@@ -129,16 +137,25 @@ export const Question = ({ question, answer, like }) => {
           </figcaption>
 
           <div className="text-xs textc text-end px-6 pb-6">
-            {isAnswered ? (
-              <div className="italic">Answers: {allAnswers}</div>
-            ) : (
-              ""
-            )}
             {new Date(questionData.createdAt).toLocaleDateString("en-US", {
               month: "long",
               day: "numeric",
               year: "numeric",
             })}
+            {isAnswered ? (
+              <>
+                <div className="italic">Answers: {allAnswers}</div>
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={handleDeleteClick}
+                  className="italic text-red-700"
+                >
+                  delete Answer
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </div>
 
           {!isAnswered ? (
