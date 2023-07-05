@@ -3,7 +3,6 @@ import { getProfile, patchProfile } from "../fetchRequests/ProfileRequests";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Info");
-
   // PROFILE
 
   const [userData, setUserData] = useState(null);

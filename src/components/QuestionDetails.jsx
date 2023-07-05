@@ -6,9 +6,8 @@ import {
   postLike,
 } from "../fetchRequests/QuestionRequests";
 import { useNavigate } from "react-router-dom";
-import profilePic from "../assets/tg-stockach-de-dummy-profile-pic.png";
 
-export const Question = ({ question, answer, like }) => {
+export const QuestionDetails = ({ question, answer, like }) => {
   const [questionData, setQuestionData] = useState(question);
   const [isAnswered, setIsAnswered] = useState(answer);
   const [isLiked, setIsLiked] = useState(like);
@@ -73,20 +72,12 @@ export const Question = ({ question, answer, like }) => {
     <>
       {questionData ? (
         <figure
-          style={{ border: "2px solid #149eca", maxWidth: "600px" }}
+          style={{ border: "2px solid #149eca" }}
           className="bg-gray-800 text-white mb-2 rounded-md mx-auto m-2"
         >
           <div className="flex justify-between p-6 flex-wrap">
             <div className="flex flex-wrap">
-              <div
-                style={{
-                  backgroundImage: `url(${profilePic})`,
-                  backgroundSize: "contain",
-                  backgroundRepeat: "no-repeat",
-                }}
-              >
-                .....
-              </div>
+              <h5>picture</h5>
               <div className="italic ml-2">
                 <h5
                   style={{ cursor: "pointer" }}
@@ -96,24 +87,41 @@ export const Question = ({ question, answer, like }) => {
                       { state: { question, answer, like } }
                     )
                   }
-                  className="text-violet-600"
+                  className="textc"
                 >
                   {questionData.profileId.userName}
+                </h5>
+
+                <h5>
+                  {new Date(questionData.createdAt).toLocaleDateString(
+                    "en-US",
+                    {
+                      month: "long",
+                      day: "numeric",
+                      year: "numeric",
+                    }
+                  )}
                 </h5>
               </div>
             </div>
             {!isLiked ? (
-              <button onClick={() => handleLikeClick("like")}>
-                {questionData.likes + " 🤍"}
+              <button
+                className="bg-emerald-700"
+                onClick={() => handleLikeClick("like")}
+              >
+                like
               </button>
             ) : (
-              <button onClick={() => handleLikeClick("unlike")}>
-                {questionData.likes + " 💙"}
+              <button
+                className="bg-red-800"
+                onClick={() => handleLikeClick("unlike")}
+              >
+                unlike
               </button>
             )}
           </div>
 
-          <figcaption className="p-6">
+          <figcaption className="px-6 pb-6">
             <h1
               style={{ cursor: "pointer" }}
               onClick={() =>
@@ -122,27 +130,19 @@ export const Question = ({ question, answer, like }) => {
                   { state: { question, answer, like } }
                 )
               }
-              className="text-center text-2xl"
+              className="text-start text-2xl"
             >
               {questionData.question}
             </h1>
           </figcaption>
-
-          <div className="text-xs textc text-end px-6 pb-6">
-            {isAnswered ? (
-              <div className="italic">Answers: {allAnswers}</div>
-            ) : (
-              ""
-            )}
-            {new Date(questionData.createdAt).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </div>
+          {isAnswered ? (
+            <div className="italic text-white">Answers: {allAnswers}</div>
+          ) : (
+            ""
+          )}
 
           {!isAnswered ? (
-            <div className="flex text-black text-lg">
+            <div className="flex text-black text-xl">
               <button
                 style={{ width: "100%" }}
                 className="bg-green-400"
@@ -159,11 +159,11 @@ export const Question = ({ question, answer, like }) => {
               </button>
             </div>
           ) : (
-            <div className="flex text-black text-lg text-center">
-              <div style={{ width: `${yesWidth}%` }} className="bg-cyan-600">
+            <div className="flex text-black text-xl text-center">
+              <div style={{ width: `${yesWidth}%` }} className="bg-green-400">
                 {yesWidth / 2 + "%"}
               </div>
-              <div style={{ width: `${noWidth}%` }} className="bg-gray-500">
+              <div style={{ width: `${noWidth}%` }} className="bg-red-400">
                 {noWidth === 0 ? "" : noWidth / 2 + "%"}
               </div>
             </div>

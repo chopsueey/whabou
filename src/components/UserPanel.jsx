@@ -1,14 +1,37 @@
 import { useNavigate } from "react-router-dom";
 import GeneralStore from "../store/GeneralContext";
-
+import { useEffect, useState } from "react";
+import { getProfile } from "../fetchRequests/ProfileRequests";
 export default function UserPanel() {
   const { activeTab, setActiveTab } = GeneralStore();
+  const [profileId, setProfileId] = useState(undefined);
+  const [userName, setUserName] = useState(undefined);
+  const [userPanelClassName, setUserPanelClassName] = useState(
+    "hidden sm:block lg:fixed lg:w-1/4 xl:w-auto sm:px-6 lg:px-10"
+  );
+  window.addEventListener("scroll", () => {
+    if (window.scrollY >= 170) {
+      setUserPanelClassName("hidden sm:block lg:fixed top-0 lg:w-1/4 xl:w-auto sm:px-6 lg:px-10")
+    } else {
+      setUserPanelClassName("hidden sm:block lg:fixed lg:w-1/4 xl:w-auto sm:px-6 lg:px-10")
+
+    }
+  });
+  const navigate = useNavigate();
+  useEffect(() => {
+    (async function request() {
+      // const response = await getTestProfile()
+      const response = await getProfile();
+      console.log(response);
+      setProfileId(response._id);
+      setUserName(response.userName);
+    })();
+  }, []);
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-  const navigate = useNavigate();
   return (
-    <div className="hidden sm:block lg:fixed lg:w-1/4 xl:w-auto sm:px-6 lg:px-10">
+    <div className={userPanelClassName}>
       <div className="user-panel flex lg:flex-col border-l-2">
         <div
           style={{ cursor: "pointer" }}
@@ -43,7 +66,7 @@ export default function UserPanel() {
           className={(activeTab === "Profile" ? "active" : "") + " p-2"}
           // onClick={() => handleTabClick("Profile")}
           style={{ cursor: "pointer" }}
-          onClick={() => navigate("/dashboard/profile")}
+          onClick={() => navigate(`/dashboard/user/${profileId}`)}
         >
           profile
         </div>

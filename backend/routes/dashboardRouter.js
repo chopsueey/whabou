@@ -29,6 +29,7 @@ dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
 
 // get
 dashboardRouter.get("/profile", profileController.showProfile);
+dashboardRouter.get("/profile/:profileId", profileController.getProfile);
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post
