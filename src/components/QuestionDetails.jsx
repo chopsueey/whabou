@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import {
+  deleteAnswer,
   deleteLike,
   getQuestion,
   postAnswer,
   postLike,
 } from "../fetchRequests/QuestionRequests";
 import { useNavigate } from "react-router-dom";
+import profilePic from "../assets/tg-stockach-de-dummy-profile-pic.png";
 
 export const QuestionDetails = ({ question, answer, like }) => {
   const [questionData, setQuestionData] = useState(question);
@@ -67,61 +69,59 @@ export const QuestionDetails = ({ question, answer, like }) => {
     }
   }
 
-  useEffect(() => {});
+  async function handleDeleteClick() {
+    const questionId = question._id;
+    const response = await deleteAnswer({ questionId });
+    const responseData = await response.json()
+    console.log(responseData)
+    setIsAnswered(false);
+  }
+
   return (
     <>
       {questionData ? (
         <figure
-          style={{ border: "2px solid #149eca" }}
+          style={{ border: "2px solid #149eca", maxWidth: "600px" }}
           className="bg-gray-800 text-white mb-2 rounded-md mx-auto m-2"
         >
           <div className="flex justify-between p-6 flex-wrap">
             <div className="flex flex-wrap">
-              <h5>picture</h5>
+              <div
+                style={{
+                  backgroundImage: `url(${profilePic})`,
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                }}
+              >
+                .....
+              </div>
               <div className="italic ml-2">
                 <h5
                   style={{ cursor: "pointer" }}
                   onClick={() =>
                     navigate(
-                      `/dashboard/${questionData.profileId.userName}/${questionData.profileId._id}`,
+                      `/dashboard/${questionData.profileId.userName}/profile/${questionData.profileId._id}`,
                       { state: { question, answer, like } }
                     )
                   }
-                  className="textc"
+                  className="text-violet-600"
                 >
                   {questionData.profileId.userName}
-                </h5>
-
-                <h5>
-                  {new Date(questionData.createdAt).toLocaleDateString(
-                    "en-US",
-                    {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    }
-                  )}
                 </h5>
               </div>
             </div>
             {!isLiked ? (
-              <button
-                className="bg-emerald-700"
-                onClick={() => handleLikeClick("like")}
-              >
-                like
+              <button onClick={() => handleLikeClick("like")}>
+                {questionData.likes + " 🤍"}
               </button>
             ) : (
-              <button
-                className="bg-red-800"
-                onClick={() => handleLikeClick("unlike")}
-              >
-                unlike
+              <button onClick={() => handleLikeClick("unlike")}>
+                {questionData.likes + " 💙"}
               </button>
             )}
           </div>
 
-          <figcaption className="px-6 pb-6">
+          <figcaption className="p-6">
             <h1
               style={{ cursor: "pointer" }}
               onClick={() =>
@@ -130,19 +130,36 @@ export const QuestionDetails = ({ question, answer, like }) => {
                   { state: { question, answer, like } }
                 )
               }
-              className="text-start text-2xl"
+              className="text-center text-2xl"
             >
               {questionData.question}
             </h1>
           </figcaption>
-          {isAnswered ? (
-            <div className="italic text-white">Answers: {allAnswers}</div>
-          ) : (
-            ""
-          )}
+
+          <div className="text-xs textc text-end px-6 pb-6">
+            {new Date(questionData.createdAt).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+            {isAnswered ? (
+              <>
+                <div className="italic">Answers: {allAnswers}</div>
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={handleDeleteClick}
+                  className="italic text-red-700"
+                >
+                  delete Answer
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+          </div>
 
           {!isAnswered ? (
-            <div className="flex text-black text-xl">
+            <div className="flex text-black text-lg">
               <button
                 style={{ width: "100%" }}
                 className="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br "
@@ -159,17 +176,11 @@ export const QuestionDetails = ({ question, answer, like }) => {
               </button>
             </div>
           ) : (
-            <div className="flex text-black text-xl text-center">
-              <div
-                style={{ width: `${yesWidth}%` }}
-                className="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600"
-              >
+            <div className="flex text-black text-lg text-center">
+              <div style={{ width: `${yesWidth}%` }} className="bg-cyan-600">
                 {yesWidth / 2 + "%"}
               </div>
-              <div
-                style={{ width: `${noWidth}%` }}
-                className="bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600"
-              >
+              <div style={{ width: `${noWidth}%` }} className="bg-gray-500">
                 {noWidth === 0 ? "" : noWidth / 2 + "%"}
               </div>
             </div>
