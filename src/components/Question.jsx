@@ -145,14 +145,14 @@ export const Question = ({ question, answer, like }) => {
             <div className="flex text-black text-lg">
               <button
                 style={{ width: "100%" }}
-                className="bg-green-400"
+                className="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br "
                 onClick={() => handleAnswerClick("yes")}
               >
                 Yes
               </button>
               <button
                 style={{ width: "100%" }}
-                className="bg-red-400"
+                className="bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-br hover:from-gray-400 hover:via-gray-500 hover:to-gray-600"
                 onClick={() => handleAnswerClick("no")}
               >
                 No
