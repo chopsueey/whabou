@@ -54,16 +54,16 @@ const ProfileSchema = new mongoose.Schema({
     // required: true,
     min: [2011, "Das Alter muss mindestens 18 sein!"]
   },
-  birthYear: {
-    type: Number,
-    // required: true,
-    max: 2005,
-    validate: {
-      validator: (v) => {
-        return v.length >= 2005;
-      },
-      message: "Das Alter muss mindestens 18 sein!",
-    },
+  // birthYear: {
+  //   type: Number,
+  //   // required: true,
+  //   max: 2005,
+  //   validate: {
+  //     validator: (v) => {
+  //       return v.length >= 2005;
+  //     },
+  //     message: "Das Alter muss mindestens 18 sein!",
+  //   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
