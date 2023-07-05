@@ -6,7 +6,7 @@ const feedbackSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => {
-        return v.length >= 5 && v.length <= 1000;
+        return v.length >= 5 && v.length <= 1000 && !/^\d+$/.test(v);
       },
       message:
         "Das Feedback muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",

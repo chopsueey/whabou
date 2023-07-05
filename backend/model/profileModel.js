@@ -30,7 +30,7 @@ let enums = {values: [
   "Nigeria",
   "Morocco",
   "Other",
-], message: "klappt nicht"}
+], message: "nationality went wrong"}
 
 const ProfileSchema = new mongoose.Schema({
   userName: {
@@ -53,13 +53,17 @@ const ProfileSchema = new mongoose.Schema({
     type: Number,
     // required: true,
     min: [2011, "Das Alter muss mindestens 18 sein!"]
-    // validate: {
-    //   validator: (v) => {
-    //     return v >= 2011;
-    //   },
-    //   message: "Das Alter muss mindestens 12 sein!",
-    // },
   },
+  birthYear: {
+    type: Number,
+    // required: true,
+    max: 2005,
+    validate: {
+      validator: (v) => {
+        return v.length >= 2005;
+      },
+      message: "Das Alter muss mindestens 18 sein!",
+    },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
