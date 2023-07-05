@@ -10,7 +10,6 @@ import { InfoSidebar } from "../components/InfoSidebar.jsx";
 import GeneralStore from "../store/GeneralContext.jsx";
 import Recommended from "../components/Recommended.jsx";
 
-// window.addEventListener("scroll", () => console.log(window.scrollbars))
 
 export default function Dashboard() {
   const { activeTab, setActiveTab } = GeneralStore();
@@ -59,8 +58,8 @@ export default function Dashboard() {
       >
         <UserPanel />
         <div
-          style={{ minHeight: "30vh" }}
-          className="grow px-4 sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem] 2xl:px-[20rem]"
+          style={{ minHeight: "100vh" }}
+          className="grow px-4 sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem]"
         >
           <div
             data-aos="zoom-in-down"

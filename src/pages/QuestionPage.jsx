@@ -1,5 +1,8 @@
-import { Question } from "../components/Question";
+import { useLocation } from "react-router-dom";
+import { QuestionDetails } from "../components/QuestionDetails";
 
 export function QuestionPage() {
-  return <Question />;
+  const { state } = useLocation();
+  const { question, answer, like } = state;
+  return <QuestionDetails question={question} answer={answer} like={like} />;
 }

@@ -1,24 +1,12 @@
 import { useEffect, useState } from "react";
-import { getProfile, patchProfile } from "../fetchRequests/ProfileRequests";
+import { getTestProfile } from "../fetchRequests/ProfileRequests";
+import { useParams } from "react-router-dom";
 
 export default function OthersProfile() {
   const [activeTab, setActiveTab] = useState("Info");
-
-  // PROFILE
+  const { profileId } = useParams();
 
   const [userData, setUserData] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [nationality, setNationality] = useState(null);
-  const [age, setAge] = useState(null);
-
-  // patch request to update user profile when 'save' button clicked
-  // user data is stored in variable data
-  async function handleProfileUpdate(e) {
-    e.preventDefault();
-    const data = { userName, nationality, age };
-    await patchProfile(data);
-    setUserData(await getProfile());
-  }
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -27,7 +15,8 @@ export default function OthersProfile() {
   // get user profile data, refresh on every load
   useEffect(() => {
     (async function request() {
-      setUserData(await getProfile());
+      const response = await getTestProfile(profileId);
+      setUserData(response);
     })();
   }, []);
 
@@ -60,14 +49,6 @@ export default function OthersProfile() {
               onClick={() => handleTabClick("Friends")}
             >
               Friends
-            </li>
-            <li
-              className={`px-4 py-2 cursor-pointer ${
-                activeTab === "Edit" ? "selected-tab rounded-full" : ""
-              }`}
-              onClick={() => handleTabClick("Edit")}
-            >
-              Edit
             </li>
           </ul>
         </nav>
@@ -124,7 +105,6 @@ export default function OthersProfile() {
               </div>
             </div>
           )}
-          
         </div>
       </div>
     </div>

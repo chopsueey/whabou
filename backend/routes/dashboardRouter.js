@@ -4,6 +4,13 @@ import * as questionController from "../controllers/questionController.js";
 import * as feedbackController from "../controllers/feedbackController.js";
 import * as answerController from "../controllers/answerController.js";
 import * as likeController from "../controllers/likeController.js";
+import { profilePostSchema } from "../schema/profileSchema.js";
+import { feedbackPostSchema } from "../schema/feedbackSchema.js";
+//import { likePostSchema } from "../schema/likeSchema.js";
+import { questionPostSchema } from "../schema/questionSchema.js";
+//import { answerPostSchema } from "../schema/answerSchema.js";
+import validate from "../middleware/validateAjv.js";
+
 const dashboardRouter = express.Router();
 
 // DASHBOARD
@@ -22,6 +29,7 @@ dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
 
 // get
 dashboardRouter.get("/profile", profileController.showProfile);
+dashboardRouter.get("/profile/:profileId", profileController.getProfile);
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post

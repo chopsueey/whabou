@@ -39,7 +39,7 @@ function App() {
           <Route path="/" element={<Navigation />}>
             <Route index element={<Home />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="dashboard/profile" element={<Profile />} />
+            <Route path="dashboard/user/:profileId" element={<Profile />} />
             <Route path="dashboard/:userName/:profileId" element={<OthersProfile />} />
             <Route path="dashboard/question/:userName/:questionId" element={<QuestionPage />} />
             <Route path="dashboard/myquestions" element={<MyQuestions />} />

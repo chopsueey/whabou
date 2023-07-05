@@ -3,8 +3,10 @@ import { getProfile, patchProfile } from "../fetchRequests/ProfileRequests";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Info");
+
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+
 
   // PROFILE
 

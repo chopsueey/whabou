@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { postQuestion } from "../fetchRequests/QuestionRequests";
+import GeneralStore from "../store/GeneralContext";
 
 export default function MyQuestions() {
+  const { setActiveTab } = GeneralStore()
+
   const [question, setQuestion] = useState(null);
   const [saveLoading, setSaveLoading] = useState(false);
   const [isContentVisible, setIsContentVisible] = useState({
@@ -15,7 +18,11 @@ export default function MyQuestions() {
     setSaveLoading(true);
     const data = { question };
     await postQuestion(data);
+
     setSaveLoading(false);
+
+    setActiveTab("Feed")
+
   }
 
   const handleQuestionClick = (questionKey) => {

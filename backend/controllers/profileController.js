@@ -16,6 +16,19 @@ async function showProfile(req, res, next) {
   }
 }
 
+async function getProfile(req, res, next) {
+  try {
+    const userId = req.user.userId;
+    const profileId = req.params.profileId;
+
+    const userProfile = await Profile.findById(profileId);
+
+    res.status(200).json(userProfile);
+  } catch (error) {
+    next(error);
+  }
+}
+
 // // post
 
 // async function postProfileData(req, res, next) {
@@ -45,7 +58,7 @@ async function updateProfileData(req, res, next) {
       {
         $set: req.body,
       },
-      { new: true , runValidators: true}
+      { new: true, runValidators: true }
     );
     res.status(200).json(updatedItem);
   } catch (err) {
@@ -91,6 +104,7 @@ async function deleteAccount(req, res, next) {
 
 export {
   showProfile,
+  getProfile,
   editProfile,
   // postProfileData,
   updateProfileData,
