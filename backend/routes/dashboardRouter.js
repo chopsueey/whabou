@@ -2,6 +2,8 @@ import express from "express";
 import * as profileController from "../controllers/profileController.js";
 import * as questionController from "../controllers/questionController.js";
 import * as feedbackController from "../controllers/feedbackController.js";
+import * as followController from "../controllers/followController.js";
+
 
 const dashboardRouter = express.Router();
 
@@ -56,5 +58,10 @@ dashboardRouter.post("/feedback", feedbackController.postFeedback);
 
 //post like
 dashboardRouter.post("/feedback", feedbackController.postLike);
+
+// FOLLOW / UNFOLLOW
+dashboardRouter.post("/follow/:targetUserId", followController.followUser);
+dashboardRouter.post("/unfollow/:targetUserId", followController.unfollowUser);
+
 
 export default dashboardRouter;
