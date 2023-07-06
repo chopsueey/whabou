@@ -2,6 +2,10 @@ import express from "express";
 import * as profileController from "../controllers/profileController.js";
 import * as questionController from "../controllers/questionController.js";
 import * as feedbackController from "../controllers/feedbackController.js";
+
+import * as followController from "../controllers/followController.js";
+
+
 import * as answerController from "../controllers/answerController.js";
 import * as likeController from "../controllers/likeController.js";
 import { profilePostSchema } from "../schema/profileSchema.js";
@@ -10,6 +14,7 @@ import { feedbackPostSchema } from "../schema/feedbackSchema.js";
 import { questionPostSchema } from "../schema/questionSchema.js";
 //import { answerPostSchema } from "../schema/answerSchema.js";
 import validate from "../middleware/validateAjv.js";
+
 
 const dashboardRouter = express.Router();
 
@@ -76,5 +81,10 @@ dashboardRouter.post("/question/likes", likeController.increaseLike);
 
 // delete like
 dashboardRouter.delete("/question/likes", likeController.deleteLike);
+
+// FOLLOW / UNFOLLOW
+dashboardRouter.post("/follow/:targetUserId", followController.followUser);
+dashboardRouter.post("/unfollow/:targetUserId", followController.unfollowUser);
+
 
 export default dashboardRouter;
