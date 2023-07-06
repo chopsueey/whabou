@@ -2,35 +2,38 @@ import mongoose from "mongoose";
 
 // added a reference to the user, the profile belongs to
 
-let enums = {values: [
-  "France",
-  "Spain",
-  "England",
-  "Germany",
-  "Austria",
-  "Ireland",
-  "Norway",
-  "Egypt",
-  "Russia",
-  "Turkey",
-  "China",
-  "Finland",
-  "Italy",
-  "Croatia",
-  "Serbia",
-  "Slovakia",
-  "Greece",
-  "Japan",
-  "Bulgaria",
-  "Bosnia-Herzegovina",
-  "Liechtenstein",
-  "Canada",
-  "USA",
-  "Congo",
-  "Nigeria",
-  "Morocco",
-  "Other",
-], message: "nationality went wrong"}
+let enums = {
+  values: [
+    "France",
+    "Spain",
+    "England",
+    "Germany",
+    "Austria",
+    "Ireland",
+    "Norway",
+    "Egypt",
+    "Russia",
+    "Turkey",
+    "China",
+    "Finland",
+    "Italy",
+    "Croatia",
+    "Serbia",
+    "Slovakia",
+    "Greece",
+    "Japan",
+    "Bulgaria",
+    "Bosnia-Herzegovina",
+    "Liechtenstein",
+    "Canada",
+    "USA",
+    "Congo",
+    "Nigeria",
+    "Morocco",
+    "Other",
+  ],
+  message: "nationality went wrong",
+};
 
 const ProfileSchema = new mongoose.Schema({
   userName: {
@@ -52,7 +55,7 @@ const ProfileSchema = new mongoose.Schema({
   age: {
     type: Number,
     // required: true,
-    min: [2011, "Das Alter muss mindestens 18 sein!"]
+    max: [2005, "Das Alter muss mindestens 18 sein!"],
   },
   // birthYear: {
   //   type: Number,
