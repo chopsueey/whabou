@@ -3,7 +3,7 @@ export const validateQuestion = (req, res, next) => {
     res
       .status(400)
       .json(
-        "Die Frage muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!"
+        "The question shall have minimum 5 and maximum 1000 letters"
       );
   }
   next();
