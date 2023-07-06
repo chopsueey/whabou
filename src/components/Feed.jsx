@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import { Questions } from "./Questions";
 import { getFeed } from "../fetchRequests/QuestionRequests";
-import GeneralStore, { GeneralContext } from "../store/GeneralContext";
+import GeneralStore from "../store/GeneralContext";
 
 export default function Feed() {
+  const { activeTab } = GeneralStore();
   const [sortedQuestions, setSortedQuestions] = useState(null);
+  const [answersOfUser, setAnswersOfUser] = useState(null);
+  const [likesOfUser, setLikesOfUser] = useState(null);
+
   const [sortBy, setSortBy] = useState("latest");
-  const {isLoading, setIsLoading} = GeneralStore()
+  const { isLoading, setIsLoading } = GeneralStore();
 
   useEffect(() => {
     (async function request() {
       setIsLoading(true);
-      setSortedQuestions(await getFeed(sortBy));
+      const feed = await getFeed(sortBy);
+      setSortedQuestions(feed.found);
+      setAnswersOfUser(feed.userAnswers);
+      setLikesOfUser(feed.userLikes);
       setIsLoading(false);
     })();
-  }, [sortBy]);
+  }, [sortBy, activeTab]);
 
   return (
     <div className="row feed">
@@ -36,7 +43,11 @@ export default function Feed() {
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
         </div>
       ) : sortedQuestions && sortedQuestions.length > 0 ? (
-        <Questions questions={sortedQuestions} />
+        <Questions
+          questions={sortedQuestions}
+          answers={answersOfUser}
+          likes={likesOfUser}
+        />
       ) : (
         <h2 className="text-center">Nothing found :/</h2>
       )}

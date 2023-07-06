@@ -65,6 +65,8 @@ export async function loginController(req, res, next) {
   }
 }
 
+
+
 // Logout
 export async function logoutController(req, res, next) {
   // Clear the cookie by setting it to an empty value and expiring it immediately

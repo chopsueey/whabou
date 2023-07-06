@@ -3,7 +3,7 @@ import * as user from "../controllers/userController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 // import { validateUser } from "../middleware/validateUser.js";
 // import {check, validationResult} from "express-validator";
-import { userPostSchema } from "./userSchema.js";
+import { userPostSchema } from "../schema/userSchema.js";
 import validate from "../middleware/validateAjv.js";
 
 // const validateUserInput = [
@@ -34,6 +34,8 @@ userRouter.post(
 userRouter.post("/login", user.loginController);
 
 // userRouter.get("/user/data", authMiddleware, user.getUserDataController);
+
+
 
 // logout
 userRouter.get("/logout", user.logoutController);

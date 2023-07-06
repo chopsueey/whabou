@@ -2,7 +2,18 @@ import express from "express";
 import * as profileController from "../controllers/profileController.js";
 import * as questionController from "../controllers/questionController.js";
 import * as feedbackController from "../controllers/feedbackController.js";
+
 import * as followController from "../controllers/followController.js";
+
+
+import * as answerController from "../controllers/answerController.js";
+import * as likeController from "../controllers/likeController.js";
+import { profilePostSchema } from "../schema/profileSchema.js";
+import { feedbackPostSchema } from "../schema/feedbackSchema.js";
+//import { likePostSchema } from "../schema/likeSchema.js";
+import { questionPostSchema } from "../schema/questionSchema.js";
+//import { answerPostSchema } from "../schema/answerSchema.js";
+import validate from "../middleware/validateAjv.js";
 
 
 const dashboardRouter = express.Router();
@@ -10,6 +21,7 @@ const dashboardRouter = express.Router();
 // DASHBOARD
 // GET
 dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
+dashboardRouter.get("/trend/sort", questionController.getAllQuestions);
 // POST
 
 // UPDATE
@@ -23,10 +35,11 @@ dashboardRouter.get("/feed/sort", questionController.getLatestQuestion);
 
 // get
 dashboardRouter.get("/profile", profileController.showProfile);
+dashboardRouter.get("/profile/:profileId", profileController.getProfile);
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post
-dashboardRouter.post("/profile", profileController.postProfileData);
+// dashboardRouter.post("/profile", profileController.postProfileData);
 
 // patch
 dashboardRouter.patch("/profile", profileController.updateProfileData);
@@ -44,9 +57,10 @@ dashboardRouter.delete("/profile", profileController.deleteAccount);
 dashboardRouter.get("/myquestions", questionController.getAllQuestions);
 dashboardRouter.get("/myquestions/:id", questionController.getQuestion);
 
+
 // post
 dashboardRouter.post("/myquestions", questionController.postQuestion);
-dashboardRouter.post("/myquestions/likes", questionController.postQuestion);
+// dashboardRouter.post("/question/answers", answerController.checkIfAnswered);
 
 // LIKE
 // dashboardRouter.post("/:id", dashboard.postLike);
@@ -56,8 +70,17 @@ dashboardRouter.post("/myquestions/likes", questionController.postQuestion);
 //post
 dashboardRouter.post("/feedback", feedbackController.postFeedback);
 
+//post answer
+dashboardRouter.post("/question/answer", answerController.answerCounter);
+
+// delete answer
+dashboardRouter.delete("/question/answer", answerController.deleteAnswer);
+
 //post like
-dashboardRouter.post("/feedback", feedbackController.postLike);
+dashboardRouter.post("/question/likes", likeController.increaseLike);
+
+// delete like
+dashboardRouter.delete("/question/likes", likeController.deleteLike);
 
 // FOLLOW / UNFOLLOW
 dashboardRouter.post("/follow/:targetUserId", followController.followUser);

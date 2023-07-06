@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import userRouter from "./routes/userRouter.js";
 import dashboardRouter from "./routes/dashboardRouter.js";
+import cookieParser from "cookie-parser";
 
 import connectDB from "./database/connectDB.js";
 
@@ -19,7 +20,9 @@ const connectionString = process.env.MONGO_URL;
 
 // Start MIDDLEWARES
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser())
 app.use("/", userRouter);
 app.use("/dashboard", authMiddleware, dashboardRouter);
 

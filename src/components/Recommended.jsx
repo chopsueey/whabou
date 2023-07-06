@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Questions } from "./Questions";
-import { getFeed, getTrend } from "../fetchRequests/QuestionRequests";
-import GeneralStore from "../store/GeneralContext";
+import { getFeed } from "../fetchRequests/QuestionRequests";
+import GeneralStore, { GeneralContext } from "../store/GeneralContext";
 
-export default function QuestionsOfWeek() {
-  const { activeTab } = GeneralStore();
+export default function Recommended() {
   const [sortedQuestions, setSortedQuestions] = useState(null);
-  const [answersOfUser, setAnswersOfUser] = useState(null);
-  const [likesOfUser, setLikesOfUser] = useState(null);
+  const [answersOfUser, setAnswersOfUser] = useState(null)
+  const [likesOfUser, setLikesOfUser] = useState(null)
 
   const [sortBy, setSortBy] = useState("latest");
   const { isLoading, setIsLoading } = GeneralStore();
@@ -15,13 +14,13 @@ export default function QuestionsOfWeek() {
   useEffect(() => {
     (async function request() {
       setIsLoading(true);
-      const feed = await getTrend(sortBy);
+      const feed = await getFeed(sortBy)
       setSortedQuestions(feed.found);
-      setAnswersOfUser(feed.userAnswers);
-      setLikesOfUser(feed.userLikes);
+      setAnswersOfUser(feed.userAnswers)
+      setLikesOfUser(feed.userLikes)
       setIsLoading(false);
     })();
-  }, [sortBy, activeTab]);
+  }, [sortBy]);
 
   return (
     <div className="row feed">
@@ -43,11 +42,7 @@ export default function QuestionsOfWeek() {
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
         </div>
       ) : sortedQuestions && sortedQuestions.length > 0 ? (
-        <Questions
-          questions={sortedQuestions}
-          answers={answersOfUser}
-          likes={likesOfUser}
-        />
+        <Questions questions={sortedQuestions} answers={answersOfUser} likes={likesOfUser} />
       ) : (
         <h2 className="text-center">Nothing found :/</h2>
       )}

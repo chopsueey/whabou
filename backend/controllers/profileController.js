@@ -1,40 +1,87 @@
+import Answer from "../model/answeredModel.js";
+import Like from "../model/likeModel.js";
 import Profile from "../model/profileModel.js";
+import Question from "../model/questionModel.js";
 import User from "../model/userModel.js";
 
 // get
 // Profil anzeigen
 async function showProfile(req, res, next) {
+  const numOfQuestionsToShow = 10;
   try {
-    // Annahme: Benutzer-ID ist im req.user-Objekt verfügbar
     const userId = req.user.userId;
-    // Benutzer aus der Datenbank abrufen
-    const user = await Profile.findOne({ userId: userId });
 
-    res.status(200).json(user);
+    const userProfile = await Profile.findOne({ userId: userId });
+
+    // find only questions of user profile
+    const askedQuestions = await Question.find({
+      profileId: { $eq: `${userProfile._id}` },
+    })
+      .sort("-createdAt")
+      .limit(numOfQuestionsToShow)
+      .populate("profileId", "userName")
+      .exec();
+
+    const userAnswers = await Answer.find({
+      user: req.user.userId,
+    });
+    const userLikes = await Like.find({
+      user: req.user.userId,
+    });
+    // find only liked questions by the user profile
+    const likedQuestionsIds = userLikes.map((question) => question.question);
+    const likedQuestions = await Question.find({
+      _id: { $in: likedQuestionsIds },
+    })
+      .sort("-createdAt")
+      .limit(numOfQuestionsToShow)
+      .populate("profileId", "userName")
+      .exec();
+
+    res.status(200).json({
+      askedQuestions: askedQuestions,
+      likedQuestions: likedQuestions,
+      userProfile: userProfile,
+      userAnswers: userAnswers,
+      userLikes: userLikes,
+    });
   } catch (error) {
     next(error);
   }
 }
 
-// post
-
-async function postProfileData(req, res, next) {
-  const { userName, nationality, age, userId } = req.body;
-
+async function getProfile(req, res, next) {
   try {
-    const newProfile = Profile({
-      userName: userName,
-      nationality: nationality,
-      age: age,
-      userId: userId,
-    });
+    const userId = req.user.userId;
+    const profileId = req.params.profileId;
 
-    const savedProfile = await newProfile.save();
-    res.status(201).json(savedProfile);
-  } catch (err) {
-    next(err);
+    const userProfile = await Profile.findById(profileId);
+
+    res.status(200).json(userProfile);
+  } catch (error) {
+    next(error);
   }
 }
+
+// // post
+
+// async function postProfileData(req, res, next) {
+//   const { userName, nationality, age, userId } = req.body;
+
+//   try {
+//     const newProfile = Profile({
+//       userName: userName,
+//       nationality: nationality,
+//       age: age,
+//       userId: userId,
+//     });
+
+//     const savedProfile = await newProfile.save();
+//     res.status(201).json(savedProfile);
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 
 // patch
 async function updateProfileData(req, res, next) {
@@ -45,7 +92,7 @@ async function updateProfileData(req, res, next) {
       {
         $set: req.body,
       },
-      { new: true }
+      { new: true, runValidators: true }
     );
     res.status(200).json(updatedItem);
   } catch (err) {
@@ -91,8 +138,9 @@ async function deleteAccount(req, res, next) {
 
 export {
   showProfile,
+  getProfile,
   editProfile,
-  postProfileData,
+  // postProfileData,
   updateProfileData,
   deleteAccount,
 };

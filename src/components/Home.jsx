@@ -7,6 +7,7 @@ import GeneralStore from "../store/GeneralContext";
 export default function Home() {
   const navigate = useNavigate();
   const { modal, setModal, hasCookie, setHasCookie } = GeneralStore();
+  const [loading, setLoading] = useState(false);
 
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
@@ -26,25 +27,29 @@ export default function Home() {
     setEmail("");
     setPassword("");
     if (!register) {
+      setLoading(true);
       const loginAttempt = await userLogin(data);
       if (loginAttempt) {
         setHasCookie(true);
         setModal(false);
         navigate("/dashboard");
+        setLoading(false);
         return;
       }
+      setLoading(false);
       return;
     }
 
+    setLoading(true);
     await userRegister(data);
-
+    setLoading(false);
     setModal(false);
   };
 
   useEffect(() => {
     if (hasCookie) navigate("/dashboard");
   });
-  
+
   return (
     <div className="wrapper" style={{ height: "50vh" }}>
       <div
@@ -58,55 +63,7 @@ export default function Home() {
         }}
       >
         <h1 className="text-4xl textc">Welcome to Wabooo!</h1>
-        {/* <dialog id="d">
-          <div className="modal">
-            <form className="signin flex flex-col p-4 text-center">
-              <h3>{register ? "Sign up" : "Log into your account!"}</h3>
-              {register && (
-                <>
-                  <label>
-                    <input
-                      type="text"
-                      value={name}
-                      placeholder="name"
-                      onChange={(evt) => setName(evt.target.value)}
-                    />
-                  </label>
-                </>
-              )}
-              <label>
-                <input
-                  type="email"
-                  value={email}
-                  placeholder="email"
-                  onChange={(evt) => setEmail(evt.target.value)}
-                />
-              </label>
-              <label>
-                <input
-                  type="password"
-                  value={password}
-                  placeholder="password"
-                  onChange={(evt) => setPassword(evt.target.value)}
-                />
-              </label>
-              <button onClick={handleSubmit}>
-                {register ? "Create account" : "Sign in"}
-              </button>
-              {register ? (
-                <p className="register">
-                  <span onClick={() => setRegister(false)}>To sign in</span>
-                </p>
-              ) : (
-                <p className="register">
-                  Not signed up yet?{" "}
-                  <span onClick={() => setRegister(true)}>Sign up!</span>
-                </p>
-              )}
-            </form>
-          </div>
-          <button onClick={() => d.close()}>close</button>
-        </dialog> */}
+
         {modal && (
           <div className="modal">
             <form className="signin flex flex-col p-4 text-center bg-gray-800 rounded-lg max-w-md mx-auto">
@@ -175,10 +132,36 @@ export default function Home() {
                 </label>
               )}
               <button
-                className=" mt-4 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mx-auto block max-w-[10rem] mb-2"
+                className={` mt-4 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mx-auto block max-w-[10rem] mb-2 ${
+                  loading ? "cursor-not-allowed opacity-75" : ""
+                }`}
                 onClick={handleSubmit}
+                disabled={loading}
               >
-                {register ? "Create account" : "Sign in"}
+                {loading ? (
+                  <div className="flex items-center">
+                    <div className="mr-2 animate-spin">
+                      <svg
+                        className="w-5 h-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M16 12a4 4 0 1 1-8 0m8 0H8" />
+                      </svg>
+                    </div>
+                    Signing in...
+                  </div>
+                ) : register ? (
+                  "Create account"
+                ) : (
+                  "Sign in"
+                )}
               </button>
               {register ? (
                 <p className="register">

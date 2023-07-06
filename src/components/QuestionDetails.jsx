@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import profilePic from "../assets/tg-stockach-de-dummy-profile-pic.png";
 
-export const Question = ({ question, answer, like }) => {
+export const QuestionDetails = ({ question, answer, like }) => {
   const [questionData, setQuestionData] = useState(question);
   const [isAnswered, setIsAnswered] = useState(answer);
   const [isLiked, setIsLiked] = useState(like);

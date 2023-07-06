@@ -5,6 +5,20 @@ export async function getProfile() {
       });
       const data = await response.json();
       if (response.status === 200) {
+        return data
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  export async function getTestProfile(profileId) {
+    try {
+      const response = await fetch(`http://localhost:5000/dashboard/profile/${profileId}`, {
+        credentials: "include",
+      });
+      const data = await response.json();
+      if (response.status === 200) {
         console.log(data);
         return data
       }
