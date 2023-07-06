@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTestProfile } from "../fetchRequests/ProfileRequests";
+import { getOthersProfile } from "../fetchRequests/ProfileRequests";
 import { useParams } from "react-router-dom";
 
 export default function OthersProfile() {
@@ -15,7 +15,7 @@ export default function OthersProfile() {
   // get user profile data, refresh on every load
   useEffect(() => {
     (async function request() {
-      const response = await getTestProfile(profileId);
+      const response = await getOthersProfile(profileId);
       setUserData(response);
     })();
   }, []);

@@ -12,7 +12,7 @@ export async function getProfile() {
     }
   }
 
-  export async function getTestProfile(profileId) {
+  export async function getOthersProfile(profileId) {
     try {
       const response = await fetch(`http://localhost:5000/dashboard/profile/${profileId}`, {
         credentials: "include",
