@@ -9,8 +9,8 @@ async function getAllProfiles(req, res) {
   res.status(200).json(profiles);
 }
 
-// @desc   create a profile
-// @route  POST /api/profiles
+// @desc   create a product
+// @route  POST /api/products
 
 async function createProfile(req, res) {
   const { name, country, birthYear, image } = req.body;
@@ -50,7 +50,9 @@ async function createProfile(req, res) {
     await profile.save();
     res.status(201).json({ message: "Profile saved" });
   } catch (error) {
-    res.status(500).json({ message: "Mistake with saving the profile" });
+    res
+      .status(500)
+      .json({ message: "Profile not saved (some mistake occured)" });
   }
 }
 
@@ -63,7 +65,7 @@ async function deleteProfile(req, res) {
   if (profile) {
     // delete image from cloudinary
     await cloudinary.uploader.destroy(profile.imgpub);
-    // delete profile from db
+    // delete product from db
     await profileModel.deleteOne({ _id: req.params.id });
     res.status(200).json({ message: "Profile deleted" });
   } else {

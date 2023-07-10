@@ -1,17 +1,17 @@
 import express from "express";
 
 import {
-  getAllProducts,
-  createProduct,
-  deleteProduct,
-} from "../controllers/productControllers.js";
+  getAllProfiles,
+  createProfile,
+  deleteProfile,
+} from "../controllers/profileControllers.js";
 
-const productRouter = express.Router();
+const profileRouter = express.Router();
 
-productRouter.get("/", getAllProducts);
+profiletRouter.get("/", getAllProfiles);
 
-productRouter.post("/", createProduct);
+profileRouter.post("/", createProfile);
 
-productRouter.delete("/:id", deleteProduct);
+profileRouter.delete("/:id", deleteProfile);
 
-export default productRouter;
+export default profileRouter;
