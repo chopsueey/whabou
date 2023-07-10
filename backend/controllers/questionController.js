@@ -1,10 +1,10 @@
 import Answer from "../model/answeredModel.js";
+import Follow from "../model/followModel.js";
 import Like from "../model/likeModel.js";
 import Profile from "../model/profileModel.js";
 import Question from "../model/questionModel.js";
 
 export async function getAllQuestions(req, res, next) {
-
   const numOfQuestionsToShow = 10;
   const sortBy = req.query.sortBy;
   let sortTime = 168;
@@ -38,7 +38,7 @@ export async function getAllQuestions(req, res, next) {
       },
       {
         $addFields: {
-          totalAnswers: { $add: ['$yes', '$no'] },
+          totalAnswers: { $add: ["$yes", "$no"] },
         },
       },
       {
@@ -52,21 +52,21 @@ export async function getAllQuestions(req, res, next) {
       },
       {
         $lookup: {
-          from: 'profiles',
-          localField: 'profileId',
-          foreignField: '_id',
-          as: 'profile',
+          from: "profiles",
+          localField: "profileId",
+          foreignField: "_id",
+          as: "profile",
         },
       },
       {
         $addFields: {
-          profileId: { $arrayElemAt: ['$profile', 0] },
+          profileId: { $arrayElemAt: ["$profile", 0] },
         },
       },
       {
         $project: {
-          'profile._id': 0,
-          'profile.__v': 0,
+          "profile._id": 0,
+          "profile.__v": 0,
         },
       },
     ]);
@@ -77,11 +77,25 @@ export async function getAllQuestions(req, res, next) {
     const userLikes = await Like.find({
       user: req.user.userId,
     });
+
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followerProfileId
+    const userIsFollowing = await Follow.find({
+      followerProfileId: userProfile._id,
+    });
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followingProfileId
+    const userFollowers = await Follow.find({
+      followingProfileId: userProfile._id,
+    });
+
     return res.status(200).json({
       sortBy: sortBy,
       found: sortedQuestions,
       userAnswers: userAnswers,
       userLikes: userLikes,
+      userIsFollowing: userIsFollowing,
+      userFollowers: userFollowers,
     });
 
     // week
@@ -95,6 +109,8 @@ export async function getAllQuestions(req, res, next) {
 // Eine einzelne Frage anzeigen
 export async function getQuestion(req, res, next) {
   try {
+    const userProfile = await Profile.findOne({ userId: req.user.userId });
+
     const questionId = req.params.id;
 
     const questions = await Question.findById(questionId)
@@ -107,6 +123,18 @@ export async function getQuestion(req, res, next) {
     const userLikes = await Like.find({
       user: req.user.userId,
     });
+
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followerProfileId
+    const userIsFollowing = await Follow.find({
+      followerProfileId: userProfile._id,
+    });
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followingProfileId
+    const userFollowers = await Follow.find({
+      followingProfileId: userProfile._id,
+    });
+
     if (!questions) {
       return res.status(404).json({ message: "Frage nicht gefunden" });
     }
@@ -115,6 +143,8 @@ export async function getQuestion(req, res, next) {
       found: questions,
       userAnswers: userAnswers,
       userLikes: userLikes,
+      userIsFollowing: userIsFollowing,
+      userFollowers: userFollowers,
     });
   } catch (error) {
     next(error);
@@ -161,11 +191,25 @@ export async function getLatestQuestion(req, res, next) {
     const userLikes = await Like.find({
       user: req.user.userId,
     });
+
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followerProfileId
+    const userIsFollowing = await Follow.find({
+      followerProfileId: userProfile._id,
+    });
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followingProfileId
+    const userFollowers = await Follow.find({
+      followingProfileId: userProfile._id,
+    });
+
     return res.status(200).json({
       sortBy: sortBy,
       found: sortedQuestions,
       userAnswers: userAnswers,
       userLikes: userLikes,
+      userIsFollowing: userIsFollowing,
+      userFollowers: userFollowers,
     });
 
     // week

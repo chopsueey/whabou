@@ -8,6 +8,8 @@ export default function Feed() {
   const [sortedQuestions, setSortedQuestions] = useState(null);
   const [answersOfUser, setAnswersOfUser] = useState(null);
   const [likesOfUser, setLikesOfUser] = useState(null);
+  const [userIsFollowing, setUserIsFollowing] = useState(null);
+  const [userFollowers, setUserFollowers] = useState(null);
 
   const [sortBy, setSortBy] = useState("latest");
   const { isLoading, setIsLoading } = GeneralStore();
@@ -19,6 +21,8 @@ export default function Feed() {
       setSortedQuestions(feed.found);
       setAnswersOfUser(feed.userAnswers);
       setLikesOfUser(feed.userLikes);
+      setUserIsFollowing(feed.userIsFollowing);
+      setUserFollowers(feed.userFollowers);
       setIsLoading(false);
     })();
   }, [sortBy, activeTab]);
@@ -47,6 +51,8 @@ export default function Feed() {
           questions={sortedQuestions}
           answers={answersOfUser}
           likes={likesOfUser}
+          isFollowing={userIsFollowing}
+          followers={userFollowers}
         />
       ) : (
         <h2 className="text-center">Nothing found :/</h2>

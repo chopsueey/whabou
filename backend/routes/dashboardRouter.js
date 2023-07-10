@@ -36,6 +36,8 @@ dashboardRouter.get("/trend/sort", questionController.getAllQuestions);
 // get
 dashboardRouter.get("/profile", profileController.showProfile);
 dashboardRouter.get("/profile/:profileId", profileController.getProfile);
+dashboardRouter.get("/profile/:profileId/follower", followController.getFollower);
+
 // dashboardRouter.get("/profile", profileController.showUser);
 
 // post
@@ -83,8 +85,8 @@ dashboardRouter.post("/question/likes", likeController.increaseLike);
 dashboardRouter.delete("/question/likes", likeController.deleteLike);
 
 // FOLLOW / UNFOLLOW
-dashboardRouter.post("/follow/:targetUserId", followController.followUser);
-dashboardRouter.post("/unfollow/:targetUserId", followController.unfollowUser);
+dashboardRouter.post("/follow", followController.followUser);
+dashboardRouter.delete("/unfollow", followController.deleteFollow);
 
 
 export default dashboardRouter;

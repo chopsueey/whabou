@@ -1,4 +1,5 @@
 import Answer from "../model/answeredModel.js";
+import Follow from "../model/followModel.js";
 import Like from "../model/likeModel.js";
 import Profile from "../model/profileModel.js";
 import Question from "../model/questionModel.js";
@@ -28,6 +29,18 @@ async function showProfile(req, res, next) {
     const userLikes = await Like.find({
       user: req.user.userId,
     });
+    
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followerProfileId
+    const userIsFollowing = await Follow.find({
+      followerProfileId: userProfile._id,
+    });
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followingProfileId
+    const userFollowers = await Follow.find({
+      followingProfileId: userProfile._id,
+    });
+
     // find only liked questions by the user profile
     const likedQuestionsIds = userLikes.map((question) => question.question);
     const likedQuestions = await Question.find({
@@ -44,6 +57,8 @@ async function showProfile(req, res, next) {
       userProfile: userProfile,
       userAnswers: userAnswers,
       userLikes: userLikes,
+      userIsFollowing: userIsFollowing,
+      userFollowers: userFollowers,
     });
   } catch (error) {
     next(error);
