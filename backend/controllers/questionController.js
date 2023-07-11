@@ -4,6 +4,7 @@ import Like from "../model/likeModel.js";
 import Profile from "../model/profileModel.js";
 import Question from "../model/questionModel.js";
 
+// trend controller
 export async function getAllQuestions(req, res, next) {
   const numOfQuestionsToShow = 10;
   const sortBy = req.query.sortBy;
@@ -106,51 +107,7 @@ export async function getAllQuestions(req, res, next) {
   }
 }
 
-// Eine einzelne Frage anzeigen
-export async function getQuestion(req, res, next) {
-  try {
-    const userProfile = await Profile.findOne({ userId: req.user.userId });
-
-    const questionId = req.params.id;
-
-    const questions = await Question.findById(questionId)
-      .populate("profileId", "userName")
-      .exec();
-
-    const userAnswers = await Answer.find({
-      user: req.user.userId,
-    });
-    const userLikes = await Like.find({
-      user: req.user.userId,
-    });
-
-    // find all Follows, where the profileId of the current user
-    // is stored in the key: followerProfileId
-    const userIsFollowing = await Follow.find({
-      followerProfileId: userProfile._id,
-    });
-    // find all Follows, where the profileId of the current user
-    // is stored in the key: followingProfileId
-    const userFollowers = await Follow.find({
-      followingProfileId: userProfile._id,
-    });
-
-    if (!questions) {
-      return res.status(404).json({ message: "Frage nicht gefunden" });
-    }
-
-    res.status(200).json({
-      found: questions,
-      userAnswers: userAnswers,
-      userLikes: userLikes,
-      userIsFollowing: userIsFollowing,
-      userFollowers: userFollowers,
-    });
-  } catch (error) {
-    next(error);
-  }
-}
-
+// feed controller
 export async function getLatestQuestion(req, res, next) {
   const numOfQuestionsToShow = 10;
   const sortBy = req.query.sortBy;
@@ -220,9 +177,95 @@ export async function getLatestQuestion(req, res, next) {
   }
 }
 
+// feed controller
+export async function updateQuestion(req, res, next) {
+  const questionId = req.params.questionId;
+  try {
+    // get user profile
+    const userProfile = await Profile.findOne({ userId: req.user.userId });
+
+    const sortedQuestions = await Question.findById(questionId).populate(
+      "profileId",
+      "userName"
+    );
+    const userAnswers = await Answer.find({
+      user: req.user.userId,
+    });
+    const userLikes = await Like.find({
+      user: req.user.userId,
+    });
+
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followerProfileId
+    const userIsFollowing = await Follow.find({
+      followerProfileId: userProfile._id,
+    });
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followingProfileId
+    const userFollowers = await Follow.find({
+      followingProfileId: userProfile._id,
+    });
+
+    return res.status(200).json({
+      found: sortedQuestions,
+      userAnswers: userAnswers,
+      userLikes: userLikes,
+      userIsFollowing: userIsFollowing,
+      userFollowers: userFollowers,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// Eine einzelne Frage anzeigen
+export async function getQuestion(req, res, next) {
+  try {
+    const userProfile = await Profile.findOne({ userId: req.user.userId });
+
+    const questionId = req.params.id;
+
+    const questions = await Question.findById(questionId)
+      .populate("profileId", "userName")
+      .exec();
+
+    const userAnswers = await Answer.find({
+      user: req.user.userId,
+    });
+    const userLikes = await Like.find({
+      user: req.user.userId,
+    });
+
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followerProfileId
+    const userIsFollowing = await Follow.find({
+      followerProfileId: userProfile._id,
+    });
+    // find all Follows, where the profileId of the current user
+    // is stored in the key: followingProfileId
+    const userFollowers = await Follow.find({
+      followingProfileId: userProfile._id,
+    });
+
+    if (!questions) {
+      return res.status(404).json({ message: "Frage nicht gefunden" });
+    }
+
+    res.status(200).json({
+      found: questions,
+      userAnswers: userAnswers,
+      userLikes: userLikes,
+      userIsFollowing: userIsFollowing,
+      userFollowers: userFollowers,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 // post
 export async function postQuestion(req, res, next) {
-  const { question } = req.body;
+  const { question, topics } = req.body;
   const userId = req.user.userId;
 
   try {
@@ -230,6 +273,7 @@ export async function postQuestion(req, res, next) {
     const newQuestion = Question({
       question: question,
       profileId: userProfile._id,
+      topics: topics,
     });
 
     const savedQuestion = await newQuestion.save();

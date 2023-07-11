@@ -1,5 +1,4 @@
 import Follow from "../model/followModel.js";
-import User from "../model/followModel.js";
 import Profile from "../model/profileModel.js";
 
 export async function followUser(req, res, next) {
@@ -56,11 +55,21 @@ export async function getFollower(req, res, next) {
     const userProfileId = await Profile.findOne({
       userId: userId,
     });
-    const followingThisProfile = await Follow.find({
+
+    // find all, who are following the profile of the question creator
+    const profileFollower = await Follow.find({
       followingProfileId: profileId,
     });
 
-    res.status(200).json({followingThisProfile, userProfileId});
+    // check if current user follows profile of question creator
+    const isUserFollowingTheProfile = await Follow.findOne({
+      followerProfileId: userProfileId._id,
+      followingProfileId: profileId,
+    });
+    
+    res
+      .status(200)
+      .json({ profileFollower, userProfileId, isUserFollowingTheProfile });
   } catch (err) {
     next(err);
   }

@@ -3,9 +3,12 @@ import { postQuestion } from "../fetchRequests/QuestionRequests";
 import GeneralStore from "../store/GeneralContext";
 
 export default function MyQuestions() {
-  const { setActiveTab } = GeneralStore()
+  const { setActiveTab } = GeneralStore();
 
   const [question, setQuestion] = useState(null);
+  const [topic, setTopic] = useState("");
+  const [topicsArray, setTopicsArray] = useState([]);
+
   const [saveLoading, setSaveLoading] = useState(false);
   const [isContentVisible, setIsContentVisible] = useState({
     question1: false,
@@ -15,14 +18,14 @@ export default function MyQuestions() {
 
   async function handlePostQuestion(e) {
     e.preventDefault();
+    const topics = topicsArray;
     setSaveLoading(true);
-    const data = { question };
+    const data = { question, topics };
     await postQuestion(data);
 
     setSaveLoading(false);
 
-    setActiveTab("Feed")
-
+    setActiveTab("Feed");
   }
 
   const handleQuestionClick = (questionKey) => {
@@ -31,6 +34,20 @@ export default function MyQuestions() {
       [questionKey]: !prevState[questionKey],
     }));
   };
+
+  function handleAddClick(e) {
+    if (topic.length >= 0) {
+      setTopicsArray([...topicsArray, topic]);
+      setTopic("");
+    }
+  }
+
+  function handleDeleteTopic(e) {
+    const filteredArray = topicsArray.filter(
+      (item) => item !== e.target.innerText
+    );
+    setTopicsArray([...filteredArray]);
+  }
 
   return (
     <div className="flex items-center justify-center mt-5 mb-5">
@@ -71,6 +88,7 @@ export default function MyQuestions() {
         <h2 className="mb-4 text-xl font-semibold text-center text-white">
           Question
         </h2>
+
         <input
           onChange={(e) => {
             setQuestion(e.target.value);
@@ -79,6 +97,44 @@ export default function MyQuestions() {
           type="text"
           className="w-full p-4 rounded-md shadow-md mb-4 text-gray-800"
         />
+        <div className="flex flex-col text-yellow-100">
+          <label htmlFor="topic-choice">Topics</label>
+          <input
+            className="text-black"
+            onChange={(e) => setTopic(e.target.value)}
+            value={topic}
+            list="topic-list"
+            id="topic-choice"
+            name="question-topics"
+          />
+
+          <datalist id="topic-list">
+            <option value="Politics" />
+            <option value="Social" />
+            <option value="Tech" />
+            <option value="Music" />
+            <option value="Movies" />
+            {/* <option value={topic}></option> */}
+          </datalist>
+          <button
+            className="text-green-500 text-end"
+            onClick={(e) => handleAddClick(e)}
+          >
+            add
+          </button>
+        </div>
+        <div className="flex">
+          {topicsArray.map((item) => (
+            <div
+
+              onClick={(e) => handleDeleteTopic(e)}
+              className="text-white mr-2 hover:text-red-500 cursor-pointer"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+
         <button
           onClick={handlePostQuestion}
           className={`text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg font-medium rounded-lg text-medium px-5 py-1 w-full ${

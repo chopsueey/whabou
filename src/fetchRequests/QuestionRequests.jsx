@@ -21,6 +21,19 @@ export async function getQuestion(questionId) {
   }
 }
 
+export async function updateQuestion(questionId) {
+  const response = await fetch(
+    `http://localhost:5000/dashboard/question/${questionId}`,
+    {
+      credentials: "include",
+    }
+  );
+  const data = await response.json();
+  if (response.status === 200) {
+    return data;
+  }
+}
+
 export async function postQuestion(data) {
   try {
     const response = await fetch(

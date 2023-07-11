@@ -59,7 +59,7 @@ export default function Profile() {
       setUserFollowers(profileData.userFollowers);
       setIsLoading(false);
     })();
-  }, []);
+  }, [activeTab]);
 
   return (
     <div className="container mx-auto">

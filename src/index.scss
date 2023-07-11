@@ -7,8 +7,7 @@
 }
 
 .textc {
-color: #149eca;
-
+   color: #149eca;
 }
 
 p {
@@ -16,8 +15,8 @@ p {
    font-weight: bold;
 }
 
-h1, li {
-  
+h1,
+li {
    font-weight: 700;
    color: white;
 }
@@ -35,4 +34,12 @@ h1, li {
 }
 .selected-tab {
    box-shadow: -2px 2px 0 0 #149eca;
+}
+
+.popup-profile-info {
+   display: none;
+}
+
+.profile-name:hover .popup-profile-info {
+   display: block;
 }

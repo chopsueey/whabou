@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Questions } from "./Questions";
 import { getFeed } from "../fetchRequests/QuestionRequests";
 import GeneralStore from "../store/GeneralContext";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Recommended() {
   const { activeTab } = GeneralStore();
@@ -25,10 +27,19 @@ export default function Recommended() {
       setUserFollowers(feed.userFollowers);
       setIsLoading(false);
     })();
+    AOS.init({
+      duration: 800,
+      once: true,
+      mirror: false,
+    });
   }, [sortBy, activeTab]);
 
   return (
-    <div className="row feed">
+    <div
+      data-aos="zoom-in-down"
+      data-aos-delay="100"
+      className={activeTab === "Recommended" ? "row recommended" : "hidden"}
+    >
       <div className="flex justify-end">
         <select
           className="bg-black"
