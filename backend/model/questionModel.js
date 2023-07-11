@@ -12,7 +12,7 @@ const questionSchema = new mongoose.Schema(
       maxlength: 1000, // Maximale Länge der Frage: 1000 Zeichen
       validate: {
         validator: (v) => {
-           return v.length >= 5 && v.length <= 1000 && !/^\d+$/.test(v);
+          return v.length >= 5 && v.length <= 1000 && !/^\d+$/.test(v);
         },
         message:
           "Die Frage muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",
@@ -26,6 +26,7 @@ const questionSchema = new mongoose.Schema(
       ref: "Profile",
       required: true,
     },
+    topics: { type: [String] },
   },
   { timestamps: true }
 );

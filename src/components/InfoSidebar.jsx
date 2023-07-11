@@ -14,7 +14,7 @@ export function InfoSidebar() {
         className={(activeTab === "Feed" ? "active" : "") + " p-2"}
         onClick={() => handleTabClick("Feed")}
       >
-        testdfsdfsdfsdffd
+        additional container
       </div>
       <div
         className={(activeTab === "Questions" ? "active" : "") + " p-2"}
@@ -22,7 +22,7 @@ export function InfoSidebar() {
         style={{ cursor: "pointer" }}
         // onClick={() => navigate("/dashboard/myquestions")}
       >
-        test
+        Was
       </div>
       <div
         className={(activeTab === "Recommended" ? "active" : "") + " p-2"}
@@ -30,7 +30,7 @@ export function InfoSidebar() {
         style={{ cursor: "pointer" }}
         // onClick={() => navigate("/dashboard/myquestions")}
       >
-        test
+        soll
       </div>
 
       <div
@@ -39,7 +39,7 @@ export function InfoSidebar() {
         style={{ cursor: "pointer" }}
         // onClick={() => navigate("/dashboard/myquestions")}
       >
-        test
+        hier
       </div>
       <div
         className={(activeTab === "Profile" ? "active" : "") + " p-2"}
@@ -47,7 +47,7 @@ export function InfoSidebar() {
         style={{ cursor: "pointer" }}
         // onClick={() => navigate("/dashboard/profile")}
       >
-        test
+        rein?
       </div>
     </div>
   );

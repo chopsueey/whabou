@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Questions } from "./Questions";
-import { getFeed, getTrend } from "../fetchRequests/QuestionRequests";
+import { getTrend } from "../fetchRequests/QuestionRequests";
 import GeneralStore from "../store/GeneralContext";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function QuestionsOfWeek() {
   const { activeTab } = GeneralStore();
@@ -25,10 +27,19 @@ export default function QuestionsOfWeek() {
       setUserFollowers(feed.userFollowers);
       setIsLoading(false);
     })();
+    AOS.init({
+      duration: 800,
+      once: true,
+      mirror: false,
+    });
   }, [sortBy, activeTab]);
 
   return (
-    <div className="row feed">
+    <div
+      data-aos="zoom-in-down"
+      data-aos-delay="100"
+      className={activeTab === "Trend" ? "row trend" : "hidden"}
+    >
       <div className="flex justify-end">
         <select
           className="bg-black"
