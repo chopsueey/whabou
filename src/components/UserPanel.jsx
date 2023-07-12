@@ -34,7 +34,7 @@ export default function UserPanel() {
   };
   return (
     <div className={userPanelClassName}>
-      <div className="user-panel flex lg:flex-col border-l-2">
+      <div className="user-panel flex lg:flex-col border-l-2 mt-10">
         <div
           style={{ cursor: "pointer" }}
           className={(activeTab === "Feed" ? "active" : "") + " p-2"}
