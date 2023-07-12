@@ -10,9 +10,9 @@ export const profilePostSchema = {
   required: ["userName", "country", "birthyear"],
   errorMessage: {
     properties: {
-      userName: "Der Username muss zwischen 2 und 30 Zeichen lang sein!",
-      country: "Bitte machen Sie Angaben zu Ihrem Wohnort",
-      birthYear: "Das Alter muss mindestens 12 sein!",
+      userName: "Your name shall have minimum 2 and maximum 30 letters",
+      country: "Please, choose your country.",
+      birthYear: "You shall be minimum 18 years old",
     },
   },
   additionalProperties: false,

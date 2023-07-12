@@ -142,10 +142,10 @@ async function deleteAccount(req, res, next) {
     const deletedAccount = await User.findByIdAndDelete(accountId);
     console.log(deletedAccount);
     if (!deletedAccount) {
-      return res.status(404).json({ error: "Account nicht gefunden" });
+      return res.status(404).json({ error: "Account is not found" });
     }
 
-    res.status(200).json({ message: "Account erfolgreich gelöscht" });
+    res.status(200).json({ message: "Account is deleted" });
   } catch (err) {
     next(err);
   }

@@ -15,7 +15,7 @@ const questionSchema = new mongoose.Schema(
           return v.length >= 5 && v.length <= 1000 && !/^\d+$/.test(v);
         },
         message:
-          "Die Frage muss aus mindestens 5 Zeichen und nicht mehr als 1000 Zeichen bestehen!",
+          "The question shall have minimum 5 and maximum 1000 letters (including numbers, if needed).",
       },
     },
     yes: { type: Number, default: 0 },
