@@ -21,8 +21,7 @@
 
 
 .textc {
-color: #149eca;
-
+   color: #149eca;
 }
 
 p {
@@ -30,11 +29,12 @@ p {
    font-weight: bold;
 }
 
-h1, li {
-  
+h1,
+li {
    font-weight: 700;
    color: white;
 }
+
 // h1 {
 //    text-decoration: underline;
 // }
@@ -48,4 +48,15 @@ h1, li {
 }
 .selected-tab {
    box-shadow: -2px 2px 0 0 #149eca;
+}
+
+.popup-profile-info {
+   visibility: hidden;
+   opacity: 0;
+   transition: visibility 0s, opacity 200ms linear;
+}
+
+.profile-name:hover .popup-profile-info {
+   visibility: visible;
+   opacity: 1;
 }

@@ -13,8 +13,20 @@ export function GeneralContext({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   // dashboard active tab
   const [activeTab, setActiveTab] = useState("Feed");
-
-  const sharedData = { modal, setModal, hasCookie, setHasCookie, isLoading, setIsLoading, activeTab, setActiveTab };
+  // search results
+  const [results, setResults] = useState(null);
+  const sharedData = {
+    modal,
+    setModal,
+    hasCookie,
+    setHasCookie,
+    isLoading,
+    setIsLoading,
+    activeTab,
+    setActiveTab,
+    results,
+    setResults
+  };
 
   return (
     <InitialContext.Provider value={sharedData}>

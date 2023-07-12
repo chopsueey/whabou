@@ -3,7 +3,7 @@ import GeneralStore from "../store/GeneralContext";
 import { useEffect, useState } from "react";
 import { getProfile } from "../fetchRequests/ProfileRequests";
 export default function UserPanel() {
-  const { activeTab, setActiveTab } = GeneralStore();
+  const { activeTab, setActiveTab, results } = GeneralStore();
   const [profileId, setProfileId] = useState(undefined);
   const [userName, setUserName] = useState(undefined);
   const [userPanelClassName, setUserPanelClassName] = useState(
@@ -23,7 +23,6 @@ export default function UserPanel() {
   const navigate = useNavigate();
   useEffect(() => {
     (async function request() {
-      // const response = await getTestProfile()
       const response = await getProfile();
       console.log(response);
       setProfileId(response.userProfile._id);
@@ -44,8 +43,8 @@ export default function UserPanel() {
           feed
         </div>
         <div
-          className={(activeTab === "Questions" ? "active" : "") + " p-2"}
-          onClick={() => handleTabClick("Questions")}
+          className={(activeTab === "Trend" ? "active" : "") + " p-2"}
+          onClick={() => handleTabClick("Trend")}
           style={{ cursor: "pointer" }}
         >
           trend
@@ -73,6 +72,17 @@ export default function UserPanel() {
         >
           profile
         </div>
+        {results ? (
+          <div
+            className={(activeTab === "Results" ? "active" : "") + " p-2"}
+            style={{ cursor: "pointer" }}
+            onClick={() => handleTabClick("Results")}
+          >
+            search results
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

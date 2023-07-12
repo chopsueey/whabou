@@ -8,13 +8,15 @@ export default function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  // set own Questions
+  // variables for question data
   const [askedQuestions, setAskedQuestions] = useState(null);
   const [likedQuestions, setLikedQuestions] = useState(null);
   const [answersOfUser, setAnswersOfUser] = useState(null);
   const [likesOfUser, setLikesOfUser] = useState(null);
+  const [userIsFollowing, setUserIsFollowing] = useState(null);
+  const [userFollowers, setUserFollowers] = useState(null);
 
-  // PROFILE
+  // variables for profile
 
   const [userData, setUserData] = useState(null);
   const [userName, setUserName] = useState(null);
@@ -31,9 +33,11 @@ export default function Profile() {
     const profileData = await getProfile();
     setUserData(profileData);
     setAskedQuestions(profileData.askedQuestions);
-    setLikedQuestions(profileData.likedQuestions)
+    setLikedQuestions(profileData.likedQuestions);
     setAnswersOfUser(profileData.userAnswers);
     setLikesOfUser(profileData.userLikes);
+    setUserIsFollowing(profileData.userIsFollowing);
+    setUserFollowers(profileData.userFollowers);
     setIsSaving(false);
   }
 
@@ -48,12 +52,14 @@ export default function Profile() {
       const profileData = await getProfile();
       setUserData(profileData);
       setAskedQuestions(profileData.askedQuestions);
-      setLikedQuestions(profileData.likedQuestions)
+      setLikedQuestions(profileData.likedQuestions);
       setAnswersOfUser(profileData.userAnswers);
       setLikesOfUser(profileData.userLikes);
+      setUserIsFollowing(profileData.userIsFollowing);
+      setUserFollowers(profileData.userFollowers);
       setIsLoading(false);
     })();
-  }, []);
+  }, [activeTab]);
 
   return (
     <div className="container mx-auto">
@@ -141,6 +147,8 @@ export default function Profile() {
                 questions={askedQuestions}
                 answers={answersOfUser}
                 likes={likesOfUser}
+                isFollowing={userIsFollowing}
+                followers={userFollowers}
               />
             ) : (
               <h2 className="text-center">Nothing found :/</h2>
@@ -155,6 +163,8 @@ export default function Profile() {
                 questions={likedQuestions}
                 answers={answersOfUser}
                 likes={likesOfUser}
+                isFollowing={userIsFollowing}
+                followers={userFollowers}
               />
             ) : (
               <h2 className="text-center">Nothing found :/</h2>

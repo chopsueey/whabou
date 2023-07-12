@@ -35,6 +35,14 @@ export default function OthersProfile() {
             </li>
             <li
               className={`px-4 py-2 cursor-pointer ${
+                activeTab === "Questions" ? "selected-tab rounded-full" : ""
+              }`}
+              onClick={() => handleTabClick("Questions")}
+            >
+              Questions
+            </li>
+            <li
+              className={`px-4 py-2 cursor-pointer ${
                 activeTab === "Favorites" ? "selected-tab rounded-full" : ""
               }`}
               onClick={() => handleTabClick("Favorites")}
@@ -44,11 +52,11 @@ export default function OthersProfile() {
 
             <li
               className={`px-4 py-2 cursor-pointer ${
-                activeTab === "Friends" ? "selected-tab rounded-full" : ""
+                activeTab === "Follower" ? "selected-tab rounded-full" : ""
               }`}
-              onClick={() => handleTabClick("Friends")}
+              onClick={() => handleTabClick("Follower")}
             >
-              Friends
+              Follower
             </li>
           </ul>
         </nav>

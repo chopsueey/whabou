@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { Questions } from "./Questions";
 import { getFeed } from "../fetchRequests/QuestionRequests";
 import GeneralStore from "../store/GeneralContext";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Feed() {
   const { activeTab } = GeneralStore();
   const [sortedQuestions, setSortedQuestions] = useState(null);
   const [answersOfUser, setAnswersOfUser] = useState(null);
   const [likesOfUser, setLikesOfUser] = useState(null);
+  const [userIsFollowing, setUserIsFollowing] = useState(null);
+  const [userFollowers, setUserFollowers] = useState(null);
 
   const [sortBy, setSortBy] = useState("latest");
   const { isLoading, setIsLoading } = GeneralStore();
@@ -19,12 +23,23 @@ export default function Feed() {
       setSortedQuestions(feed.found);
       setAnswersOfUser(feed.userAnswers);
       setLikesOfUser(feed.userLikes);
+      setUserIsFollowing(feed.userIsFollowing);
+      setUserFollowers(feed.userFollowers);
       setIsLoading(false);
     })();
+    AOS.init({
+      duration: 800,
+      once: true,
+      mirror: false,
+    });
   }, [sortBy, activeTab]);
 
   return (
-    <div className="row feed">
+    <div
+      data-aos="zoom-in-down"
+      data-aos-delay="100"
+      className={activeTab === "Feed" ? "row feed" : "hidden"}
+    >
       <div className="flex justify-end">
         <select
           className="bg-black"
@@ -47,6 +62,8 @@ export default function Feed() {
           questions={sortedQuestions}
           answers={answersOfUser}
           likes={likesOfUser}
+          isFollowing={userIsFollowing}
+          followers={userFollowers}
         />
       ) : (
         <h2 className="text-center">Nothing found :/</h2>

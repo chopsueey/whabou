@@ -1,12 +1,20 @@
 import mongoose from "mongoose";
 
 const followSchema = new mongoose.Schema({
-  followerProfileId: { type: mongoose.Schema.Types.ObjectId, ref: 'Profile' },
+  followerProfileId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Profile",
+    required: true,
+  },
 
   //Target
-  followingProfileId: { type: mongoose.Schema.Types.ObjectId, ref: 'Profile' },
+  followingProfileId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Profile",
+    required: true,
+  },
 });
 
-const FollowModel = mongoose.model('Follow', followSchema);
-export default FollowModel;
+const Follow = mongoose.model("Follow", followSchema);
 
+export default Follow;

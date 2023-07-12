@@ -1,58 +1,79 @@
-import UserModel from '../model/followModel.js';
+import Follow from "../model/followModel.js";
+import Profile from "../model/profileModel.js";
 
-async function followUser(req, res, next) {
+export async function followUser(req, res, next) {
   try {
-    const { followerProfileId, followingProfileId } = req.body;
-    
-    const user = await UserModel.findById(followerProfileId);
-    const targetUser = await UserModel.findById(followingProfileId);
+    const { followingProfileId } = req.body;
 
-    if (user && targetUser) {
-      // Füge den followingProfileId zur Liste der Follower von followerProfileId hinzu
-      user.following.push(followingProfileId);
-      await user.save();
+    const userId = req.user.userId;
+    const requestProfile = await Profile.findOne({ userId: userId });
+    const targetProfile = await Profile.findById(followingProfileId);
 
-      // Füge followerProfileId zur Liste der Follower von followingProfileId hinzu
-      targetUser.followers.push(followerProfileId);
-      await targetUser.save();
+    if (requestProfile && targetProfile) {
+      const createdFollow = await Follow({
+        followerProfileId: requestProfile._id,
+        followingProfileId: followingProfileId,
+      });
+      const savedFollow = await createdFollow.save();
+      res.status(200).json({
+        message: "User followed successfully",
+        newFollow: savedFollow,
+      });
     }
-
-    res.status(200).json({ message: 'User followed successfully' });
   } catch (error) {
     next(error);
   }
 }
 
-async function unfollowUser(req, res, next) {
+export async function deleteFollow(req, res, next) {
   try {
-    const { followerProfileId, followingProfileId } = req.body;
-    
-    const user = await UserModel.findById(followerProfileId);
-    const targetUser = await UserModel.findById(followingProfileId);
+    const { followingProfileId } = req.body;
+    const userId = req.user.userId;
+    const requestProfile = await Profile.findOne({ userId: userId });
+    const targetProfile = await Profile.findById(followingProfileId);
 
-    if (user && targetUser) {
-      // Entferne followingProfileId aus der Liste der Follower von followerProfileId
-      user.following = user.following.filter((id) => id.toString() !== followingProfileId);
-      await user.save();
+    if (requestProfile && targetProfile) {
+      // follow to delete
+      const followToDelete = await Follow.findOne({
+        followerProfileId: requestProfile._id,
+        followingProfileId: followingProfileId,
+      });
+      const deletedFollow = await Follow.findByIdAndDelete(followToDelete._id);
 
-      // Entferne followerProfileId aus der Liste der Follower von followingProfileId
-      targetUser.followers = targetUser.followers.filter((id) => id.toString() !== followerProfileId);
-      await targetUser.save();
+      res.status(200).json({ deletedFollow: deletedFollow });
     }
-
-    res.status(200).json({ message: 'User unfollowed successfully' });
   } catch (error) {
     next(error);
   }
 }
 
-export {
-  followUser,
-  unfollowUser
-};
+export async function getFollower(req, res, next) {
+  try {
+    const userId = req.user.userId;
+    const profileId = req.params.profileId;
 
+    const userProfileId = await Profile.findOne({
+      userId: userId,
+    });
 
+    // find all, who are following the profile of the question creator
+    const profileFollower = await Follow.find({
+      followingProfileId: profileId,
+    });
 
+    // check if current user follows profile of question creator
+    const isUserFollowingTheProfile = await Follow.findOne({
+      followerProfileId: userProfileId._id,
+      followingProfileId: profileId,
+    });
+    
+    res
+      .status(200)
+      .json({ profileFollower, userProfileId, isUserFollowingTheProfile });
+  } catch (err) {
+    next(err);
+  }
+}
 /*
     async function followUser(req, res, next) {
       const { followerProfileId, followingProfileId } = req.body;

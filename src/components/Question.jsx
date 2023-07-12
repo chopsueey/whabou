@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   deleteAnswer,
   deleteLike,
@@ -8,17 +8,40 @@ import {
 } from "../fetchRequests/QuestionRequests";
 import { useNavigate } from "react-router-dom";
 import profilePic from "../assets/tg-stockach-de-dummy-profile-pic.png";
+import {
+  deleteFollow,
+  getFollower,
+  postFollow,
+} from "../fetchRequests/FollowRequests";
+import { searchRequest } from "../fetchRequests/SearchRequests";
+import GeneralStore from "../store/GeneralContext";
 
-export const Question = ({ question, answer, like }) => {
+export const Question = ({
+  question,
+  answer,
+  like,
+  isFollowing,
+  followsUser,
+}) => {
+  const { setActiveTab, setResults } = GeneralStore();
+
   const [questionData, setQuestionData] = useState(question);
   const [isAnswered, setIsAnswered] = useState(answer);
   const [isLiked, setIsLiked] = useState(like);
+  const [isFollowed, setIsFollowed] = useState(isFollowing);
+  const [followsYou, setFollowsYou] = useState(followsUser);
+  const [isOwnQuestion, setIsOwnQuestion] = useState(undefined);
+  const [numOfFollower, setNumOfFollower] = useState(undefined);
+
+  // calculate percentage of yes or no
+  // multiplied by two, because yes and no take half of the place of the div element
   const [yesWidth, setYes] = useState(
     Number(((100 * question.yes) / (question.yes + question.no)).toFixed()) * 2
   );
   const [noWidth, setNo] = useState(
     Number(((100 * question.no) / (question.yes + question.no)).toFixed()) * 2
   );
+
   const [allAnswers, setAllAnswers] = useState(question.yes + question.no);
 
   const navigate = useNavigate();
@@ -72,9 +95,53 @@ export const Question = ({ question, answer, like }) => {
   async function handleDeleteClick() {
     const questionId = question._id;
     const response = await deleteAnswer({ questionId });
-    const responseData = await response.json()
-    console.log(responseData)
+    const responseData = await response.json();
     setIsAnswered(false);
+  }
+
+  async function handleFollowClick() {
+    const followingProfileId = questionData.profileId._id;
+    const data = { followingProfileId };
+    await postFollow(data);
+    const response = await getFollower(questionData.profileId._id);
+    setNumOfFollower(response.profileFollower.length);
+    setIsFollowed(true);
+  }
+
+  async function handleUnfollowClick() {
+    const followingProfileId = questionData.profileId._id;
+    const data = { followingProfileId };
+    await deleteFollow(data);
+    const response = await getFollower(questionData.profileId._id);
+    setNumOfFollower(response.profileFollower.length);
+    setIsFollowed(false);
+  }
+
+  const handleMouseEnter = async () => {
+    const response = await getFollower(questionData.profileId._id);
+
+    // check if the profile of the question creator
+    // is the same as the current user, so that the user
+    // can't follow himself
+    response.userProfileId._id === questionData.profileId._id
+      ? setIsOwnQuestion(true)
+      : setIsOwnQuestion(false);
+    setNumOfFollower(response.profileFollower.length);
+
+    // if user follows the question creator
+    // switch follow/unfollow button
+    response.isUserFollowingTheProfile === null
+      ? setIsFollowed(false)
+      : setIsFollowed(true);
+  };
+
+  async function handleTopicClick(e) {
+    const response = await searchRequest(e.target.innerText);
+    const responseData = await response.json();
+    console.log(responseData);
+    setResults(responseData);
+    navigate("/dashboard");
+    setActiveTab("Results");
   }
 
   return (
@@ -85,12 +152,30 @@ export const Question = ({ question, answer, like }) => {
           className="bg-gray-800 text-white mb-2 rounded-md mx-auto m-2"
         >
           <div className="flex justify-between p-6 flex-wrap">
-            <div className="flex flex-wrap">
+            <div
+              onMouseEnter={handleMouseEnter}
+              className="profile-name flex flex-wrap question-userName relative"
+            >
               <div
+                onClick={() =>
+                  navigate(
+                    `/dashboard/${questionData.profileId.userName}/profile/${questionData.profileId._id}`,
+                    {
+                      state: {
+                        question,
+                        answer,
+                        like,
+                        isFollowing,
+                        followsUser,
+                      },
+                    }
+                  )
+                }
                 style={{
                   backgroundImage: `url(${profilePic})`,
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
+                  cursor: "pointer",
                 }}
               >
                 .....
@@ -101,13 +186,56 @@ export const Question = ({ question, answer, like }) => {
                   onClick={() =>
                     navigate(
                       `/dashboard/${questionData.profileId.userName}/profile/${questionData.profileId._id}`,
-                      { state: { question, answer, like } }
+                      {
+                        state: {
+                          question,
+                          answer,
+                          like,
+                          isFollowing,
+                          followsUser,
+                        },
+                      }
                     )
                   }
-                  className="text-violet-600"
+                  className="text-cyan-200 hover:underline"
                 >
                   {questionData.profileId.userName}
                 </h5>
+              </div>
+
+              <div
+                style={{ width: "115px" }}
+                className="popup-profile-info absolute bottom-6 bg-gray-950 border-2 rounded-lg p-2 text-sm text-center flex flex-col"
+              >
+                <div>Followers: {numOfFollower}</div>
+                {followsYou ? (
+                  <div className="text-xs">
+                    <h1 className="text-cyan-200">(Follows you)</h1>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {isOwnQuestion ? (
+                  ""
+                ) : (
+                  <div className="mt-4">
+                    {!isFollowed ? (
+                      <button
+                        className="text-green-400"
+                        onClick={handleFollowClick}
+                      >
+                        Follow
+                      </button>
+                    ) : (
+                      <button
+                        className="text-red-400"
+                        onClick={handleUnfollowClick}
+                      >
+                        Unfollow
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
             {!isLiked ? (
@@ -127,7 +255,9 @@ export const Question = ({ question, answer, like }) => {
               onClick={() =>
                 navigate(
                   `/dashboard/question/${questionData.profileId.userName}/${questionData._id}`,
-                  { state: { question, answer, like } }
+                  {
+                    state: { question, answer, like, isFollowing, followsUser },
+                  }
                 )
               }
               className="text-center text-2xl"
@@ -136,26 +266,42 @@ export const Question = ({ question, answer, like }) => {
             </h1>
           </figcaption>
 
-          <div className="text-xs textc text-end px-6 pb-6">
-            {new Date(questionData.createdAt).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-            {isAnswered ? (
-              <>
-                <div className="italic">Answers: {allAnswers}</div>
-                <div
-                  style={{ cursor: "pointer" }}
-                  onClick={handleDeleteClick}
-                  className="italic text-red-700"
-                >
-                  delete Answer
-                </div>
-              </>
-            ) : (
-              ""
-            )}
+          <div className="flex justify-between text-xs textc text-end px-6 pb-6">
+            <div className="flex text-start">
+              {questionData.topics
+                ? questionData.topics.map((item) => (
+                    <div
+                      onClick={(e) => handleTopicClick(e)}
+                      className="hover:underline mr-1 text-white cursor-pointer"
+                    >
+                      {item}
+                    </div>
+                  ))
+                : ""}
+            </div>
+            <div>
+              <span>
+                {new Date(questionData.createdAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </span>
+              {isAnswered ? (
+                <>
+                  <div className="italic">Answers: {allAnswers}</div>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={handleDeleteClick}
+                    className="italic text-red-400 hover:underline text-end"
+                  >
+                    delete Answer
+                  </span>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
 
           {!isAnswered ? (
