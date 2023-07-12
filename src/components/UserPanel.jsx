@@ -11,10 +11,13 @@ export default function UserPanel() {
   );
   window.addEventListener("scroll", () => {
     if (window.scrollY >= 170) {
-      setUserPanelClassName("hidden sm:block lg:fixed top-0 lg:w-1/4 xl:w-auto sm:px-6 lg:px-10")
+      setUserPanelClassName(
+        "hidden sm:block lg:fixed top-0 lg:w-1/4 xl:w-auto sm:px-6 lg:px-10"
+      );
     } else {
-      setUserPanelClassName("hidden sm:block lg:fixed lg:w-1/4 xl:w-auto sm:px-6 lg:px-10")
-
+      setUserPanelClassName(
+        "hidden sm:block lg:fixed lg:w-1/4 xl:w-auto sm:px-6 lg:px-10"
+      );
     }
   });
   const navigate = useNavigate();
@@ -32,7 +35,7 @@ export default function UserPanel() {
   };
   return (
     <div className={userPanelClassName}>
-      <div className="user-panel flex lg:flex-col border-l-2">
+      <div className="user-panel flex lg:flex-col border-l-2 mt-10">
         <div
           style={{ cursor: "pointer" }}
           className={(activeTab === "Feed" ? "active" : "") + " p-2"}

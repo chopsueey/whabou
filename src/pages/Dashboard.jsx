@@ -10,7 +10,6 @@ import { InfoSidebar } from "../components/InfoSidebar.jsx";
 import GeneralStore from "../store/GeneralContext.jsx";
 import Recommended from "../components/Recommended.jsx";
 
-
 export default function Dashboard() {
   const { activeTab, setActiveTab } = GeneralStore();
 
@@ -27,39 +26,39 @@ export default function Dashboard() {
   }, [activeTab]);
 
   return (
-    <div className="max-w-2xl mx-auto lg:max-w-5xl xl:max-w-none sm:px-6 lg:px-8">
-      {/* searchbar */}
+    <div className="max-w-2xl mx-auto lg:max-w-5xl xl:max-w-none sm:px-6 lg:px-8 ">
       <section
-        className="row"
-        style={{
-          backgroundColor: "#23272f",
-          color: "white",
-          borderBottom: "solid 3px #149eca",
-        }}
+        className="row bg-gray-500 bg-opacity-25 rounded-xl h-[5rem] mt-3 shadow-lg shadow-gray-900"
+        // style={{
+        //   backgroundColor: "#23272f",
+        //   color: "white",
+        //   borderBottom: "solid 3px #149eca",
+        // }}
       >
-        <div className="flex items-center justify-center my-3">
+        <div className="flex items-center justify-center my-3 mb-3">
           <input
-            className="mt-2 px-4 py-1 bg-white text-gray-800 rounded-md w-48 mr-2"
+            className="mt-6 px-4 py-1 bg-white text-gray-800 rounded-md w-48 mr-2"
             type="text"
             placeholder="What about..?"
           />
-          <button className="mt-2 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-1">
+          <button className="mt-6 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-black-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-1">
             🔎
           </button>
         </div>
       </section>
       {/* content of dashboard page */}
+      <div className="m-5"></div>
       <section
-        className="row flex flex-col lg:flex-row sm:px-6 lg:px-8 xl:px-20 relative"
-        style={{
-          backgroundColor: "#23272f",
-          color: "white",
-        }}
+        className="bg-gray-500 bg-opacity-25 rounded-xl row flex flex-col lg:flex-row sm:px-6 lg:px-8 xl:px-20 relative shadow-lg shadow-gray-950"
+        // style={{
+        //   backgroundColor: "#23272f",
+        //   color: "white",
+        // }}
       >
         <UserPanel />
         <div
           style={{ minHeight: "100vh" }}
-          className="grow px-4 sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem]"
+          className="grow px-4 sm:px-6 lg:px-10 lg:pl-[15rem] xl:px-[17rem] mb-5 mt-5"
         >
           <div
             data-aos="zoom-in-down"
