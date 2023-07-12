@@ -19,6 +19,7 @@ export default function SearchResults() {
       data-aos-delay="100"
       className={activeTab === "Results" ? "row search-results" : "hidden"}
     >
+      <h1 className="border-b-2 mt-4 mb-10">Question related</h1>
       {isLoading ? (
         <div className="flex justify-center mt-4">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
@@ -34,6 +35,7 @@ export default function SearchResults() {
       ) : (
         <h2 className="text-center">Nothing found :/</h2>
       )}
+      <h1 className="border-b-2 mt-4 mb-10">Topic related</h1>
       {isLoading ? (
         <div className="flex justify-center mt-4">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>

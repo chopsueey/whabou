@@ -6,7 +6,7 @@ import { getProfile } from "../fetchRequests/ProfileRequests";
 export default function MobileUserPanel() {
   const navigate = useNavigate();
 
-  const { activeTab, setActiveTab } = GeneralStore();
+  const { activeTab, setActiveTab, results } = GeneralStore();
 
   const [profileId, setProfileId] = useState(undefined);
   const [userName, setUserName] = useState(undefined);
@@ -16,8 +16,8 @@ export default function MobileUserPanel() {
       // const response = await getTestProfile()
       const response = await getProfile();
       console.log(response);
-      setProfileId(response._id);
-      setUserName(response.userName);
+      setProfileId(response.userProfile._id);
+      setUserName(response.userProfile.userName);
     })();
   }, []);
 
@@ -34,8 +34,8 @@ export default function MobileUserPanel() {
         feed
       </div>
       <div
-        className={(activeTab === "Questions" ? "active" : "") + " p-2"}
-        onClick={() => handleTabClick("Questions")}
+        className={(activeTab === "Trend" ? "active" : "") + " p-2"}
+        onClick={() => handleTabClick("Trend")}
         style={{ cursor: "pointer" }}
       >
         trend
@@ -57,11 +57,22 @@ export default function MobileUserPanel() {
       </div>
       <div
         className={(activeTab === "Profile" ? "active" : "") + " p-2"}
-        onClick={() => navigate(`/dashboard/user/${profileId}`)}
+        onClick={() => navigate(`/dashboard/user/profile/${profileId}`)}
         style={{ cursor: "pointer" }}
       >
         prof
       </div>
+      {results ? (
+          <div
+            className={(activeTab === "Results" ? "active" : "") + " p-2"}
+            style={{ cursor: "pointer" }}
+            onClick={() => handleTabClick("Results")}
+          >
+            search results
+          </div>
+        ) : (
+          ""
+        )}
     </div>
   );
 }

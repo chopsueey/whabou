@@ -37,9 +37,12 @@ li {
 }
 
 .popup-profile-info {
-   display: none;
+   visibility: hidden;
+   opacity: 0;
+   transition: visibility 0s, opacity 200ms linear;
 }
 
 .profile-name:hover .popup-profile-info {
-   display: block;
+   visibility: visible;
+   opacity: 1;
 }
