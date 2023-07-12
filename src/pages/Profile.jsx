@@ -20,14 +20,14 @@ export default function Profile() {
 
   const [userData, setUserData] = useState(null);
   const [userName, setUserName] = useState(null);
-  const [nationality, setNationality] = useState(null);
-  const [age, setAge] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [birthYear, setBirthyear] = useState(null);
 
   // patch request to update user profile when 'save' button clicked
   // user data is stored in variable data
   async function handleProfileUpdate(e) {
     e.preventDefault();
-    const data = { userName, nationality, age };
+    const data = { userName, country, birthYear };
     setIsSaving(true);
     await patchProfile(data);
     const profileData = await getProfile();
@@ -126,8 +126,8 @@ export default function Profile() {
                     {userData ? (
                       <>
                         <h3>{userData.userProfile.userName}</h3>
-                        <h3>{userData.userProfile.nationality}</h3>
-                        <h3>{userData.userProfile.age}</h3>
+                        <h3>{userData.userProfile.country}</h3>
+                        <h3>{userData.userProfile.birthYear}</h3>
                       </>
                     ) : (
                       ""
@@ -201,24 +201,24 @@ export default function Profile() {
                   </label>
 
                   <label className="block text-white text-xs font-bold mb-2">
-                    Nationality
+                    Country
                     <input
                       className="mt-2 px-4 py-2 bg-white text-gray-800 rounded-md w-full"
                       onChange={(e) => {
-                        setNationality(e.target.value);
-                        console.log(nationality);
+                        setCountry(e.target.value);
+                        console.log(country);
                       }}
                       type="text"
                     />
                   </label>
 
                   <label className="block text-white text-xs font-bold mb-2">
-                    Age
+                    Birthyear
                     <input
                       className="mt-2 px-4 py-2 bg-white text-gray-800 rounded-md w-full"
                       onChange={(e) => {
-                        setAge(e.target.value);
-                        console.log(age);
+                        setBirthyear(e.target.value);
+                        console.log(birthYear);
                       }}
                       type="text"
                     />

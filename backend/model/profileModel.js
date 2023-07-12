@@ -40,7 +40,7 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
     //unique: true,
-    minleangth: 2,
+    minlength: 2,
     validate: {
       validator: (v) => {
         return v.length >= 2 && !/^\d+$/.test(v);
