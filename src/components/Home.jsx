@@ -35,11 +35,13 @@ export default function Home() {
     if (!register) {
       setLoading(true);
       const response = await userLogin(data);
+      console.log(response)
       if (response.status === 200) {
         setHasCookie(true);
         setModal(false);
         navigate("/dashboard");
         setLoading(false);
+        toast.success("Account created!");
         return;
       } else if (response.status === 400) {
         toast.error("Your password or email is incorrect.");
@@ -49,14 +51,16 @@ export default function Home() {
     }
 
     setLoading(true);
-    const response = await userRegister(data);
-    if (response.status === 200) {
+    const {response, result} = await userRegister(data);
+    if (response.status === 201) {
       setLoading(false);
       setModal(false);
       toast.success("Account created!");
     } else if (response.status === 400) {
       setLoading(false);
-      toast.error("Your password or email is incorrect.");
+      // toast.error("Your password or email is incorrect.");
+      console.log(result[0].message)
+      toast.error(result[0].message);
     }
   };
 

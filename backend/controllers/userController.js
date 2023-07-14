@@ -56,7 +56,7 @@ export async function loginController(req, res, next) {
           });
       }
       return res
-        .status(401)
+        .status(400)
         .json("Zugriff verweigert! Die Anmeldedaten sind falsch.");
     }
     res.status(404).json("Benutzer nicht gefunden");
