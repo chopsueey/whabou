@@ -32,7 +32,7 @@ export const userLogin = async (data) => {
     const userData = await response.json();
     if (response.status === 200) {
       console.log("Anmeldung erfolgreich!");
-      return userData;
+      return response;
     }
     throw new Error("Anmeldung fehlgeschlagen!");
   } catch (error) {

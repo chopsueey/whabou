@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { userRegister, userLogin } from "../fetchRequests/UserRequests.jsx";
 import bg from "../assets/akin-cakiner-unsplash.jpg";
 import GeneralStore from "../store/GeneralContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+//toast.configure();
 
 export default function Home() {
   const navigate = useNavigate();
@@ -18,8 +22,10 @@ export default function Home() {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    if (register && doubleCheckPassword !== password)
-      return console.log("Your passwords are not equal.");
+    if (register && doubleCheckPassword !== password) {
+      toast.error("Your passwords do not match.");
+      return;
+    }
     const data = { name, userName, email, password };
     console.log(data);
     setRegister(false);
@@ -28,22 +34,30 @@ export default function Home() {
     setPassword("");
     if (!register) {
       setLoading(true);
-      const loginAttempt = await userLogin(data);
-      if (loginAttempt) {
+      const response = await userLogin(data);
+      if (response.status === 200) {
         setHasCookie(true);
         setModal(false);
         navigate("/dashboard");
         setLoading(false);
         return;
+      } else if (response.status === 400) {
+        toast.error("Your password or email is incorrect.");
       }
       setLoading(false);
       return;
     }
 
     setLoading(true);
-    await userRegister(data);
-    setLoading(false);
-    setModal(false);
+    const response = await userRegister(data);
+    if (response.status === 200) {
+      setLoading(false);
+      setModal(false);
+      toast.success("Account created!");
+    } else if (response.status === 400) {
+      setLoading(false);
+      toast.error("Your password or email is incorrect.");
+    }
   };
 
   useEffect(() => {
@@ -182,6 +196,7 @@ export default function Home() {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }
